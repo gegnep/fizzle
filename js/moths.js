@@ -12,6 +12,7 @@
   var POP = 20;
   var INFLUX = 0.20;      /* share of each generation that flies in from nearby woods */
   var MIN_MORPH = 2;      /* never let either form disappear entirely */
+  var CHART_WINDOW = 30;  /* free play runs as long as you like, so the chart scrolls */
   var CATCHES = 5;
   var GENS_PER_ERA = 4;
   var MAX_GEN = 12;          /* 3 eras of 4 generations each */
@@ -27,7 +28,7 @@
       note: "The bark is recovering, and the advantage swings back." }
   ];
 
-  var scene, genEl, leftEl, pctEl, liteEl, darkEl, chart, read, nextBtn, resetBtn, eraBtns;
+  var scene, genEl, genMaxEl, leftEl, pctEl, liteEl, darkEl, chart, read, nextBtn, resetBtn, eraBtns;
   var moths = [], gen = 1, left = CATCHES, era = 0, history = [], freeplay = false;
 
   /* Which era generation n belongs to, while the run is still going. */
@@ -113,22 +114,26 @@
     var dark = alive.filter(function (m) { return m.dark; }).length;
     var pct = alive.length ? Math.round(dark / alive.length * 100) : 0;
     genEl.textContent = gen;
+    genMaxEl.textContent = freeplay ? " · free play" : " of " + MAX_GEN;
     leftEl.textContent = left;
     pctEl.textContent = pct + "%";
     liteEl.style.width = (100 - pct) + "%";
     darkEl.style.width = pct + "%";
 
     chart.innerHTML = "";
-    history.concat([pct]).forEach(function (p, i) {
+    var all = history.concat([pct]);
+    var from = Math.max(0, all.length - CHART_WINDOW);
+    for (var j = from; j < all.length; j++) {
       var bar = document.createElement("span");
-      bar.style.height = Math.max(2, p) + "%";
-      var cls = i === history.length ? "now" : "";
-      /* a rule every fourth bar shows where the era changes */
-      if (i > 0 && i % GENS_PER_ERA === 0) { cls += " eraline"; }
+      bar.style.height = Math.max(2, all[j]) + "%";
+      var g = j + 1;                       /* absolute generation number */
+      var cls = j === all.length - 1 ? "now" : "";
+      /* a rule marks each era change, which only happens in the scripted run */
+      if (g > 1 && g <= MAX_GEN && (g - 1) % GENS_PER_ERA === 0) { cls += " eraline"; }
       if (cls) { bar.className = cls.trim(); }
-      bar.title = "generation " + (i + 1) + ": " + p + "% dark";
+      bar.title = "generation " + g + ": " + all[j] + "% dark";
       chart.appendChild(bar);
-    });
+    }
     eraBtns.forEach(function (b) {
       var on = parseInt(b.getAttribute("data-era"), 10) === era;
       b.classList.toggle("on", on);
@@ -165,12 +170,12 @@
       reset();
       return;
     }
-    if (gen >= MAX_GEN) {
+    /* The scripted run is twelve generations across three eras. Reaching the
+       end unlocks the era buttons, and breeding continues without limit. */
+    var justUnlocked = false;
+    if (gen >= MAX_GEN && !freeplay) {
       freeplay = true;
-      stats();
-      say("Twelve generations done. The era buttons are unlocked now, so you can " +
-          "keep hunting and push the population wherever you like.");
-      return;
+      justUnlocked = true;
     }
     var darkFrac = alive.filter(function (m) { return m.dark; }).length / alive.length;
     history.push(Math.round(darkFrac * 100));
@@ -184,7 +189,10 @@
     if (!freeplay) { era = eraForGen(gen); }
     spawn(next);
     draw();
-    if (era !== wasEra) {
+    if (justUnlocked) {
+      say("Twelve generations done. The era buttons are yours now. Set the bark " +
+          "wherever you like and keep breeding for as long as you want.");
+    } else if (era !== wasEra) {
       say("The bark changed. " + ERAS[era].name + ": " + ERAS[era].note);
     } else {
       say("Survivors bred. The new generation inherits their color mix.");
@@ -206,6 +214,7 @@
   function init() {
     scene = document.getElementById("mo-scene");
     genEl = document.getElementById("mo-gen");
+    genMaxEl = document.getElementById("mo-genmax");
     leftEl = document.getElementById("mo-left");
     pctEl = document.getElementById("mo-pct");
     liteEl = document.getElementById("mo-lite");

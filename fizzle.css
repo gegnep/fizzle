@@ -104,8 +104,6 @@ body.dark .fz-ticker .track em{color:var(--yellow)}
 
 /* ---------- page body ---------- */
 .fz-main{flex:1;width:100%;max-width:1080px;margin:0 auto;padding:44px 40px 64px}
-.fz-kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border:1.5px solid var(--border);border-radius:99px;margin:0 0 16px}
-.fz-kicker .dot{width:9px;height:9px;border-radius:50%;background:var(--lavender)}
 .fz-h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.05;letter-spacing:-0.02em;margin:0 0 12px;text-wrap:balance}
 .fz-hook{font-size:19px;color:var(--subtext);margin:0 0 28px;max-width:56ch;text-wrap:pretty}
 .fz-hook strong{color:var(--text)}
@@ -115,9 +113,6 @@ body.dark .fz-ticker .track em{color:var(--yellow)}
 .fz-hero-art{flex:none;width:250px;height:auto;border:2px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-soft);background:var(--card)}
 
 /* subject accents via body class */
-body.chem .fz-kicker .dot{background:var(--chem)}
-body.bio .fz-kicker .dot{background:var(--bio)}
-body.phys .fz-kicker .dot{background:var(--phys)}
 body.chem .fz-stage{border-color:var(--chem)} body.chem .fz-stage .bar{background:var(--chem-soft)}
 body.bio .fz-stage{border-color:var(--bio)}   body.bio .fz-stage .bar{background:var(--bio-soft)}
 body.phys .fz-stage{border-color:var(--phys)} body.phys .fz-stage .bar{background:var(--phys-soft)}
@@ -392,7 +387,7 @@ h2.fz-tablehead{font-family:var(--font-display);font-size:24px;margin:38px 0 12p
 .mo-era .fz-btn:disabled{opacity:.55;cursor:not-allowed}
 .mo-era .fz-btn:disabled:hover{background:var(--card)}
 .mo-era .fz-btn.on:disabled{opacity:1}
-.mo-chart span{width:calc(8.33% - 3px)}
+.mo-chart span{flex:1 1 0;width:auto;min-width:3px}
 .mo-chart span.eraline{box-shadow:-2px 0 0 var(--border)}
 
 /* Periodic: trend explainer and category legend */
