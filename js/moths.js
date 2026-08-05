@@ -10,17 +10,28 @@
   "use strict";
 
   var POP = 20;
-  var CATCHES = 8;
-  var MAX_GEN = 10;
+  var CATCHES = 6;
+  var GENS_PER_ERA = 4;
+  var MAX_GEN = 12;          /* 3 eras of 4 generations each */
 
+  /* The eras run in order and advance on their own, so twelve generations
+     tell the historical story: lichen, then soot, then clean air again. */
   var ERAS = [
-    { name: "1800 clean", a: "#d8cfb8", b: "#c8bfa6", dark: 0.15 },
-    { name: "1900 sooty", a: "#6b6358", b: "#5b5449", dark: 0.75 },
-    { name: "Today",      a: "#c9bda6", b: "#b7a98e", dark: 0.35 }
+    { name: "1800 · pre-industrial", a: "#d8cfb8", b: "#c8bfa6",
+      note: "Pale lichen covers the bark. Dark moths stand out." },
+    { name: "1900 · peak soot", a: "#6b6358", b: "#5b5449",
+      note: "Coal soot has killed the lichen. Now the pale moths stand out." },
+    { name: "1970 · after the Clean Air Acts", a: "#c9bda6", b: "#b7a98e",
+      note: "The bark is recovering, and the advantage swings back." }
   ];
 
   var scene, genEl, leftEl, pctEl, liteEl, darkEl, chart, read, nextBtn, resetBtn, eraBtns;
-  var moths = [], gen = 1, left = CATCHES, era = 1, history = [];
+  var moths = [], gen = 1, left = CATCHES, era = 0, history = [], freeplay = false;
+
+  /* Which era generation n belongs to, while the run is still going. */
+  function eraForGen(n) {
+    return Math.min(ERAS.length - 1, Math.floor((n - 1) / GENS_PER_ERA));
+  }
 
   function rand(a, b) { return a + Math.random() * (b - a); }
 
@@ -96,9 +107,18 @@
     history.concat([pct]).forEach(function (p, i) {
       var bar = document.createElement("span");
       bar.style.height = Math.max(2, p) + "%";
-      if (i === history.length) { bar.className = "now"; }
+      var cls = i === history.length ? "now" : "";
+      /* a rule every fourth bar shows where the era changes */
+      if (i > 0 && i % GENS_PER_ERA === 0) { cls += " eraline"; }
+      if (cls) { bar.className = cls.trim(); }
       bar.title = "generation " + (i + 1) + ": " + p + "% dark";
       chart.appendChild(bar);
+    });
+    eraBtns.forEach(function (b) {
+      var on = parseInt(b.getAttribute("data-era"), 10) === era;
+      b.classList.toggle("on", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+      b.disabled = !freeplay;
     });
   }
 
@@ -131,7 +151,10 @@
       return;
     }
     if (gen >= MAX_GEN) {
-      say("Ten generations done. Reset to run it again, or switch eras first.");
+      freeplay = true;
+      stats();
+      say("Twelve generations done. The era buttons are unlocked now, so you can " +
+          "keep hunting and push the population wherever you like.");
       return;
     }
     var darkFrac = alive.filter(function (m) { return m.dark; }).length / alive.length;
@@ -141,18 +164,27 @@
     var next = darkFrac * (1 - mutation) + (1 - darkFrac) * mutation;
     gen++;
     left = CATCHES;
+    var wasEra = era;
+    if (!freeplay) { era = eraForGen(gen); }
     spawn(next);
     draw();
-    say("Survivors bred. The new generation inherits their color mix.");
+    if (era !== wasEra) {
+      say("The bark changed. " + ERAS[era].name + ": " + ERAS[era].note);
+    } else {
+      say("Survivors bred. The new generation inherits their color mix.");
+    }
   }
 
   function reset() {
     gen = 1;
     left = CATCHES;
     history = [];
+    freeplay = false;
+    era = 0;
     spawn(0.5);
     draw();
-    say("Fresh population, half dark and half pale. Start hunting.");
+    say("Fresh population, half dark and half pale. " + ERAS[era].note +
+        " Eat " + CATCHES + " moths, then breed.");
   }
 
   function init() {
@@ -181,9 +213,10 @@
         });
         b.classList.add("on");
         b.setAttribute("aria-pressed", "true");
+        if (!freeplay) { return; }
         era = parseInt(b.getAttribute("data-era"), 10);
         draw();
-        say("Bark changed to " + ERAS[era].name + ". Notice which moths are now easy to spot.");
+        say("Bark set to " + ERAS[era].name + ". " + ERAS[era].note);
       });
     });
 
