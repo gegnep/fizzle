@@ -47,44 +47,44 @@
   /* ---------- the views ---------- */
   var TRENDS = {
     radius: {
-      kind: "num", key: "radius", unit: "pm",
+      kind: "num", color: "var(--chem)", key: "radius", unit: "pm",
       arrow: "radius shrinks → across a period",
       why: "Atoms get smaller across a period because the nucleus gains protons while the electrons stay in the same shell, so the pull tightens. They get larger down a group because each row adds a shell."
     },
     en: {
-      kind: "num", key: "en", unit: "",
+      kind: "num", color: "var(--pink)", key: "en", unit: "",
       arrow: "electronegativity climbs → toward fluorine",
       why: "Electronegativity is how hard an atom pulls on shared electrons. Fluorine wins because it is small and barely screened. Most noble gases have no value at all, because they rarely bond."
     },
     ie: {
-      kind: "num", key: "ie", unit: "kJ/mol",
+      kind: "num", color: "var(--phys)", key: "ie", unit: "kJ/mol",
       arrow: "ionization energy climbs → across a period",
       why: "This is the energy needed to strip one electron away. It rises across a period as the pull tightens, and falls down a group as the outer electron sits further out. The peaks are the noble gases, which is exactly why they are unreactive."
     },
     mass: {
-      kind: "num", key: "mass", unit: "u",
+      kind: "num", color: "var(--lavender)", key: "mass", unit: "u",
       arrow: "atomic mass rises → with atomic number",
       why: "Mass climbs steadily with atomic number, so this view mostly shows the counting order. The interesting part is that it is not perfectly smooth: isotope mixtures make a few neighbors swap places, which is why tellurium outweighs iodine."
     },
     density: {
-      kind: "num", key: "density", unit: "g/cm³",
+      kind: "num", color: "var(--yellow)", key: "density", unit: "g/cm³",
       arrow: "density peaks → in the middle of the d block",
       why: "Density depends on how heavy the atoms are and how tightly they pack. It peaks at osmium and iridium, the two densest elements, and sits near zero for the gases in the top right. Blank tiles have no reliable measured value."
     },
     block: {
-      kind: "cat", of: blockOf, legend: BLOCKS,
+      kind: "cat", color: "var(--lavender)", of: blockOf, legend: BLOCKS,
       arrow: "the blocks are the shape of the table",
       why: "Each block is named for the orbital its outermost electrons occupy. This is why the table has the shape it does: two columns of s, six of p, ten of d, and fourteen of f pulled out below. The outline of the table is a picture of how electrons stack."
     },
     metal: {
-      kind: "cat", of: categoryOf, legend: CATEGORIES,
+      kind: "cat", color: "var(--lavender)", of: categoryOf, legend: CATEGORIES,
       arrow: "metals to the left, nonmetals to the upper right",
       why: "Metals give electrons up, nonmetals take them, and metalloids sit on the staircase between the two and do a bit of both. Most of the table is metal. Classifications past element 103 are predicted rather than measured."
     }
   };
 
   var state = { trend: "radius", sel: null };
-  var grid, readout, arrowEl, whyEl, legendEl, buttons;
+  var grid, readout, arrowEl, whyEl, legendEl, buttons, well;
 
   function valueOf(e, key) {
     if (key === "mass" || key === "density") {
@@ -105,6 +105,7 @@
 
   function paint() {
     var t = TRENDS[state.trend];
+    well.style.setProperty("--trend", t.color);
 
     if (t.kind === "cat") {
       FZ_ELEMENTS.forEach(function (e) {
@@ -140,7 +141,7 @@
         /* density and ionization energy span a wide range, so compress them */
         if (t.key === "density" || t.key === "ie") { f = Math.pow(f, 0.55); }
         e._btn.style.background =
-          "color-mix(in oklab, var(--chem) " + Math.round(6 + f * 80) + "%, var(--card))";
+          "color-mix(in oklab, " + t.color + " " + Math.round(6 + f * 80) + "%, var(--card))";
       });
       legendEl.hidden = true;
     }
@@ -189,6 +190,7 @@
 
   function init() {
     grid = document.getElementById("pt-grid");
+    well = document.querySelector(".fz-stage .well");
     readout = document.getElementById("pt-read");
     arrowEl = document.getElementById("pt-arrow-label");
     whyEl = document.getElementById("pt-why");
@@ -221,6 +223,13 @@
     });
 
     buttons.forEach(function (b) {
+      var key = b.getAttribute("data-trend");
+      if (TRENDS[key].kind === "num") {
+        var dot = document.createElement("span");
+        dot.className = "dot";
+        dot.style.background = TRENDS[key].color;
+        b.insertBefore(dot, b.firstChild);
+      }
       b.setAttribute("aria-pressed", b.classList.contains("on") ? "true" : "false");
       b.addEventListener("click", function () {
         buttons.forEach(function (x) {
