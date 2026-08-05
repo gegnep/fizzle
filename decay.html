@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="fizzle.css">
 <link rel="icon" href="images/twemoji/26a1.svg">
 <script src="js/site.js" defer></script>
+<script src="js/decay-data.js" defer></script>
 <script src="js/decay.js" defer></script>
 </head>
 <body class="chem">
@@ -50,19 +51,20 @@
     <div class="txt">
       <span class="fz-kicker"><span class="dot"></span>experiment 04 &middot; chemistry</span>
       <h1 class="fz-h1">Nuclide Decay</h1>
-      <p class="fz-hook">Radioactive decay is <strong>random per atom, predictable in bulk</strong>. Pick an isotope from the chart, press play, and watch 400 atoms fall apart on a scaled clock.</p>
+      <p class="fz-hook">Radioactive decay is <strong>random per atom, predictable in bulk</strong>. Pick any of 30 nuclides off the chart, press play, and watch 400 atoms fall apart on a scaled clock.</p>
     </div>
     <img class="fz-hero-art" src="images/hero-decay.svg" alt="Flat illustration of a grid of teal atom dots, some faded, above a label reading t equals one half-life" width="250" height="190">
   </div>
 
   <div class="fz-stage">
-    <div class="bar"><span>js/decay.js</span><span class="howto">&#9654; pick an isotope, then press play</span></div>
+    <div class="bar"><span>js/decay.js</span><span class="howto">&#9654; pick any nuclide on the chart, then press play</span></div>
     <div class="well">
       <div class="dk-wrap">
         <div class="dk-chartbox">
-          <h3>chart of nuclides (schematic)</h3>
+          <h3>chart of nuclides &middot; 30 selectable</h3>
           <div class="dk-chart" id="dk-chart"></div>
           <div class="dk-axis"><span>neutrons (N) &rarr;</span><span>&uarr; protons (Z)</span></div>
+          <div class="dk-legend" id="dk-legend"></div>
           <div class="dk-presets" id="dk-presets"></div>
         </div>
         <div class="dk-simbox">
@@ -80,7 +82,7 @@
       <div class="fz-read" id="dk-read" role="status" aria-live="polite"><span>pick an isotope below the chart&hellip;</span></div>
     </div>
   </div>
-  <p class="fz-caption">How this works: every atom in the grid rolls its own dice each tick, with a chance set by the real half-life. The count halves on schedule, but which atom goes next is genuinely random. Decay chains here are simplified to their named major steps. The chart on the left is a schematic: it draws the shape of the valley of stability rather than plotting every measured nuclide, and the island of stability is marked to show roughly where theory places it.</p>
+  <p class="fz-caption">How this works: every atom in the grid rolls its own dice each tick, with a chance set by the real half-life. The count halves on schedule, but which atom goes next is genuinely random. Decay chains are simplified to their named major steps. On the chart, the faint grey band is a schematic of the valley of stability rather than every measured nuclide, but the 30 colored circles are real: each sits at its true neutron and proton count and is colored by how it decays. The dashed box marks roughly where theory places the island of stability.</p>
 
   <div class="fz-prose">
     <h2>What a half-life actually means</h2>

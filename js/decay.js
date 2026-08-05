@@ -1,83 +1,145 @@
 /* AI-ASSISTED: portions of this file were written with the help of an AI assistant (Claude), per course policy. */
 /* decay.js: Nuclide Decay.
-   Left panel: a schematic chart of nuclides (N across, Z up). It draws the shape
-   of the valley of stability rather than plotting measured nuclides, with
-   stability and the predicted island of stability marked.
+
+   Left panel: a chart of nuclides, neutrons across and protons up. The faint
+   band behind is a schematic of the valley of stability. On top of it sit the
+   30 real nuclides from decay-data.js, placed at their true (N, Z) and colored
+   by how they decay. Any of them can be selected, by mouse or by keyboard.
+
    Right panel: 400 atoms, each rolling its own dice per tick against the real
-   half-life, so the curve is genuinely stochastic. Time is display-scaled. */
+   half-life, so the curve is stochastic rather than scripted. Time is
+   display-scaled: one half-life always takes the same wall time. */
 
 (function () {
   "use strict";
 
   var N_ATOMS = 400;
-  var TICK_MS = 100;          /* one animation tick */
-  var TICKS_PER_HALFLIFE = 24; /* display scale: a half-life takes 2.4 s at 1x */
+  var TICK_MS = 100;
+  var TICKS_PER_HALFLIFE = 24;   /* a half-life takes 2.4 s at 1x */
 
-  /* Presets: real half-lives, simplified named decay chains. */
-  var ISOTOPES = [
-    { id: "c14",  label: "C-14",   z: 6,  n: 8,   hl: "5,730 years",   mode: "beta minus",
-      chain: ["C-14", "N-14 (stable)"],
-      note: "Radiocarbon dating. Made in the atmosphere, taken up by everything alive." },
-    { id: "c12",  label: "C-12",   z: 6,  n: 6,   hl: "stable",        mode: "none",
-      chain: ["C-12 (stable)"], stable: true,
-      note: "The control. Press play and nothing happens, which is the point." },
-    { id: "tc99", label: "Tc-99m", z: 43, n: 56,  hl: "6.0 hours",     mode: "gamma",
-      chain: ["Tc-99m", "Tc-99", "Ru-99 (stable)"],
-      note: "The workhorse of medical imaging. Short enough to leave the body fast." },
-    { id: "i131", label: "I-131",  z: 53, n: 78,  hl: "8.0 days",      mode: "beta minus",
-      chain: ["I-131", "Xe-131 (stable)"],
-      note: "Used to treat thyroid disease, and released by reactor accidents." },
-    { id: "ra226", label: "Ra-226", z: 88, n: 138, hl: "1,600 years",  mode: "alpha",
-      chain: ["Ra-226", "Rn-222", "Po-218", "Pb-206 (stable)"],
-      note: "Marie Curie's radium. The chain here is shortened to its named steps." },
-    { id: "u238", label: "U-238",  z: 92, n: 146, hl: "4.5 billion years", mode: "alpha",
-      chain: ["U-238", "Th-234", "Ra-226", "Pb-206 (stable)"],
-      note: "Older than the Earth's crust, and still most of the uranium in it." }
-  ];
+  /* chart geometry */
+  var VW = 360, VH = 250;
+  var N_MAX = 195, Z_MAX = 122;
+  var X0 = 32, X1 = 352, Y0 = 232, Y1 = 12;
 
-  var chart, presets, atomBox, timeline, playBtn, resetBtn, speedBtn, chainEl, read;
-  var atoms = [], alive = N_ATOMS, tick = 0, timer = null, speed = 1, sel = ISOTOPES[0];
+  var MODES = {
+    "alpha":  { label: "alpha", color: "var(--pink)" },
+    "beta-":  { label: "beta minus", color: "var(--phys)" },
+    "beta+":  { label: "beta plus", color: "var(--yellow)" },
+    "it":     { label: "gamma / isomeric", color: "var(--lavender)" },
+    "stable": { label: "stable", color: "var(--chem)" }
+  };
 
-  /* ---------- chart of nuclides ---------- */
+  var chart, presets, atomBox, timeline, playBtn, resetBtn, speedBtn, chainEl, read, legendEl;
+  var atoms = [], alive = N_ATOMS, tick = 0, timer = null, speed = 1, sel = null;
+
+  /* metastable nuclides carry a trailing m, as in Tc-99m */
+  function name(nuc) { return nuc.sym + "-" + nuc.a + (nuc.m ? "m" : ""); }
+
+  function px(n) { return X0 + (n / N_MAX) * (X1 - X0); }
+  function py(z) { return Y0 + (z / Z_MAX) * (Y1 - Y0); }
+
+  /* ---------- chart ---------- */
   function buildChart() {
-    var W = 60, H = 50;   /* N up to 180, Z up to 120, binned */
-    var cells = [];
-    for (var y = 0; y < H; y++) {
-      for (var x = 0; x < W; x++) {
-        var N = x * 3, Z = y * 2.5;
-        if (Z < 2) { continue; }
-        /* the valley of stability: N/Z about 1 for light, rising to about 1.5 heavy */
-        var want = Z + Z * Z / 100;
-        var off = Math.abs(N - want);
-        if (off > 16 || Z > 118) { continue; }
-        var cls, tone;
-        if (off < 2.2) { tone = "var(--chem)"; cls = "stable"; }
-        else if (N > want) { tone = "color-mix(in oklab, var(--phys) 55%, var(--card))"; cls = "b-"; }
-        else { tone = "color-mix(in oklab, var(--yellow) 60%, var(--card))"; cls = "b+"; }
-        if (Z > 84 && off < 8) { tone = "color-mix(in oklab, var(--pink) 55%, var(--card))"; cls = "alpha"; }
-        cells.push('<span style="left:' + (x / W * 100) + '%;bottom:' + (y / H * 100) +
-          '%;background:' + tone + '" data-c="' + cls + '"></span>');
+    var svg = ['<svg viewBox="0 0 ' + VW + ' ' + VH + '" role="group" ' +
+      'aria-label="Chart of nuclides. Neutrons across, protons up. Select a nuclide.">'];
+
+    /* schematic valley of stability behind the real data */
+    var band = [];
+    for (var z = 1; z <= 118; z += 2) {
+      var want = z + z * z / 100;
+      for (var d = -7; d <= 7; d += 2) {
+        var n = Math.round(want + d);
+        if (n < 0 || n > N_MAX) { continue; }
+        var op = d === 0 ? 0.30 : (Math.abs(d) < 5 ? 0.18 : 0.10);
+        band.push('<rect x="' + px(n).toFixed(1) + '" y="' + (py(z) - 1.6).toFixed(1) +
+          '" width="2.4" height="3.2" fill="var(--subtext)" opacity="' + op + '"/>');
       }
     }
-    chart.innerHTML =
-      '<div class="dk-cells">' + cells.join("") + "</div>" +
-      '<div class="dk-island" title="predicted island of stability"></div>' +
-      '<div class="dk-islandlab">island of<br>stability?</div>' +
-      '<div class="dk-markers"></div>';
-    chart.style.aspectRatio = "6 / 5";
+    svg.push('<g aria-hidden="true">' + band.join("") + "</g>");
 
-    /* preset markers, positioned on the same scale */
-    var mk = chart.querySelector(".dk-markers");
-    ISOTOPES.forEach(function (iso) {
-      var d = document.createElement("button");
-      d.type = "button";
-      d.className = "dk-mark";
-      d.style.left = (iso.n / 180 * 100) + "%";
-      d.style.bottom = (iso.z / 125 * 100) + "%";
-      d.setAttribute("aria-label", "Select " + iso.label);
-      d.setAttribute("data-iso", iso.id);
-      d.addEventListener("click", function () { choose(iso.id); });
-      mk.appendChild(d);
+    /* axes */
+    svg.push('<line x1="' + X0 + '" y1="' + Y0 + '" x2="' + X1 + '" y2="' + Y0 +
+      '" stroke="var(--border)" stroke-width="1.5"/>');
+    svg.push('<line x1="' + X0 + '" y1="' + Y0 + '" x2="' + X0 + '" y2="' + Y1 +
+      '" stroke="var(--border)" stroke-width="1.5"/>');
+    [0, 50, 100, 150].forEach(function (n) {
+      svg.push('<text x="' + px(n).toFixed(1) + '" y="' + (Y0 + 12) +
+        '" font-size="8" fill="var(--subtext)" text-anchor="middle" font-family="monospace">' + n + "</text>");
+    });
+    [20, 50, 82, 114].forEach(function (z) {
+      svg.push('<text x="' + (X0 - 5) + '" y="' + (py(z) + 3).toFixed(1) +
+        '" font-size="8" fill="var(--subtext)" text-anchor="end" font-family="monospace">' + z + "</text>");
+    });
+
+    /* the predicted island of stability, near Z 114 and N 184 */
+    svg.push('<rect x="' + px(174).toFixed(1) + '" y="' + py(120).toFixed(1) +
+      '" width="' + (px(194) - px(174)).toFixed(1) + '" height="' + (py(106) - py(120)).toFixed(1) +
+      '" fill="none" stroke="var(--pink)" stroke-width="1.2" stroke-dasharray="4 3"/>');
+    svg.push('<text x="' + px(170).toFixed(1) + '" y="' + (py(101) + 3).toFixed(1) +
+      '" font-size="7.5" fill="var(--pink)" text-anchor="end" font-family="monospace">island of stability?</text>');
+
+    /* the real nuclides */
+    FZ_NUCLIDES.forEach(function (nuc) {
+      svg.push('<g class="dk-nuc" data-id="' + nuc.id + '" tabindex="0" role="button" ' +
+        'aria-label="' + name(nuc) + ", " + MODES[nuc.mode].label +
+        ", half-life " + nuc.hl + '">' +
+        '<circle cx="' + px(nuc.n).toFixed(1) + '" cy="' + py(nuc.z).toFixed(1) +
+        '" r="5" fill="' + MODES[nuc.mode].color + '" stroke="var(--border)" stroke-width="1.2"/>' +
+        "</g>");
+    });
+
+    /* label for whichever nuclide is selected */
+    svg.push('<g id="dk-tag" aria-hidden="true"><rect rx="3"/><text font-size="9" ' +
+      'font-family="monospace" fill="var(--text)"></text></g>');
+
+    svg.push("</svg>");
+    chart.innerHTML = svg.join("");
+
+    chart.querySelectorAll(".dk-nuc").forEach(function (g) {
+      var id = g.getAttribute("data-id");
+      g.addEventListener("click", function () { choose(id); });
+      g.addEventListener("focus", function () { choose(id); });
+      g.addEventListener("keydown", function (ev) {
+        if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); choose(id); }
+      });
+    });
+
+    legendEl.innerHTML = "";
+    Object.keys(MODES).forEach(function (k) {
+      var s = document.createElement("span");
+      var i = document.createElement("i");
+      i.style.background = MODES[k].color;
+      s.appendChild(i);
+      s.appendChild(document.createTextNode(MODES[k].label));
+      legendEl.appendChild(s);
+    });
+  }
+
+  function tagSelected() {
+    var tag = document.getElementById("dk-tag");
+    if (!tag || !sel) { return; }
+    var text = tag.querySelector("text");
+    var rect = tag.querySelector("rect");
+    var label = name(sel);
+    var x = px(sel.n), y = py(sel.z);
+    var left = x > VW - 70;          /* keep the label inside the frame */
+    var w = label.length * 5.6 + 8;
+
+    text.textContent = label;
+    text.setAttribute("x", (left ? x - 10 : x + 10).toFixed(1));
+    text.setAttribute("y", (y - 8).toFixed(1));
+    text.setAttribute("text-anchor", left ? "end" : "start");
+    rect.setAttribute("x", (left ? x - 14 - w : x + 6).toFixed(1));
+    rect.setAttribute("y", (y - 18).toFixed(1));
+    rect.setAttribute("width", w.toFixed(1));
+    rect.setAttribute("height", "13");
+    rect.setAttribute("fill", "var(--card)");
+    rect.setAttribute("stroke", "var(--border)");
+    rect.setAttribute("stroke-width", "1");
+
+    chart.querySelectorAll(".dk-nuc").forEach(function (g) {
+      g.classList.toggle("on", g.getAttribute("data-id") === sel.id);
     });
   }
 
@@ -88,8 +150,10 @@
     alive = N_ATOMS;
     atomBox.innerHTML = "";
     atoms = [];
+    var color = MODES[sel.mode].color;
     for (var i = 0; i < N_ATOMS; i++) {
       var a = document.createElement("span");
+      a.style.background = color;
       atomBox.appendChild(a);
       atoms.push(a);
     }
@@ -100,17 +164,15 @@
   function drawTimeline() {
     var html = "";
     for (var h = 1; h <= 4; h++) {
-      var pct = (h / 4.6) * 100;
-      html += '<span class="tick" style="left:' + pct + '%"><em>' + h + " t½</em></span>";
+      html += '<span class="tick" style="left:' + ((h / 4.6) * 100) + '%"><em>' + h + " t½</em></span>";
     }
     html += '<span class="cursor" id="dk-cursor" style="left:0%"></span>';
     timeline.innerHTML = html;
   }
 
   function step() {
-    if (sel.stable) { return; }
+    if (sel.mode === "stable") { return; }
     tick += speed;
-    /* probability an individual atom decays this tick */
     var p = 1 - Math.pow(0.5, speed / TICKS_PER_HALFLIFE);
     for (var i = 0; i < atoms.length; i++) {
       if (!atoms[i].classList.contains("gone") && Math.random() < p) {
@@ -119,34 +181,31 @@
       }
     }
     var cur = document.getElementById("dk-cursor");
-    if (cur) {
-      cur.style.left = Math.min(100, (tick / TICKS_PER_HALFLIFE / 4.6) * 100) + "%";
-    }
+    if (cur) { cur.style.left = Math.min(100, (tick / TICKS_PER_HALFLIFE / 4.6) * 100) + "%"; }
     render();
     if (alive === 0 || tick > TICKS_PER_HALFLIFE * 4.6) { stop(); }
   }
 
   function render() {
-    var elapsed = (tick / TICKS_PER_HALFLIFE).toFixed(2);
     read.innerHTML = "";
     var strong = document.createElement("strong");
-    strong.textContent = sel.label;
+    strong.textContent = name(sel);
     var counts = document.createElement("span");
-    counts.textContent = "parent " + alive + " · daughter " + (N_ATOMS - alive) +
-      " · elapsed " + elapsed + " half-lives · half-life " + sel.hl + " · " + sel.mode;
+    counts.textContent = "parent " + alive + " · decayed " + (N_ATOMS - alive) +
+      " · elapsed " + (tick / TICKS_PER_HALFLIFE).toFixed(2) + " half-lives" +
+      " · half-life " + sel.hl + " · " + MODES[sel.mode].label;
     var note = document.createElement("span");
     note.textContent = sel.note;
     read.appendChild(strong);
     read.appendChild(counts);
     read.appendChild(note);
 
-    /* chain readout steps forward as the parent population drains */
     var done = 1 - alive / N_ATOMS;
     var stepIdx = Math.min(sel.chain.length - 1, Math.floor(done * sel.chain.length));
     chainEl.innerHTML = "";
     sel.chain.forEach(function (nuc, i) {
       if (i) { chainEl.appendChild(document.createTextNode(" → ")); }
-      if (i === stepIdx) {
+      if (i === stepIdx && sel.chain.length > 1) {
         var s = document.createElement("strong");
         s.textContent = nuc;
         chainEl.appendChild(s);
@@ -154,11 +213,13 @@
         chainEl.appendChild(document.createTextNode(nuc));
       }
     });
-    chainEl.appendChild(document.createTextNode("  (simplified chain)"));
+    if (sel.chain.length > 2) {
+      chainEl.appendChild(document.createTextNode("   (simplified to named steps)"));
+    }
   }
 
   function play() {
-    if (timer || sel.stable) { return; }
+    if (timer || sel.mode === "stable") { return; }
     timer = setInterval(step, TICK_MS);
     playBtn.innerHTML = "&#10073;&#10073; Pause";
   }
@@ -169,15 +230,15 @@
   }
 
   function choose(id) {
-    sel = ISOTOPES.filter(function (x) { return x.id === id; })[0] || ISOTOPES[0];
+    var next = FZ_NUCLIDES.filter(function (x) { return x.id === id; })[0];
+    if (!next || (sel && next.id === sel.id)) { return; }
+    sel = next;
     presets.querySelectorAll(".fz-btn").forEach(function (b) {
       var on = b.getAttribute("data-iso") === id;
       b.classList.toggle("on", on);
       b.setAttribute("aria-pressed", on ? "true" : "false");
     });
-    chart.querySelectorAll(".dk-mark").forEach(function (m) {
-      m.classList.toggle("on", m.getAttribute("data-iso") === id);
-    });
+    tagSelected();
     reset();
   }
 
@@ -191,28 +252,30 @@
     speedBtn = document.getElementById("dk-speed");
     chainEl = document.getElementById("dk-chain");
     read = document.getElementById("dk-read");
+    legendEl = document.getElementById("dk-legend");
 
+    sel = FZ_NUCLIDES[0];
     buildChart();
 
-    ISOTOPES.forEach(function (iso) {
+    FZ_NUCLIDES.forEach(function (nuc) {
       var b = document.createElement("button");
       b.type = "button";
       b.className = "fz-btn";
-      b.textContent = iso.label;
-      b.setAttribute("data-iso", iso.id);
-      b.addEventListener("click", function () { choose(iso.id); });
+      b.textContent = name(nuc);
+      b.setAttribute("data-iso", nuc.id);
+      b.setAttribute("aria-pressed", "false");
+      b.addEventListener("click", function () { choose(nuc.id); });
       presets.appendChild(b);
     });
 
-    playBtn.addEventListener("click", function () {
-      if (timer) { stop(); } else { play(); }
-    });
+    playBtn.addEventListener("click", function () { if (timer) { stop(); } else { play(); } });
     resetBtn.addEventListener("click", reset);
     speedBtn.addEventListener("click", function () {
-      speed = speed === 1 ? 4 : speed === 4 ? 12 : 1;
+      speed = speed === 1 ? 4 : (speed === 4 ? 12 : 1);
       speedBtn.textContent = "Speed " + speed + "×";
     });
 
+    sel = null;
     choose("c14");
   }
 

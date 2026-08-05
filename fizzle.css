@@ -222,18 +222,18 @@ body.phys .fz-btn.on{background:var(--phys);border-color:var(--phys);color:var(-
 .dk-wrap{display:flex;gap:26px;flex-wrap:wrap}
 .dk-chartbox{flex:1 1 300px;min-width:280px}
 .dk-chartbox h3,.dk-simbox h3{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--subtext);margin:0 0 8px}
-.dk-chart{position:relative;border:1.5px solid var(--line);border-radius:8px;background:var(--base);width:100%}
-.dk-cells{position:absolute;inset:6px}
-.dk-cells span{position:absolute;width:2.2%;height:2.6%;border-radius:1px}
-.dk-island{position:absolute;left:66%;bottom:76%;width:14%;height:11%;border:1.5px dashed var(--pink);border-radius:4px}
-.dk-islandlab{position:absolute;left:62%;bottom:88%;font-family:var(--font-mono);font-size:9px;line-height:1.25;color:var(--pink);text-align:center}
-.dk-markers{position:absolute;inset:6px}
-.dk-mark{position:absolute;width:11px;height:11px;padding:0;border-radius:50%;border:2px solid var(--border);background:var(--card);cursor:pointer;transform:translate(-50%,50%)}
-.dk-mark:hover{background:var(--lavender)}
-.dk-mark.on{background:var(--pink);border-color:var(--pink);box-shadow:0 0 0 3px color-mix(in oklab,var(--pink) 30%,transparent)}
+.dk-chart{border:1.5px solid var(--line);border-radius:8px;background:var(--base);width:100%;overflow:hidden}
+.dk-chart svg{display:block;width:100%;height:auto}
+.dk-nuc{cursor:pointer}
+.dk-nuc circle{transition:r .12s}
+.dk-nuc:hover circle,.dk-nuc:focus-visible circle{r:7}
+.dk-nuc.on circle{stroke-width:2.5;r:7}
+.dk-legend{display:flex;flex-wrap:wrap;gap:5px 14px;margin:8px 0 0;font-family:var(--font-mono);font-size:10.5px;color:var(--subtext)}
+.dk-legend span{display:inline-flex;align-items:center;gap:5px}
+.dk-legend i{width:10px;height:10px;border-radius:50%;border:1px solid var(--border);display:inline-block}
 .dk-axis{font-family:var(--font-mono);font-size:10.5px;color:var(--subtext);margin-top:4px;display:flex;justify-content:space-between}
-.dk-presets{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.dk-presets .fz-btn{font-family:var(--font-mono);font-size:12px;padding:5px 11px}
+.dk-presets{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px;max-height:104px;overflow-y:auto}
+.dk-presets .fz-btn{font-family:var(--font-mono);font-size:11.5px;padding:4px 9px}
 .dk-simbox{flex:1 1 340px;min-width:300px}
 .dk-atoms{display:grid;grid-template-columns:repeat(25,1fr);gap:2px;margin-bottom:10px}
 .dk-atoms span{aspect-ratio:1;border-radius:50%;background:var(--chem);transition:background .3s,opacity .3s}
