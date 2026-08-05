@@ -66,7 +66,7 @@
 
     <h2>How it was built</h2>
     <p>Every page here is hand-written HTML. There is one external stylesheet, fizzle.css, linked from all ten pages, and it carries essentially all of the styling through custom properties for the two color themes. The interactive parts are plain JavaScript, one small script per demo, named in the header bar of each demo stage so the source is easy to find. There is no framework, no bundler, and no build step. The fonts and icons are stored in this folder rather than loaded from a content delivery network, so the site works offline and depends on nothing outside itself.</p>
-    <p>The color themes are Catppuccin Latte and Mocha, with a lavender accent and one color per subject: teal for chemistry, green for biology, violet for physics. The theme toggle in the header follows your system preference on the first visit and remembers your choice after that. The guestbook and the visitor counter both use your browser's local storage, which is the whole backend. No cookies, no trackers, no server-side code.</p>
+    <p>The color themes are Catppuccin Latte and Mocha, with a lavender accent and one color per subject: teal for chemistry, green for biology, violet for physics. The theme toggle in the header follows your system preference on the first visit and remembers your choice after that. The guestbook writes to your browser's local storage, which is the whole backend. No cookies, no trackers, no server-side code.</p>
 
     <h2>A note on AI assistance</h2>
     <p>An AI assistant (Claude) helped write parts of this site, including sections of the HTML structure, the CSS, the JavaScript for the demos, and drafts of this prose. Every file on the site carries a comment at the top saying so, which is the disclosure the course requires. The design direction, the choice of experiments, the science being explained, and the final editing are mine. Where a simulation simplifies something, the page it lives on says so directly rather than leaving the reader to assume the model is complete.</p>
@@ -90,13 +90,13 @@
       <h2>All 11 pages</h2>
       <ul class="fz-sitemap">
         <li><a href="index.html">Home</a></li>
+        <li><a href="experiments.html">All Experiments</a></li>
         <li><a href="periodic.html">Periodic Trends</a></li>
         <li><a href="cells.html">Cell Explorer</a></li>
         <li><a href="rocket.html">Rocket Lab: &Delta;v</a></li>
         <li><a href="starship.html">Starship Clock</a></li>
         <li><a href="decay.html">Nuclide Decay</a></li>
         <li><a href="moths.html">Peppered Moths</a></li>
-        <li><a href="experiments.html">All Experiments</a></li>
         <li><a href="reference.html">Reference Tables</a></li>
         <li><a href="guestbook.html">Guestbook</a></li>
         <li><a href="about.html">About</a></li>
@@ -106,20 +106,11 @@
       <h2>Elsewhere</h2>
       <ul>
         <li><a href="mailto:hello@zainham.com"><img class="em" src="images/twemoji/2709.svg" alt=""> hello@zainham.com</a></li>
+        <li><a href="https://github.com/gegnep/fizzle">&#8599; Source on GitHub</a></li>
         <li><a href="https://www.nasa.gov/">&#8599; NASA.gov</a></li>
         <li><a href="https://pubchem.ncbi.nlm.nih.gov/">&#8599; PubChem</a></li>
         <li><a href="#top">&#8593; Back to top</a></li>
       </ul>
-    </div>
-    <div class="fz-counter">
-      <span class="lab">visitor number</span>
-      <div class="fz-odo"><span>0</span><span>0</span><span>1</span><span>2</span><span>0</span><span>8</span></div>
-      <div class="fz-badges">
-        <img src="images/badge-1.svg" alt="88 by 31 button badge: HTML written by hand" width="88" height="31">
-        <img src="images/badge-2.svg" alt="88 by 31 button badge: CSS, one file, no build step" width="88" height="31">
-        <img src="images/badge-3.svg" alt="88 by 31 button badge: powered by science" width="88" height="31">
-        <img src="images/badge-4.svg" alt="88 by 31 button badge: zero cookies, zero trackers" width="88" height="31">
-      </div>
     </div>
   </div>
   <div class="base">

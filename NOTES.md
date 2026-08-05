@@ -45,3 +45,19 @@ What to look at:
   it as the reference for everything else.
 - Rocket Lab has the most going on: rocket diagram, orbit panel, sliders,
   bar, verdict. It reads as four things rather than one instrument.
+
+## Footer badges, parked
+
+`images/badge-1.svg` through `badge-4.svg` are still in the repo but nothing
+references them. The 88x31 badge strip and the visitor counter came out of
+the footer on 2026-08-05, to be revisited in the design pass. Delete the
+files or wire them back in then.
+
+## The visitor counter was never real
+
+Worth knowing before it comes back. The counter read and incremented a
+localStorage integer and added a fixed offset so the number looked
+plausible. It counted one visitor's own page loads in one browser, not
+visitors. A real count needs a server, and this site deliberately has none.
+If it returns, it should be honest about being a personal visit count, or
+be a static piece of decoration that does not claim to be a measurement.

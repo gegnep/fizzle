@@ -1,8 +1,7 @@
 /* AI-ASSISTED: portions of this file were written with the help of an AI assistant (Claude), per course policy. */
 /* site.js: shared shell behavior for every page.
    1. Dark/light theme toggle, saved to localStorage "fizzle-theme".
-   2. Ticker marquee: duplicates the message track so the CSS loop is seamless.
-   3. Visitor counter: localStorage "fizzle-visits", rendered as odometer digits. */
+   2. Ticker marquee: duplicates the message track so the CSS loop is seamless. */
 
 (function () {
   "use strict";
@@ -48,25 +47,6 @@
           paused ? "Resume the scrolling news ticker" : "Pause the scrolling news ticker");
       });
       tickBtn.setAttribute("aria-label", "Pause the scrolling news ticker");
-    }
-
-    /* ---------- visitor counter ---------- */
-    var odo = document.querySelector(".fz-odo");
-    if (odo) {
-      var visits = 0;
-      try {
-        visits = parseInt(localStorage.getItem("fizzle-visits") || "0", 10) + 1;
-        localStorage.setItem("fizzle-visits", String(visits));
-      } catch (e) { visits = 1; }
-      /* Base offset is pure old-web charm. */
-      var shown = String(1207 + visits);
-      while (shown.length < 6) { shown = "0" + shown; }
-      odo.innerHTML = "";
-      for (var i = 0; i < shown.length; i++) {
-        var d = document.createElement("span");
-        d.textContent = shown.charAt(i);
-        odo.appendChild(d);
-      }
     }
   }
 
