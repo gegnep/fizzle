@@ -28,3 +28,20 @@ Everything else on the site is finished and verified.
 - Nuclide Decay: the full chart of roughly 3,300 known nuclides. Needs a
   real dataset, which is not worth sourcing before the deadline. The
   curated nuclide set covers the teaching goal.
+
+## Visual pass, all five experiments
+
+Flagged 2026-08-04. The demos work and each is internally consistent, but
+they were built one at a time and do not share a visual system beyond the
+page shell. Worth one coordinated pass rather than five separate ones.
+
+What to look at:
+
+- Stage interiors have no common rhythm. Spacing, panel headings, and the
+  gap between a control cluster and its output differ per demo.
+- Control clusters are laid out ad hoc. Sliders, pill buttons, and preset
+  rows each solve the same problem differently.
+- The readout strip is consistent, which is the one thing that works. Use
+  it as the reference for everything else.
+- Rocket Lab has the most going on: rocket diagram, orbit panel, sliders,
+  bar, verdict. It reads as four things rather than one instrument.
