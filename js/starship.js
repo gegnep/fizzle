@@ -54,10 +54,9 @@
   ];
 
   var MARKERS = [
-    ["you-acc", "your clock, accelerating", "var(--phys)", false],
-    ["you-cv", "your clock, constant velocity", "var(--yellow)", false],
-    ["earth-acc", "Earth clock, accelerating trip", "var(--subtext)", false],
-    ["earth-cv", "Earth clock, constant velocity", "var(--subtext)", true]
+    ["you-cv", "your clock, constant velocity", "var(--yellow)"],
+    ["you-acc", "your clock, accelerating", "var(--phys)"],
+    ["earth-acc", "Earth clock, accelerating trip", "var(--subtext)"]
   ];
 
   var betaEl, accelEl, betaOut, accelOut, mapEl, axisEl, legendEl, read;
@@ -100,6 +99,12 @@
     return (Math.floor((100 - remPct) * f) / f).toFixed(digits) + "%";
   }
 
+  function fmtLy(d) {
+    if (d < 100) { return d.toFixed(2).replace(/\.?0+$/, ""); }
+    if (d < 1e6) { return Math.round(d).toLocaleString("en-US"); }
+    return (d / 1e6).toFixed(2) + "M";
+  }
+
   function pos(t) {
     var span = T_MAX_LOG - T_MIN_LOG;
     var p = (Math.log(Math.max(t, 1e-6)) / Math.LN10 - T_MIN_LOG) / span * 100;
@@ -123,20 +128,24 @@
       nm.className = "nm";
       nm.textContent = dst.name;
 
+      var ly = document.createElement("span");
+      ly.className = "ly";
+      ly.textContent = fmtLy(dst.d) + " ly";
+
       var track = document.createElement("span");
       track.className = "track";
       var link = document.createElement("span");
       link.className = "link";
       track.appendChild(link);
-      MARKERS.slice().sort(function (a, b) { return (b[3] ? 1 : 0) - (a[3] ? 1 : 0); })
-        .forEach(function (m) {
-          var dot = document.createElement("span");
-          dot.className = "dot " + m[0] + (m[3] ? " ring" : "");
-          if (m[3]) { dot.style.borderColor = m[2]; } else { dot.style.background = m[2]; }
-          track.appendChild(dot);
-        });
+      MARKERS.forEach(function (m) {
+        var dot = document.createElement("span");
+        dot.className = "dot " + m[0];
+        dot.style.background = m[2];
+        track.appendChild(dot);
+      });
 
       row.appendChild(nm);
+      row.appendChild(ly);
       row.appendChild(track);
       row.addEventListener("click", function () { choose(dst.id); });
       mapEl.appendChild(row);
@@ -156,8 +165,7 @@
     MARKERS.forEach(function (m) {
       var s = document.createElement("span");
       var sw = document.createElement("span");
-      if (m[3]) { sw.className = "ring"; sw.style.borderColor = m[2]; }
-      else { sw.style.background = m[2]; }
+      sw.style.background = m[2];
       s.appendChild(sw);
       s.appendChild(document.createTextNode(m[1]));
       legendEl.appendChild(s);
@@ -170,8 +178,7 @@
       var row = mapEl.querySelector('[data-id="' + dst.id + '"]');
       if (!row) { return; }
       var b = boost(dst.d, st.gs), c = cruise(dst.d, st.beta);
-      var at = { "you-acc": b.you, "earth-acc": b.earth,
-                 "you-cv": c.you, "earth-cv": c.earth };
+      var at = { "you-acc": b.you, "you-cv": c.you, "earth-acc": b.earth };
       var all = [];
       MARKERS.forEach(function (m) {
         var p = pos(at[m[0]]);
@@ -203,7 +210,7 @@
     var b = boost(sel.d, st.gs), c = cruise(sel.d, st.beta);
 
     destName.textContent = sel.name;
-    destDist.textContent = yrs(sel.d) + " light years away";
+    destDist.textContent = fmtLy(sel.d) + " light years away";
 
     bYou.textContent = yrs(b.you);
     bEarth.textContent = yrs(b.earth);

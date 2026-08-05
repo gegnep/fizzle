@@ -438,22 +438,23 @@ ul.dk-chain li .ct{text-align:right;color:var(--text);font-weight:700}
 .ss-legend span{display:inline-flex;align-items:center;gap:6px}
 .ss-legend span span{width:10px;height:10px;border-radius:50%;border:1px solid var(--border);display:inline-block}
 .ss-map{display:flex;flex-direction:column}
-.ss-row{display:grid;grid-template-columns:172px 1fr;gap:12px;align-items:center;width:100%;background:none;border:0;border-radius:6px;padding:5px 6px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.ss-row{display:grid;grid-template-columns:162px 68px 1fr;gap:12px;align-items:center;width:100%;background:none;border:0;border-radius:6px;padding:5px 6px;cursor:pointer;text-align:left;font:inherit;color:inherit}
 .ss-row:hover{background:var(--lav-soft)}
 .ss-row.on{background:var(--lav-soft);box-shadow:inset 2px 0 0 var(--phys)}
 .ss-row .nm{font-family:var(--font-mono);font-size:11.5px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ss-row .ly{font-family:var(--font-mono);font-size:10.5px;color:var(--subtext);text-align:right;white-space:nowrap}
 .ss-row .track{position:relative;height:16px;border-bottom:1.5px dotted var(--line)}
 .ss-row .link{position:absolute;top:7px;height:2.5px;background:var(--line);border-radius:2px}
 .ss-row .dot{position:absolute;top:3.5px;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;border:1px solid var(--border)}
-.ss-row .dot.ring{width:14px;height:14px;margin-left:-7px;top:1px;background:var(--card);border-width:2px}
-.ss-legend span span.ring{background:var(--card);border-width:2px}
-.ss-axis{position:relative;height:15px;margin-top:2px;margin-left:184px;font-family:var(--font-mono);font-size:9.5px;color:var(--subtext)}
+.ss-axis{position:relative;height:15px;margin-top:2px;margin-left:260px;font-family:var(--font-mono);font-size:9.5px;color:var(--subtext)}
 .ss-axis span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}
 @media (max-width:720px){
   .ss-cards{grid-template-columns:1fr}
-  .ss-row{grid-template-columns:92px 1fr;gap:8px}
-  .ss-row .nm{font-size:10px}
-  .ss-axis{margin-left:100px;font-size:8.5px}
+  .ss-row{grid-template-columns:1fr auto;gap:3px 8px}
+  .ss-row .track{grid-column:1 / -1}
+  .ss-row .nm{font-size:10.5px}
+  .ss-row .ly{font-size:9.5px}
+  .ss-axis{margin-left:6px;font-size:8.5px}
 }
 .ss-times{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 0 8px}
 .ss-times strong{display:block;font-family:var(--font-display);font-size:27px;color:var(--text);letter-spacing:-0.02em;line-height:1.15}
