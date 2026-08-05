@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!-- AI-ASSISTED: portions of this file were written with the help of an AI assistant (Claude), per course policy.
+     Twemoji icons (images/twemoji/) are copyright Twitter/X and contributors, licensed CC-BY 4.0. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guestbook &middot; fizzle.</title>
+<meta name="description" content="Leave a note about the site. Entries save to your own browser.">
+<link rel="stylesheet" href="fizzle.css">
+<link rel="icon" href="images/twemoji/26a1.svg">
+<script src="js/site.js" defer></script>
+<script src="js/guestbook.js" defer></script>
+</head>
+<body>
+<a class="fz-skip" href="#main">Skip to content</a>
+<header class="fz-head" id="top">
+  <a class="fz-logo" href="index.html">
+    <span class="word">fi<em>z</em><em>z</em>le<em>.</em></span>
+    <span class="dom">a tiny science playground</span>
+  </a>
+  <div class="fz-headright">
+    <nav class="fz-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="experiments.html">Experiments</a>
+      <a href="reference.html">Reference</a>
+      <a href="guestbook.html" class="on">Guestbook</a>
+      <a href="about.html">About</a>
+    </nav>
+    <button class="fz-theme" type="button" aria-label="Toggle dark or light theme">
+      <img class="em moon" src="images/twemoji/1f319.svg" alt="">
+      <img class="em sun" src="images/twemoji/2600.svg" alt="">
+    </button>
+  </div>
+</header>
+
+<div class="fz-ticker">
+  <button type="button" class="flag" id="fz-tick-btn" aria-pressed="false">NEW</button>
+  <div class="lane"><div class="track">
+    <span>The wall is open. <em>Tell us which experiment landed.</em></span>
+    <span class="sep">&#9679;</span>
+    <span>Entries stay in your browser. Nothing is uploaded anywhere.</span>
+    <span class="sep">&#9679;</span>
+    <span>Broken demo? Say which browser you were using.</span>
+  </div></div>
+</div>
+
+<main class="fz-main" id="main">
+  <span class="fz-kicker"><span class="dot"></span>leave your mark</span>
+  <h1 class="fz-h1">Sign the Guestbook</h1>
+  <p class="fz-hook">Leave a note about the site. Tell us which experiment worked for you, which one did not, or just say hi. Entries are stored in your browser and shown on the wall below.</p>
+
+  <p>This guestbook is deliberately old-fashioned. There is no account to make, no server to send anything to, and no analytics watching you type. When you post, the entry is written to your browser's own storage and rendered onto the wall underneath the form. Clear your browser data and it is gone, because your browser was the only copy. That also means the wall you see is yours: another visitor on another machine sees their own. The email field is required by the form, and it is deliberately never stored, not even locally.</p>
+
+  <form class="fz-form" id="gb-form" novalidate>
+    <div class="row" id="gb-row-name">
+      <label class="lbl" for="gb-name">Name or handle <span class="req">*</span></label>
+      <input type="text" id="gb-name" name="name" placeholder="e.g. entropy_enjoyer" autocomplete="nickname" required aria-required="true" aria-describedby="gb-err-name">
+      <p class="err" id="gb-err-name">Please enter a name or handle.</p>
+    </div>
+    <div class="row" id="gb-row-email">
+      <label class="lbl" for="gb-email">Email <span class="req">*</span></label>
+      <input type="email" id="gb-email" name="email" placeholder="you@example.com" autocomplete="email" required aria-required="true" aria-describedby="gb-help-email gb-err-email">
+      <p class="help" id="gb-help-email">Stays on your device. Entries save to your browser only, and the email is never stored.</p>
+      <p class="err" id="gb-err-email">Please enter a valid email address.</p>
+    </div>
+    <div class="row">
+      <label class="lbl" for="gb-fav">Favorite experiment</label>
+      <select id="gb-fav" name="fav">
+        <option value="">pick one</option>
+        <option>Periodic Trends</option>
+        <option>Cell Explorer</option>
+        <option>Rocket Lab: &Delta;v</option>
+        <option>Nuclide Decay</option>
+        <option>Peppered Moths</option>
+      </select>
+    </div>
+    <div class="row">
+      <fieldset>
+        <legend class="lbl">How was it?</legend>
+        <div class="choices">
+          <label><input type="radio" name="rating" value="mind blown"> <img class="em" src="images/twemoji/26a1.svg" alt=""><img class="em" src="images/twemoji/26a1.svg" alt=""><img class="em" src="images/twemoji/26a1.svg" alt=""> mind blown</label>
+          <label><input type="radio" name="rating" value="pretty fun" checked> <img class="em" src="images/twemoji/26a1.svg" alt=""><img class="em" src="images/twemoji/26a1.svg" alt=""> pretty fun</label>
+          <label><input type="radio" name="rating" value="it fizzled"> <img class="em" src="images/twemoji/26a1.svg" alt=""> it fizzled</label>
+        </div>
+      </fieldset>
+    </div>
+    <div class="row" id="gb-row-msg">
+      <label class="lbl" for="gb-msg">Your message <span class="req">*</span></label>
+      <textarea id="gb-msg" name="message" placeholder="What worked? What did not?" required aria-required="true" aria-describedby="gb-err-msg"></textarea>
+      <p class="err" id="gb-err-msg">Please write a short message.</p>
+    </div>
+    <div class="row">
+      <button type="submit" class="fz-submit"><img class="em" src="images/twemoji/26a1.svg" alt=""> Post to the wall</button>
+      <p class="fz-thanks" id="gb-thanks" role="status" aria-live="polite">Posted. Your note is on the wall below.</p>
+    </div>
+  </form>
+
+  <div class="fz-wall">
+    <h2>The wall</h2>
+    <p class="note">entries live in your browser's localStorage. this wall is yours alone</p>
+    <div id="gb-entries">
+      <div class="fz-entry">
+        <div class="who"><strong>@orbital_decay</strong> &middot; Aug 2, 2026</div>
+        <p>Finally understand why my Kerbal rockets kept falling out of the sky. Delta-v is everything.</p>
+      </div>
+      <div class="fz-entry">
+        <div class="who"><strong>@mito_chondria</strong> &middot; Aug 1, 2026</div>
+        <p>The bacterial cell having no nucleus and just getting on with it is extremely relatable.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="fz-foot">
+  <div class="cols">
+    <div>
+      <h2>All 10 pages</h2>
+      <ul class="fz-sitemap">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="periodic.html">Periodic Trends</a></li>
+        <li><a href="cells.html">Cell Explorer</a></li>
+        <li><a href="rocket.html">Rocket Lab: &Delta;v</a></li>
+        <li><a href="decay.html">Nuclide Decay</a></li>
+        <li><a href="moths.html">Peppered Moths</a></li>
+        <li><a href="experiments.html">All Experiments</a></li>
+        <li><a href="reference.html">Reference Tables</a></li>
+        <li><a href="guestbook.html">Guestbook</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Elsewhere</h2>
+      <ul>
+        <li><a href="mailto:hello@zainham.com"><img class="em" src="images/twemoji/2709.svg" alt=""> hello@zainham.com</a></li>
+        <li><a href="https://www.nasa.gov/">&#8599; NASA.gov</a></li>
+        <li><a href="https://pubchem.ncbi.nlm.nih.gov/">&#8599; PubChem</a></li>
+        <li><a href="#top">&#8593; Back to top</a></li>
+      </ul>
+    </div>
+    <div class="fz-counter">
+      <span class="lab">visitor number</span>
+      <div class="fz-odo"><span>0</span><span>0</span><span>1</span><span>2</span><span>0</span><span>8</span></div>
+      <div class="fz-badges">
+        <img src="images/badge-1.svg" alt="88 by 31 button badge: HTML written by hand" width="88" height="31">
+        <img src="images/badge-2.svg" alt="88 by 31 button badge: CSS, one file, no build step" width="88" height="31">
+        <img src="images/badge-3.svg" alt="88 by 31 button badge: powered by science" width="88" height="31">
+        <img src="images/badge-4.svg" alt="88 by 31 button badge: zero cookies, zero trackers" width="88" height="31">
+      </div>
+    </div>
+  </div>
+  <div class="base">
+    <span>&copy; 2026 fizzle &middot; built by hand for Comm 360</span>
+    <span>no cookies &middot; no trackers &middot; just science</span>
+  </div>
+</footer>
+</body>
+</html>
