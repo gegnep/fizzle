@@ -36,8 +36,10 @@
       note: "A red dwarf, and the fastest-moving star in our sky." },
     { id: "sirius", name: "Sirius", d: 8.60,
       note: "The brightest star in the night sky, and a white dwarf companion." },
+    { id: "eridani", name: "Epsilon Eridani", d: 10.47,
+      note: "Young, dusty, ringed by debris, and one of the first two stars SETI ever listened to." },
     { id: "tauceti", name: "Tau Ceti", d: 11.9,
-      note: "A quiet sun-like star, and a long-standing favourite target." },
+      note: "A quiet sun-like star, and the other half of that first search in 1960." },
     { id: "trappist", name: "TRAPPIST-1", d: 40.7,
       note: "Seven rocky planets crowded around one dim red dwarf." },
     { id: "kepler186", name: "Kepler-186", d: 580,
@@ -51,9 +53,9 @@
   ];
 
   var MARKERS = [
-    ["you-boost", "you, under boost", "var(--phys)"],
-    ["you-cruise", "you, at cruise", "var(--yellow)"],
-    ["earth", "Earth, under boost", "var(--subtext)"]
+    ["you-boost", "your clock, accelerating", "var(--phys)"],
+    ["you-cruise", "your clock, constant velocity", "var(--yellow)"],
+    ["earth", "Earth clock, normal time", "var(--subtext)"]
   ];
 
   var betaEl, accelEl, betaOut, accelOut, mapEl, axisEl, legendEl, read;
@@ -67,8 +69,9 @@
     var a = gs * G, D = d / 2;
     var tHalf = Math.sqrt(D * D + 2 * D / a);
     var tauHalf = acosh(a * D + 1) / a;
-    var v = a * tHalf;
-    return { earth: 2 * tHalf, you: 2 * tauHalf, peak: v / Math.sqrt(1 + v * v) };
+    var v = a * tHalf, s = Math.sqrt(1 + v * v);
+    /* rem is 1 - beta in closed form: (s - v)/s rearranged to avoid cancellation */
+    return { earth: 2 * tHalf, you: 2 * tauHalf, peak: v / s, rem: 1 / (s * (s + v)) };
   }
 
   function cruise(d, beta) {
@@ -84,6 +87,15 @@
     if (t < 1e6) { return Math.round(t).toLocaleString("en-US"); }
     if (t < 1e9) { return (t / 1e6).toFixed(2) + " million"; }
     return (t / 1e9).toFixed(2) + " billion";
+  }
+
+  /* Percent of c, with precision that grows as the gap to c shrinks, and
+     always rounded down so the readout can never claim to have reached c. */
+  function pctOfC(b) {
+    var remPct = b.rem * 100;
+    var digits = Math.max(1, Math.min(12, Math.ceil(-Math.log(remPct) / Math.LN10) + 1));
+    var f = Math.pow(10, digits);
+    return (Math.floor((100 - remPct) * f) / f).toFixed(digits) + "%";
   }
 
   function pos(t) {
@@ -166,9 +178,10 @@
       link.style.width = Math.max(0, hi - lo) + "%";
 
       row.setAttribute("aria-label", dst.name + ", " + yrs(dst.d) +
-        " light years. Under boost you experience " + yrs(b.you) +
-        " years and Earth waits " + yrs(b.earth) +
-        ". At cruise you experience " + yrs(c.you) + " years and Earth waits " + yrs(c.earth) + ".");
+        " light years. Under constant acceleration you experience " + yrs(b.you) +
+        " years and Earth ages " + yrs(b.earth) +
+        ". At constant velocity you experience " + yrs(c.you) +
+        " years and Earth ages " + yrs(c.earth) + ".");
       row.classList.toggle("on", dst.id === sel.id);
       row.setAttribute("aria-pressed", dst.id === sel.id ? "true" : "false");
     });
@@ -186,9 +199,7 @@
 
     bYou.textContent = yrs(b.you);
     bEarth.textContent = yrs(b.earth);
-    /* round down, never up: nothing reaches c, so the readout must not say 100 */
-    var pk = b.peak * 100, digits = pk > 99.9 ? 3 : 1, f = Math.pow(10, digits);
-    bPeak.textContent = (Math.floor(pk * f) / f).toFixed(digits) + "%";
+    bPeak.textContent = pctOfC(b);
 
     cYou.textContent = yrs(c.you);
     cEarth.textContent = yrs(c.earth);
@@ -198,8 +209,9 @@
     var strong = document.createElement("strong");
     strong.textContent = sel.name;
     var line = document.createElement("span");
-    line.textContent = "boost gets you there in " + yrs(b.you) + " years and costs Earth " +
-      yrs(b.earth) + " · cruise takes you " + yrs(c.you) + " and costs Earth " + yrs(c.earth);
+    line.textContent = "constant acceleration gets you there in " + yrs(b.you) +
+      " years while Earth ages " + yrs(b.earth) + " · at constant velocity you take " +
+      yrs(c.you) + " while Earth ages " + yrs(c.earth);
     var note = document.createElement("span");
     note.textContent = sel.note;
     read.appendChild(strong);

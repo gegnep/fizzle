@@ -39,7 +39,7 @@
   <div class="lane"><div class="track">
     <span>Physics note: <em>the clock you carry is the only one you actually live through.</em></span>
     <span class="sep">&#9679;</span>
-    <span>One g of constant boost reaches Andromeda in a human lifetime. Earth waits two and a half million years.</span>
+    <span>One g of constant acceleration reaches Andromeda in a human lifetime. Earth waits two and a half million years.</span>
     <span class="sep">&#9679;</span>
     <span>This page ignores fuel completely. <em>Rocket Lab explains why that is cheating.</em></span>
   </div></div>
@@ -61,27 +61,31 @@
 
       <div class="ss-controls">
         <div class="row">
-          <label for="ss-beta">Steady cruise speed <output id="ss-beta-out" for="ss-beta">20% of c</output></label>
+          <label for="ss-beta">Constant velocity <output id="ss-beta-out" for="ss-beta">20% of c</output></label>
           <input type="range" id="ss-beta" min="1" max="99" step="1" value="20">
         </div>
         <div class="row">
-          <label for="ss-accel">Constant boost <output id="ss-accel-out" for="ss-accel">1.0 g</output></label>
+          <label for="ss-accel">Constant acceleration <output id="ss-accel-out" for="ss-accel">1.0 g</output></label>
           <input type="range" id="ss-accel" min="5" max="30" step="1" value="10">
         </div>
       </div>
 
       <div class="ss-cards">
-        <div class="ss-card boost">
-          <p class="ss-cardhead">constant boost, flip at the midpoint</p>
-          <p class="big"><strong id="ss-b-you">3.54</strong> years</p>
-          <p class="lab">pass on your clock</p>
-          <p class="foot">Earth waits <strong id="ss-b-earth">5.87</strong> years &middot; top speed <strong id="ss-b-peak">95.0%</strong> of c</p>
-        </div>
         <div class="ss-card cruise">
-          <p class="ss-cardhead">steady cruise, one speed the whole way</p>
-          <p class="big"><strong id="ss-c-you">20.80</strong> years</p>
-          <p class="lab">pass on your clock</p>
-          <p class="foot">Earth waits <strong id="ss-c-earth">21.23</strong> years &middot; clocks slowed <strong id="ss-c-gamma">1.02</strong>&times;</p>
+          <p class="ss-cardhead">constant velocity &middot; one speed the whole way</p>
+          <div class="ss-times">
+            <div><strong id="ss-c-you">20.8</strong><span>years, your clock</span></div>
+            <div><strong id="ss-c-earth">21.2</strong><span>years, Earth clock</span></div>
+          </div>
+          <p class="foot">your clock runs slow by a factor of <strong id="ss-c-gamma">1.02</strong></p>
+        </div>
+        <div class="ss-card boost">
+          <p class="ss-cardhead">constant acceleration &middot; flip at the midpoint</p>
+          <div class="ss-times">
+            <div><strong id="ss-b-you">3.54</strong><span>years, your clock</span></div>
+            <div><strong id="ss-b-earth">5.87</strong><span>years, Earth clock</span></div>
+          </div>
+          <p class="foot">top speed <strong id="ss-b-peak">94.9%</strong> of c</p>
         </div>
       </div>
 
@@ -93,20 +97,20 @@
       <div class="fz-read" id="ss-read" role="status" aria-live="polite"><span>loading destinations&hellip;</span></div>
     </div>
   </div>
-  <p class="fz-caption">How this works: the cruise numbers come straight from the Lorentz factor. The boost numbers come from the relativistic rocket, burning at a fixed proper acceleration to the midpoint, flipping, and decelerating in, so you arrive at rest rather than tearing past. Proper acceleration is what the crew feels underfoot, which is why one g is the comfortable setting. The time axis is logarithmic, because the numbers on it span eight decades.</p>
+  <p class="fz-caption">How this works: the cruise numbers come straight from the Lorentz factor. The constant-acceleration numbers come from the relativistic rocket, burning at a fixed proper acceleration to the midpoint, flipping, and decelerating in, so you arrive at rest rather than tearing past. Proper acceleration is what the crew feels underfoot, which is why one g is the comfortable setting. The time axis is logarithmic, because the numbers on it span eight decades. The grey marker is Earth's clock for the accelerating trip, which is close to the distance in light years for any trip that gets near light speed.</p>
 
   <div class="fz-prose">
     <h2>Why speed alone does not save you</h2>
-    <p>Set the cruise dial to twenty percent of light speed and look at what it buys. Proxima Centauri takes about twenty one years of Earth time, and your own clock reads about twenty and a half years. You saved a few months. Time dilation is real at that speed, but it is a two percent effect, and no amount of patience turns it into anything better.</p>
+    <p>Set the constant velocity dial to twenty percent of light speed and look at what it buys. Proxima Centauri takes about twenty one years of Earth time, and your own clock reads about twenty and a half years. You saved a few months. Time dilation is real at that speed, but it is a two percent effect, and no amount of patience turns it into anything better.</p>
     <p>The reason is the shape of the Lorentz factor. It sits near one for most of the range and only climbs steeply once you are already close to light speed. At half of c your clock runs about fifteen percent slow. At ninety percent it is a factor of two. At ninety nine percent it is seven, and at that point the trip to Proxima takes you seven months. Every useful thing dilation does for a traveller happens in the last sliver of the dial.</p>
 
-    <h2>Why constant boost changes the problem</h2>
+    <h2>Why constant acceleration changes the problem</h2>
     <p>The second dial does something different. Instead of picking a speed you pick an acceleration and never stop, so you spend the whole trip climbing into the part of the curve where dilation actually bites. One g is a natural setting because it feels like standing on Earth, and it happens to be worth roughly one light year per year of ship time once you are up to speed.</p>
     <p>Push the map out to the far destinations and the two clocks come apart completely. The galactic centre is twenty six thousand light years away, and under one g you would get there in about twenty years of your own life. Andromeda is two and a half million light years away, and you would arrive after about twenty eight years aboard. Nothing you left behind survives either trip. The ship clock stays human while the Earth clock runs to geological time, and the gap is not a trick of the drive, it is what the geometry does.</p>
 
     <h2>What this page is cheating at</h2>
     <p>Fuel. All of it. This page takes acceleration as a given and never asks where the energy comes from, which is exactly the thing that makes interstellar travel hard rather than merely far. <a href="rocket.html">Rocket Lab</a> is the honest counterweight: the rocket equation charges you a logarithmic tax for every extra unit of velocity, and holding one g for years is far outside what any propulsion we have could pay for. A real ship also has to survive dust at those speeds, where a grain of sand carries the energy of a bomb, and has to navigate toward where a star will be rather than where it is now.</p>
-    <p>The distances here are current values and the stars are moving. Barnard's Star in particular is closing on us and will be almost a light year nearer in ten thousand years, which barely matters for a trip you would make tomorrow and matters a great deal for one you would make under cruise.</p>
+    <p>The distances here are current values and the stars are moving. Barnard's Star in particular is closing on us and will be almost a light year nearer in ten thousand years, which barely matters for a trip you would make tomorrow and matters a great deal for one you would make at constant velocity.</p>
 
     <h2>Related concepts</h2>
     <ul class="fz-related">
