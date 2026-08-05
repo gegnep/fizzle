@@ -6,12 +6,50 @@
 (function () {
   "use strict";
 
-  /* ---------- theme ---------- */
-  var saved = null;
-  try { saved = localStorage.getItem("fizzle-theme"); } catch (e) {}
-  var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-  if (saved === "dark" || (saved === null && prefersDark)) {
+  /* ---------- theme ----------
+     On a server, localStorage is shared across the site and the choice simply
+     persists. Opened straight from a folder the pages are file:// URLs, and
+     every file gets its own null origin, so page two cannot read what page one
+     saved and the theme appears to reset on every click. When that is the case,
+     carry the choice in the link instead. */
+  var LOCAL_FILE = location.protocol === "file:";
+
+  function readSaved() {
+    try { return localStorage.getItem("fizzle-theme"); } catch (e) { return null; }
+  }
+
+  function writeSaved(value) {
+    try { localStorage.setItem("fizzle-theme", value); } catch (e) {}
+  }
+
+  function fromUrl() {
+    var m = /[?&]t=(d|l)/.exec(location.search);
+    return m ? (m[1] === "d" ? "dark" : "light") : null;
+  }
+
+  var choice = (LOCAL_FILE ? fromUrl() : null) || readSaved();
+  var prefersDark = window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches;
+  if (choice === "dark" || (choice === null && prefersDark)) {
     document.body.classList.add("dark");
+  }
+
+  /* Stamp the current theme onto every internal link, so a local copy keeps it
+     across pages. On a server this does nothing and the URLs stay clean. */
+  function carryTheme() {
+    if (!LOCAL_FILE) { return; }
+    var flag = document.body.classList.contains("dark") ? "d" : "l";
+    var links = document.querySelectorAll("a[href]");
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute("href");
+      if (!href || /^(https?:|mailto:|#)/.test(href) || href.indexOf(".html") === -1) {
+        continue;
+      }
+      var hash = "";
+      var cut = href.indexOf("#");
+      if (cut >= 0) { hash = href.slice(cut); href = href.slice(0, cut); }
+      links[i].setAttribute("href", href.split("?")[0] + "?t=" + flag + hash);
+    }
   }
 
   function initShell() {
@@ -19,9 +57,11 @@
     if (themeBtn) {
       themeBtn.addEventListener("click", function () {
         var dark = document.body.classList.toggle("dark");
-        try { localStorage.setItem("fizzle-theme", dark ? "dark" : "light"); } catch (e) {}
+        writeSaved(dark ? "dark" : "light");
+        carryTheme();
       });
     }
+    carryTheme();
 
     /* ---------- ticker ---------- */
     /* Ticker copy lives in the HTML (easy to edit). JS only clones the
