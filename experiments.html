@@ -53,60 +53,61 @@
 
   <div class="fz-tablewrap">
     <table class="fz-table">
-      <caption>Experiments on fizzle.zainham.com, as of August 2026</caption>
+      <caption>Experiments on fizzle.zainham.com, grouped by subject, as of August 2026</caption>
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Subject</th>
           <th scope="col">Experiment</th>
           <th scope="col">What you do</th>
           <th scope="col">How it works</th>
         </tr>
       </thead>
-      <tbody>
+        <tbody class="grp">
+          <tr class="grouphead"><th scope="colgroup" colspan="4"><span class="subj chem">Chemistry</span></th></tr>
             <tr>
               <td class="num">01</td>
-              <td><span class="subj chem">Chemistry</span></td>
               <td class="name"><a href="periodic.html">Periodic Trends</a></td>
               <td>Color all 118 elements by radius, electronegativity, or ionization energy.</td>
               <td class="how">Buttons swap which measured value drives the color scale.</td>
             </tr>
             <tr>
+              <td class="num">04</td>
+              <td class="name"><a href="decay.html">Nuclide Decay</a></td>
+              <td>Pick an isotope and watch 400 atoms decay toward stability.</td>
+              <td class="how">A schematic chart of nuclides selects the isotope, then each atom rolls its own dice per tick.</td>
+            </tr>
+        </tbody>
+        <tbody class="grp">
+          <tr class="grouphead"><th scope="colgroup" colspan="4"><span class="subj bio">Biology</span></th></tr>
+            <tr>
               <td class="num">02</td>
-              <td><span class="subj bio">Biology</span></td>
               <td class="name"><a href="cells.html">Cell Explorer</a></td>
               <td>Compare animal, plant, and bacterial cells.</td>
               <td class="how">Tabs switch the diagram, and clicking an organelle shows its one job.</td>
             </tr>
             <tr>
-              <td class="num">03</td>
-              <td><span class="subj phys">Physics</span></td>
-              <td class="name"><a href="rocket.html">Rocket Lab: &Delta;v</a></td>
-              <td>Build a rocket and check whether it reaches orbit.</td>
-              <td class="how">Sliders feed the Tsiolkovsky equation, and a bar compares your delta-v to orbit.</td>
-            </tr>
-            <tr>
-              <td class="num">04</td>
-              <td><span class="subj chem">Chemistry</span></td>
-              <td class="name"><a href="decay.html">Nuclide Decay</a></td>
-              <td>Pick an isotope and watch 400 atoms decay toward stability.</td>
-              <td class="how">A schematic chart of nuclides selects the isotope, then each atom rolls its own dice per tick.</td>
-            </tr>
-            <tr>
               <td class="num">05</td>
-              <td><span class="subj bio">Biology</span></td>
               <td class="name"><a href="moths.html">Peppered Moths</a></td>
               <td>Hunt moths and shift a population over ten generations.</td>
               <td class="how">The survivors' color mix seeds the next generation, and a bar chart tracks the dark-moth share.</td>
             </tr>
-      </tbody>
+        </tbody>
+        <tbody class="grp">
+          <tr class="grouphead"><th scope="colgroup" colspan="4"><span class="subj phys">Physics</span></th></tr>
+            <tr>
+              <td class="num">03</td>
+              <td class="name"><a href="rocket.html">Rocket Lab: &Delta;v</a></td>
+              <td>Build a rocket and check whether it reaches orbit.</td>
+              <td class="how">Sliders feed the Tsiolkovsky equation, and a bar compares your delta-v to orbit.</td>
+            </tr>
+        </tbody>
     </table>
   </div>
   <p class="fz-caption">Each experiment is a single HTML page with its own script. The stage header on every demo names its main script, so the source is easy to find and each demo stays small enough to read in one sitting.</p>
 
   <div class="fz-prose">
     <h2>How to read this table</h2>
-    <p>The subject column tells you which accent color the page wears. Chemistry pages are teal, biology pages are green, and physics pages are violet, and that color runs through the demo stage border and the controls on that page. The last column is the honest part: it says what the code actually does, including where a simulation is simplified. None of these demos is a research tool. They are built to make one idea visible and to say plainly where the model stops.</p>
+    <p>Each group heading tells you which accent color those pages wear. Chemistry pages are teal, biology pages are green, and physics pages are violet, and that color runs through the demo stage border and the controls on that page. The last column is the honest part: it says what the code actually does, including where a simulation is simplified. None of these demos is a research tool. They are built to make one idea visible and to say plainly where the model stops.</p>
     <h2>Where the data comes from</h2>
     <ul class="fz-related">
       <li><a href="reference.html">constants and sources</a></li>
