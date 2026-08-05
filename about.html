@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!-- AI-ASSISTED: portions of this file were written with the help of an AI assistant (Claude), per course policy.
+     Twemoji icons (images/twemoji/) are copyright Twitter/X and contributors, licensed CC-BY 4.0. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About &middot; fizzle.</title>
+<meta name="description" content="What fizzle is, who it is for, and how it was built.">
+<link rel="stylesheet" href="fizzle.css">
+<link rel="icon" href="images/twemoji/26a1.svg">
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<a class="fz-skip" href="#main">Skip to content</a>
+<header class="fz-head" id="top">
+  <a class="fz-logo" href="index.html">
+    <span class="word">fi<em>z</em><em>z</em>le<em>.</em></span>
+    <span class="dom">a tiny science playground</span>
+  </a>
+  <div class="fz-headright">
+    <nav class="fz-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="experiments.html">Experiments</a>
+      <a href="reference.html">Reference</a>
+      <a href="guestbook.html">Guestbook</a>
+      <a href="about.html" class="on">About</a>
+    </nav>
+    <button class="fz-theme" type="button" aria-label="Toggle dark or light theme">
+      <img class="em moon" src="images/twemoji/1f319.svg" alt="">
+      <img class="em sun" src="images/twemoji/2600.svg" alt="">
+    </button>
+  </div>
+</header>
+
+<div class="fz-ticker">
+  <button type="button" class="flag" id="fz-tick-btn" aria-pressed="false">NEW</button>
+  <div class="lane"><div class="track">
+    <span>Built by hand for Comm 360 at the University of Louisville.</span>
+    <span class="sep">&#9679;</span>
+    <span>No frameworks, no build step, one stylesheet. <em>On purpose.</em></span>
+    <span class="sep">&#9679;</span>
+    <span>Questions or corrections? The email link is in the footer.</span>
+  </div></div>
+</div>
+
+<main class="fz-main" id="main">
+  <span class="fz-kicker"><span class="dot"></span>about this site</span>
+  <h1 class="fz-h1">About fizzle</h1>
+  <p class="fz-hook">Fizzle is a small collection of interactive science demos, built by hand as a final project for Comm 360 at the University of Louisville.</p>
+
+  <div class="fz-photos">
+    <figure>
+      <img src="images/about-photo-1.svg" alt="The desk where this site was built" width="340" height="255">
+      <figcaption>The desk this site was built on.</figcaption>
+    </figure>
+    <figure>
+      <img src="images/about-photo-2.svg" alt="Early sketches of the demo page layouts" width="340" height="255">
+      <figcaption>Early sketches of the demo layouts.</figcaption>
+    </figure>
+  </div>
+
+  <div class="fz-prose">
+    <h2>What this is for</h2>
+    <p>Most science explanations online are articles with a diagram bolted on. You read a paragraph about periodic trends, look at a static image of the table, and hope the idea sticks. It usually does not, because reading about a pattern and seeing a pattern move are different experiences. Fizzle exists to close that gap in the smallest way possible: pick up one idea, give it a control the reader can move, and let the result answer the question faster than a paragraph could.</p>
+    <p>The intended reader is anyone curious with a browser open. There is no assumed background beyond high school science, no jargon that is not defined on the page where it appears, and no account required for anything. Each experiment is meant to be understood in a couple of minutes and abandoned without guilt. If a demo makes one idea click, it did its job.</p>
+
+    <h2>How it was built</h2>
+    <p>Every page here is hand-written HTML. There is one external stylesheet, fizzle.css, linked from all ten pages, and it carries essentially all of the styling through custom properties for the two color themes. The interactive parts are plain JavaScript, one small script per demo, named in the header bar of each demo stage so the source is easy to find. There is no framework, no bundler, and no build step. The fonts and icons are stored in this folder rather than loaded from a content delivery network, so the site works offline and depends on nothing outside itself.</p>
+    <p>The color themes are Catppuccin Latte and Mocha, with a lavender accent and one color per subject: teal for chemistry, green for biology, violet for physics. The theme toggle in the header follows your system preference on the first visit and remembers your choice after that. The guestbook and the visitor counter both use your browser's local storage, which is the whole backend. No cookies, no trackers, no server-side code.</p>
+
+    <h2>A note on AI assistance</h2>
+    <p>An AI assistant (Claude) helped write parts of this site, including sections of the HTML structure, the CSS, the JavaScript for the demos, and drafts of this prose. Every file on the site carries a comment at the top saying so, which is the disclosure the course requires. The design direction, the choice of experiments, the science being explained, and the final editing are mine. Where a simulation simplifies something, the page it lives on says so directly rather than leaving the reader to assume the model is complete.</p>
+
+    <h2>Credits</h2>
+    <p>Icons are Twemoji, copyright Twitter/X and contributors, licensed under CC-BY 4.0 and stored locally in this project. Typefaces are Sora and Karla for text and Hack for monospace, all open licensed and self-hosted. Element data comes from PubChem, and the rocket figures come from public NASA documentation. The full source list is on the <a href="reference.html">reference page</a>.</p>
+
+    <h2>Elsewhere on this site</h2>
+    <ul class="fz-related">
+      <li><a href="index.html">the experiment index</a></li>
+      <li><a href="experiments.html">all experiments</a></li>
+      <li><a href="reference.html">constants and sources</a></li>
+      <li><a href="guestbook.html">sign the guestbook</a></li>
+    </ul>
+  </div>
+</main>
+
+<footer class="fz-foot">
+  <div class="cols">
+    <div>
+      <h2>All 10 pages</h2>
+      <ul class="fz-sitemap">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="periodic.html">Periodic Trends</a></li>
+        <li><a href="cells.html">Cell Explorer</a></li>
+        <li><a href="rocket.html">Rocket Lab: &Delta;v</a></li>
+        <li><a href="decay.html">Nuclide Decay</a></li>
+        <li><a href="moths.html">Peppered Moths</a></li>
+        <li><a href="experiments.html">All Experiments</a></li>
+        <li><a href="reference.html">Reference Tables</a></li>
+        <li><a href="guestbook.html">Guestbook</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Elsewhere</h2>
+      <ul>
+        <li><a href="mailto:hello@zainham.com"><img class="em" src="images/twemoji/2709.svg" alt=""> hello@zainham.com</a></li>
+        <li><a href="https://www.nasa.gov/">&#8599; NASA.gov</a></li>
+        <li><a href="https://pubchem.ncbi.nlm.nih.gov/">&#8599; PubChem</a></li>
+        <li><a href="#top">&#8593; Back to top</a></li>
+      </ul>
+    </div>
+    <div class="fz-counter">
+      <span class="lab">visitor number</span>
+      <div class="fz-odo"><span>0</span><span>0</span><span>1</span><span>2</span><span>0</span><span>8</span></div>
+      <div class="fz-badges">
+        <img src="images/badge-1.svg" alt="88 by 31 button badge: HTML written by hand" width="88" height="31">
+        <img src="images/badge-2.svg" alt="88 by 31 button badge: CSS, one file, no build step" width="88" height="31">
+        <img src="images/badge-3.svg" alt="88 by 31 button badge: powered by science" width="88" height="31">
+        <img src="images/badge-4.svg" alt="88 by 31 button badge: zero cookies, zero trackers" width="88" height="31">
+      </div>
+    </div>
+  </div>
+  <div class="base">
+    <span>&copy; 2026 fizzle &middot; built by hand for Comm 360</span>
+    <span>no cookies &middot; no trackers &middot; just science</span>
+  </div>
+</footer>
+</body>
+</html>
