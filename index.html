@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!-- AI-ASSISTED: portions of this file were written with the help of an AI assistant (Claude), per course policy.
+     Twemoji icons (images/twemoji/) are copyright Twitter/X and contributors, licensed CC-BY 4.0. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>fizzle. &middot; a tiny science playground</title>
+<meta name="description" content="Fizzle is a set of small interactive science experiments in chemistry, biology, and physics. Everything runs in your browser.">
+<link rel="stylesheet" href="fizzle.css">
+<link rel="icon" href="images/twemoji/26a1.svg">
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<a class="fz-skip" href="#main">Skip to content</a>
+<header class="fz-head" id="top">
+  <a class="fz-logo" href="index.html">
+    <span class="word">fi<em>z</em><em>z</em>le<em>.</em></span>
+    <span class="dom">a tiny science playground</span>
+  </a>
+  <div class="fz-headright">
+    <nav class="fz-nav" aria-label="Main navigation">
+      <a href="index.html" class="on">Home</a>
+      <a href="experiments.html">Experiments</a>
+      <a href="reference.html">Reference</a>
+      <a href="guestbook.html">Guestbook</a>
+      <a href="about.html">About</a>
+    </nav>
+    <button class="fz-theme" type="button" aria-label="Toggle dark or light theme">
+      <img class="em moon" src="images/twemoji/1f319.svg" alt="">
+      <img class="em sun" src="images/twemoji/2600.svg" alt="">
+    </button>
+  </div>
+</header>
+
+<div class="fz-ticker">
+  <button type="button" class="flag" id="fz-tick-btn" aria-pressed="false">NEW</button>
+  <div class="lane"><div class="track">
+    <span>All five experiments are live. Start anywhere.</span>
+    <span class="sep">&#9679;</span>
+    <span>Rocket Lab tip: more fuel is not always the answer. <em>The equation is logarithmic.</em></span>
+    <span class="sep">&#9679;</span>
+    <span>The <em>guestbook</em> is open. Sign the wall.</span>
+  </div></div>
+</div>
+
+<main class="fz-main" id="main">
+  <div class="fz-hero">
+    <span class="fz-kicker"><span class="dot"></span>index of experiments</span>
+    <h1 class="fz-h1">Science you can poke at.</h1>
+    <p class="fz-hook">Fizzle is a set of small interactive experiments in chemistry, biology, and physics. Each one runs in your browser and does a single thing well. No accounts, no installs, no waiting. Pick one below and start poking.</p>
+    <div class="fz-stats">
+      <span>experiments online: <strong>5 / 5</strong></span>
+      <span>subjects: <strong>chem &middot; bio &middot; physics</strong></span>
+      <span>dependencies: <strong>0</strong></span>
+      <span>cost: <strong>$0.00</strong></span>
+    </div>
+  </div>
+
+  <div class="fz-dirhead">
+    <h2>The experiments</h2>
+    <a href="experiments.html">view as table &rarr;</a>
+  </div>
+  <div class="fz-dir">
+    <a class="fz-exp" href="periodic.html">
+      <span class="idx">01</span>
+      <span class="subj chem">Chemistry</span>
+      <div><h3>Periodic Trends</h3><p>Pick a trend and watch it move across all 118 elements.</p></div>
+      <span class="status ready">ready</span>
+      <span class="arrow">&rarr;</span>
+    </a>
+    <a class="fz-exp" href="cells.html">
+      <span class="idx">02</span>
+      <span class="subj bio">Biology</span>
+      <div><h3>Cell Explorer</h3><p>Compare animal, plant, and bacterial cells, one organelle at a time.</p></div>
+      <span class="status ready">ready</span>
+      <span class="arrow">&rarr;</span>
+    </a>
+    <a class="fz-exp" href="rocket.html">
+      <span class="idx">03</span>
+      <span class="subj phys">Physics</span>
+      <div><h3>Rocket Lab: &Delta;v</h3><p>Set fuel, dry mass, and engine, then check if you reach orbit.</p></div>
+      <span class="status ready">ready</span>
+      <span class="arrow">&rarr;</span>
+    </a>
+    <a class="fz-exp" href="decay.html">
+      <span class="idx">04</span>
+      <span class="subj chem">Chemistry</span>
+      <div><h3>Nuclide Decay</h3><p>Pick an isotope off the chart of nuclides and watch it decay toward stability.</p></div>
+      <span class="status ready">ready</span>
+      <span class="arrow">&rarr;</span>
+    </a>
+    <a class="fz-exp" href="moths.html">
+      <span class="idx">05</span>
+      <span class="subj bio">Biology</span>
+      <div><h3>Peppered Moths</h3><p>Play predator and watch natural selection shift a moth population.</p></div>
+      <span class="status ready">ready</span>
+      <span class="arrow">&rarr;</span>
+    </a>
+  </div>
+
+  <div class="fz-row3">
+    <a class="fz-mini" href="experiments.html">
+      <div class="ico"><img class="em" src="images/twemoji/1f4cb.svg" alt=""></div>
+      <div><h3>All Experiments</h3><p>The full lineup in one table.</p></div>
+    </a>
+    <a class="fz-mini" href="reference.html">
+      <div class="ico"><img class="em" src="images/twemoji/1f4da.svg" alt=""></div>
+      <div><h3>Reference Tables</h3><p>Constants and data behind the demos.</p></div>
+    </a>
+    <a class="fz-mini" href="guestbook.html">
+      <div class="ico"><img class="em" src="images/twemoji/1f4dd.svg" alt=""></div>
+      <div><h3>Guestbook</h3><p>Leave a note on the wall.</p></div>
+    </a>
+  </div>
+
+  <div class="fz-prose">
+    <h2>What this site is</h2>
+    <p>Every page here follows the same rule: one idea, one interaction, instant feedback. You do not read about periodic trends, you switch the color scale on the table and watch them appear. You do not memorize the parts of a cell, you click them and see what each one does. The demos are simplified on purpose, and each page says exactly where it cuts corners. When you want the numbers behind an experiment, the <a href="reference.html">reference tables</a> hold the constants and sources. When something surprises you, or breaks, the <a href="guestbook.html">guestbook</a> is the place to say so.</p>
+  </div>
+</main>
+
+<footer class="fz-foot">
+  <div class="cols">
+    <div>
+      <h2>All 10 pages</h2>
+      <ul class="fz-sitemap">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="periodic.html">Periodic Trends</a></li>
+        <li><a href="cells.html">Cell Explorer</a></li>
+        <li><a href="rocket.html">Rocket Lab: &Delta;v</a></li>
+        <li><a href="decay.html">Nuclide Decay</a></li>
+        <li><a href="moths.html">Peppered Moths</a></li>
+        <li><a href="experiments.html">All Experiments</a></li>
+        <li><a href="reference.html">Reference Tables</a></li>
+        <li><a href="guestbook.html">Guestbook</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Elsewhere</h2>
+      <ul>
+        <li><a href="mailto:hello@zainham.com"><img class="em" src="images/twemoji/2709.svg" alt=""> hello@zainham.com</a></li>
+        <li><a href="https://www.nasa.gov/">&#8599; NASA.gov</a></li>
+        <li><a href="https://pubchem.ncbi.nlm.nih.gov/">&#8599; PubChem</a></li>
+        <li><a href="#top">&#8593; Back to top</a></li>
+      </ul>
+    </div>
+    <div class="fz-counter">
+      <span class="lab">visitor number</span>
+      <div class="fz-odo"><span>0</span><span>0</span><span>1</span><span>2</span><span>0</span><span>8</span></div>
+      <div class="fz-badges">
+        <img src="images/badge-1.svg" alt="88 by 31 button badge: HTML written by hand" width="88" height="31">
+        <img src="images/badge-2.svg" alt="88 by 31 button badge: CSS, one file, no build step" width="88" height="31">
+        <img src="images/badge-3.svg" alt="88 by 31 button badge: powered by science" width="88" height="31">
+        <img src="images/badge-4.svg" alt="88 by 31 button badge: zero cookies, zero trackers" width="88" height="31">
+      </div>
+    </div>
+  </div>
+  <div class="base">
+    <span>&copy; 2026 fizzle &middot; built by hand for Comm 360</span>
+    <span>no cookies &middot; no trackers &middot; just science</span>
+  </div>
+</footer>
+</body>
+</html>
