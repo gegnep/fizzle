@@ -27,6 +27,66 @@
   ];
 
   var dry, fuel, isp, dryOut, fuelOut, ispOut, fill, goal, dvLabel, verdict, read, tank, flame;
+  var pathEl, craftEl, orbitLab;
+
+  /* ---------- trajectory drawing ----------
+     Side view of Earth: centre (160,176), radius 88, launch site at the top
+     (160,88). The shape of the path is chosen by how much of the orbital
+     budget you bought, which is the whole point of the page. */
+  var CX = 160, CY = 176, R = 88;
+
+  function trajectory(ratio) {
+    if (ratio < 0.30) {
+      /* barely leaves the pad */
+      return { d: "M160 88 q9 -13 18 -2 q8 9 17 20", lab: "ballistic arc" };
+    }
+    if (ratio < 0.60) {
+      /* a real arc, still falls straight back down */
+      return { d: "M160 88 q30 -40 66 -6 q20 19 33 46", lab: "high ballistic arc" };
+    }
+    if (ratio < 0.85) {
+      /* suborbital: crosses space, comes back */
+      return { d: "M160 88 q52 -58 104 -8 q30 27 40 78", lab: "suborbital, comes back down" };
+    }
+    if (ratio < 1.0) {
+      /* almost closes the circle */
+      return { d: arc(0.82), lab: "almost an orbit, and almost does not count" };
+    }
+    if (ratio < 1.35) {
+      /* a closed circular orbit */
+      return { d: circle(R + 36), lab: "closed orbit", closed: true };
+    }
+    /* escape: opens out and never returns */
+    return { d: "M160 88 C246 64 306 126 314 46", lab: "escape trajectory, never returns" };
+  }
+
+  function circle(r) {
+    return "M" + CX + " " + (CY - r) +
+      " a" + r + " " + r + " 0 1 1 -0.1 0 z";
+  }
+
+  function arc(frac) {
+    /* an open arc of the orbit, swept clockwise from the launch site */
+    var r = R + 30;
+    var a = -Math.PI / 2 + Math.PI * 2 * frac;
+    var x = CX + r * Math.cos(a), y = CY + r * Math.sin(a);
+    var large = frac > 0.5 ? 1 : 0;
+    return "M" + CX + " " + (CY - r) + " A" + r + " " + r + " 0 " + large + " 1 " +
+      x.toFixed(1) + " " + y.toFixed(1);
+  }
+
+  function drawPath(ratio) {
+    var t = trajectory(ratio);
+    pathEl.setAttribute("d", t.d);
+    orbitLab.textContent = t.lab;
+    /* park the craft at the end of the drawn path */
+    var len = pathEl.getTotalLength ? pathEl.getTotalLength() : 0;
+    if (len) {
+      var p = pathEl.getPointAtLength(t.closed ? len * 0.25 : len);
+      craftEl.setAttribute("cx", p.x);
+      craftEl.setAttribute("cy", p.y);
+    }
+  }
 
   function update() {
     var m1 = parseFloat(dry.value);                 /* dry mass, tonnes */
@@ -74,6 +134,9 @@
       Math.round(eng.isp * G0).toLocaleString("en-US") + " m/s";
     read.appendChild(strong);
     read.appendChild(detail);
+
+    /* an ion thruster never leaves the pad, whatever the equation says */
+    drawPath(eng.isp >= 3000 ? 0 : ratio);
   }
 
   function init() {
@@ -90,6 +153,9 @@
     read = document.getElementById("rk-read");
     tank = document.getElementById("rk-tank");
     flame = document.getElementById("rk-flame");
+    pathEl = document.getElementById("rk-path");
+    craftEl = document.getElementById("rk-craft");
+    orbitLab = document.getElementById("rk-orbitlab");
 
     [dry, fuel, isp].forEach(function (el) {
       el.addEventListener("input", update);

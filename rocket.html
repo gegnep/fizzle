@@ -59,6 +59,24 @@
     <div class="bar"><span>js/rocket.js</span><span class="howto">&#9654; drag the sliders and watch the verdict change</span></div>
     <div class="well">
       <div class="rk-wrap">
+        <div class="rk-orbit">
+          <svg viewBox="0 0 320 300" role="img" aria-labelledby="rk-orbit-title">
+            <title id="rk-orbit-title">Side view of Earth showing the trajectory your rocket achieves</title>
+            <defs>
+              <clipPath id="rk-clip"><rect x="0" y="0" width="320" height="300"/></clipPath>
+            </defs>
+            <g clip-path="url(#rk-clip)">
+              <circle cx="160" cy="176" r="88" fill="var(--phys-soft)" stroke="var(--border)" stroke-width="2.5"/>
+              <path d="M112 120 q20 -8 34 3 q17 -12 34 -1" fill="none" stroke="var(--phys)" stroke-width="2" opacity=".45"/>
+              <path d="M92 158 q26 -11 48 2" fill="none" stroke="var(--phys)" stroke-width="2" opacity=".3"/>
+              <path d="M120 216 q30 -12 56 3" fill="none" stroke="var(--phys)" stroke-width="2" opacity=".3"/>
+              <circle id="rk-site" cx="160" cy="88" r="5" fill="var(--pink)" stroke="var(--border)" stroke-width="2"/>
+              <path id="rk-path" d="" fill="none" stroke="var(--pink)" stroke-width="3" stroke-linecap="round"/>
+              <circle id="rk-craft" cx="160" cy="88" r="4.5" fill="var(--card)" stroke="var(--border)" stroke-width="2.5"/>
+            </g>
+          </svg>
+          <p class="rk-orbitlab" id="rk-orbitlab">ballistic arc</p>
+        </div>
         <div class="rk-svg">
           <svg viewBox="0 0 120 260" role="img" aria-label="Diagram of a rocket whose fuel tank fills as you add fuel">
             <path d="M60 8 q26 40 26 96 v96 h-52 v-96 q0 -56 26 -96 z" fill="var(--card)" stroke="var(--border)" stroke-width="3"/>
@@ -94,7 +112,7 @@
       <div class="fz-read" id="rk-read" role="status" aria-live="polite"><span>waiting for input&hellip;</span></div>
     </div>
   </div>
-  <p class="fz-caption">How this works: the sliders feed the Tsiolkovsky rocket equation, delta-v equals exhaust velocity times the natural log of wet mass over dry mass. The bar compares what you built against roughly 9.4 km/s, the real delta-v budget for low Earth orbit including drag and gravity losses.</p>
+  <p class="fz-caption">How this works: the sliders feed the Tsiolkovsky rocket equation, delta-v equals exhaust velocity times the natural log of wet mass over dry mass. The bar compares what you built against roughly 9.4 km/s, the real delta-v budget for low Earth orbit including drag and gravity losses. The panel on the left redraws the trajectory that buys you: a ballistic arc, a suborbital hop that falls back, a closed orbit, or an escape path. The drawing is schematic and not to scale.</p>
 
   <div class="fz-prose">
     <h2>Why fuel gives less than you expect</h2>
