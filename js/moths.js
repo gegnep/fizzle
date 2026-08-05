@@ -10,7 +10,9 @@
   "use strict";
 
   var POP = 20;
-  var CATCHES = 6;
+  var INFLUX = 0.20;      /* share of each generation that flies in from nearby woods */
+  var MIN_MORPH = 2;      /* never let either form disappear entirely */
+  var CATCHES = 5;
   var GENS_PER_ERA = 4;
   var MAX_GEN = 12;          /* 3 eras of 4 generations each */
 
@@ -45,6 +47,19 @@
         eaten: false
       });
     }
+    ensureBoth();
+  }
+
+  /* Guarantee a couple of each form. A binomial draw at a low frequency can
+     still come out empty, and an empty morph makes the next era unplayable. */
+  function ensureBoth() {
+    [true, false].forEach(function (want) {
+      var have = moths.filter(function (x) { return x.dark === want; });
+      var others = moths.filter(function (x) { return x.dark !== want; });
+      for (var k = have.length; k < MIN_MORPH && others.length > k; k++) {
+        others[k].dark = want;
+      }
+    });
   }
 
   function mothSVG(dark) {
@@ -159,9 +174,10 @@
     }
     var darkFrac = alive.filter(function (m) { return m.dark; }).length / alive.length;
     history.push(Math.round(darkFrac * 100));
-    /* resample the survivors color frequency, with a small mutation rate */
-    var mutation = 0.02;
-    var next = darkFrac * (1 - mutation) + (1 - darkFrac) * mutation;
+    /* Resample the survivors color frequency, then mix in moths arriving from
+       neighbouring woodland. That gene flow is real biology, and it is also
+       what keeps a wiped-out morph available for a later era to select on. */
+    var next = darkFrac * (1 - INFLUX) + 0.5 * INFLUX;
     gen++;
     left = CATCHES;
     var wasEra = era;
@@ -183,7 +199,7 @@
     era = 0;
     spawn(0.5);
     draw();
-    say("Fresh population, half dark and half pale. " + ERAS[era].note +
+    say("Fresh population, a rough even mix. " + ERAS[era].note +
         " Eat " + CATCHES + " moths, then breed.");
   }
 

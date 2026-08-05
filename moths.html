@@ -56,7 +56,7 @@
   </div>
 
   <div class="fz-stage">
-    <div class="bar"><span>js/moths.js</span><span class="howto">&#9654; eat 6 moths, then breed. 12 generations across 3 eras.</span></div>
+    <div class="bar"><span>js/moths.js</span><span class="howto">&#9654; eat 5 moths, then breed. 12 generations across 3 eras.</span></div>
     <div class="well">
       <div class="mo-wrap">
         <div class="mo-scenebox">
@@ -74,7 +74,7 @@
           </div>
           <div class="mo-stats">
             <span>generation: <strong id="mo-gen">1</strong> of 12</span>
-            <span>catches left: <strong id="mo-left">6</strong></span>
+            <span>catches left: <strong id="mo-left">5</strong></span>
             <span>dark moths: <strong id="mo-pct">50%</strong></span>
             <div class="mo-split"><span class="lite" id="mo-lite"></span><span class="dark" id="mo-dark"></span></div>
           </div>
@@ -91,13 +91,13 @@
       <div class="fz-read" id="mo-read" role="status" aria-live="polite"><span>eat some moths to begin&hellip;</span></div>
     </div>
   </div>
-  <p class="fz-caption">How this works: twenty moths sit on bark at random positions. Moths that contrast with the bark are easier for you to spot, so they get eaten more. The next generation is drawn from the survivors' color frequency, plus a small mutation rate. That is a shortcut: it tracks the population's color mix rather than individual genotypes. Population size and catches per round are fixed so the simulation cannot be broken.</p>
+  <p class="fz-caption">How this works: twenty moths sit on bark at random positions. Moths that contrast with the bark are easier for you to spot, so they get eaten more. The next generation is drawn from the survivors' color frequency, with a fifth of it arriving from neighbouring woodland. That gene flow is real, and it also keeps both forms available so a later era still has something to select on. The model tracks the population's color mix rather than individual genotypes. Population size and catches per round are fixed so the simulation cannot be broken.</p>
 
   <div class="fz-prose">
     <h2>Industrial melanism, the case everyone cites</h2>
     <p>Before the 1800s, almost every peppered moth in Britain was pale and speckled, which matched the lichen on the trees it rested on. Coal soot killed the lichen and darkened the bark, and within a few decades dark moths went from rare to dominant near industrial cities. After the Clean Air Acts of the mid-twentieth century the bark lightened again, and the pale form recovered. Field biologists watched the whole reversal happen, which is what makes this the textbook case: selection observed in a wild population, in both directions, on a timescale a person can live through.</p>
     <p>The important part is what selection did not do. No moth changed color to hide better, and soot did not cause dark moths to appear. Both forms already existed in the population, produced by an ordinary genetic difference. Changing the bark changed only which of the two got eaten first, and eating is the whole mechanism. Selection sorts variation that is already there, generation after generation, and the population average drifts as a side effect of who survived to breed.</p>
-    <p>This simulation is honest about being simple. Real inheritance in peppered moths runs on a single dominant allele. This model does not track alleles at all. It measures the color mix of whoever survived and draws the next generation from that, which reproduces the trend without the genetics. Real populations also move between trees, face several predators, and number in the thousands. Twenty moths and a fixed budget of six catches per generation will not give you publication-grade numbers. Twelve generations give you the shape of the effect. The bark changes under you twice, once when the soot arrives and once when it clears, and the population chases each change a few generations behind.</p>
+    <p>This simulation is honest about being simple. Real inheritance in peppered moths runs on a single dominant allele. This model does not track alleles at all. It measures the color mix of whoever survived and draws the next generation from that, which reproduces the trend without the genetics. Real populations also move between trees, face several predators, and number in the thousands. Twenty moths and a fixed budget of five catches per generation will not give you publication-grade numbers. Twelve generations give you the shape of the effect. The bark changes under you twice, once when the soot arrives and once when it clears, and the population chases each change a few generations behind.</p>
     <h2>Related concepts</h2>
     <ul class="fz-related">
       <li><a href="cells.html">DNA and inheritance</a></li>
