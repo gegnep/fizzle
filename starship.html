@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!-- AI-ASSISTED: portions of this file were written with the help of an AI assistant (Claude), per course policy.
+     Twemoji icons (images/twemoji/) are copyright Twitter/X and contributors, licensed CC-BY 4.0. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Starship Clock &middot; fizzle.</title>
+<meta name="description" content="How long an interstellar trip takes for you, and how long it takes for everyone you left behind.">
+<link rel="stylesheet" href="fizzle.css">
+<link rel="icon" href="images/twemoji/26a1.svg">
+<script src="js/site.js" defer></script>
+<script src="js/starship.js" defer></script>
+</head>
+<body class="phys">
+<a class="fz-skip" href="#main">Skip to content</a>
+<header class="fz-head" id="top">
+  <a class="fz-logo" href="index.html">
+    <span class="word">fi<em>z</em><em>z</em>le<em>.</em></span>
+    <span class="dom">a tiny science playground</span>
+  </a>
+  <div class="fz-headright">
+    <nav class="fz-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="experiments.html" class="on">Experiments</a>
+      <a href="reference.html">Reference</a>
+      <a href="guestbook.html">Guestbook</a>
+      <a href="about.html">About</a>
+    </nav>
+    <button class="fz-theme" type="button" aria-label="Toggle dark or light theme">
+      <img class="em moon" src="images/twemoji/1f319.svg" alt="">
+      <img class="em sun" src="images/twemoji/2600.svg" alt="">
+    </button>
+  </div>
+</header>
+
+<div class="fz-ticker">
+  <button type="button" class="flag" id="fz-tick-btn" aria-pressed="false">NEW</button>
+  <div class="lane"><div class="track">
+    <span>Physics note: <em>the clock you carry is the only one you actually live through.</em></span>
+    <span class="sep">&#9679;</span>
+    <span>One g of constant boost reaches Andromeda in a human lifetime. Earth waits two and a half million years.</span>
+    <span class="sep">&#9679;</span>
+    <span>This page ignores fuel completely. <em>Rocket Lab explains why that is cheating.</em></span>
+  </div></div>
+</div>
+
+<main class="fz-main" id="main">
+  <div class="fz-lede">
+    <div class="txt">
+      <h1 class="fz-h1">Starship Clock</h1>
+      <p class="fz-hook">Go fast enough and the trip gets shorter for you but not for anyone watching. Pick a destination, design a ship, and compare the two clocks.</p>
+    </div>
+    <img class="fz-hero-art" src="images/hero-starship.svg" alt="Flat illustration of a starship crossing a dashed course between two clock faces reading different times" width="250" height="190">
+  </div>
+
+  <div class="fz-stage">
+    <div class="bar"><span>js/starship.js</span><span class="howto">&#9654; pick a destination, then set the two dials</span></div>
+    <div class="well">
+      <p class="ss-dest"><strong id="ss-dest">Proxima Centauri</strong> <span id="ss-dist">4.25 light years away</span></p>
+
+      <div class="ss-controls">
+        <div class="row">
+          <label for="ss-beta">Steady cruise speed <output id="ss-beta-out" for="ss-beta">20% of c</output></label>
+          <input type="range" id="ss-beta" min="1" max="99" step="1" value="20">
+        </div>
+        <div class="row">
+          <label for="ss-accel">Constant boost <output id="ss-accel-out" for="ss-accel">1.0 g</output></label>
+          <input type="range" id="ss-accel" min="5" max="30" step="1" value="10">
+        </div>
+      </div>
+
+      <div class="ss-cards">
+        <div class="ss-card boost">
+          <p class="ss-cardhead">constant boost, flip at the midpoint</p>
+          <p class="big"><strong id="ss-b-you">3.54</strong> years</p>
+          <p class="lab">pass on your clock</p>
+          <p class="foot">Earth waits <strong id="ss-b-earth">5.87</strong> years &middot; top speed <strong id="ss-b-peak">95.0%</strong> of c</p>
+        </div>
+        <div class="ss-card cruise">
+          <p class="ss-cardhead">steady cruise, one speed the whole way</p>
+          <p class="big"><strong id="ss-c-you">20.80</strong> years</p>
+          <p class="lab">pass on your clock</p>
+          <p class="foot">Earth waits <strong id="ss-c-earth">21.23</strong> years &middot; clocks slowed <strong id="ss-c-gamma">1.02</strong>&times;</p>
+        </div>
+      </div>
+
+      <h3 class="ss-maphead">Every destination, on one time axis</h3>
+      <div class="ss-legend" id="ss-legend"></div>
+      <div class="ss-map" id="ss-map"></div>
+      <div class="ss-axis" id="ss-axis"></div>
+
+      <div class="fz-read" id="ss-read" role="status" aria-live="polite"><span>loading destinations&hellip;</span></div>
+    </div>
+  </div>
+  <p class="fz-caption">How this works: the cruise numbers come straight from the Lorentz factor. The boost numbers come from the relativistic rocket, burning at a fixed proper acceleration to the midpoint, flipping, and decelerating in, so you arrive at rest rather than tearing past. Proper acceleration is what the crew feels underfoot, which is why one g is the comfortable setting. The time axis is logarithmic, because the numbers on it span eight decades.</p>
+
+  <div class="fz-prose">
+    <h2>Why speed alone does not save you</h2>
+    <p>Set the cruise dial to twenty percent of light speed and look at what it buys. Proxima Centauri takes about twenty one years of Earth time, and your own clock reads about twenty and a half years. You saved a few months. Time dilation is real at that speed, but it is a two percent effect, and no amount of patience turns it into anything better.</p>
+    <p>The reason is the shape of the Lorentz factor. It sits near one for most of the range and only climbs steeply once you are already close to light speed. At half of c your clock runs about fifteen percent slow. At ninety percent it is a factor of two. At ninety nine percent it is seven, and at that point the trip to Proxima takes you seven months. Every useful thing dilation does for a traveller happens in the last sliver of the dial.</p>
+
+    <h2>Why constant boost changes the problem</h2>
+    <p>The second dial does something different. Instead of picking a speed you pick an acceleration and never stop, so you spend the whole trip climbing into the part of the curve where dilation actually bites. One g is a natural setting because it feels like standing on Earth, and it happens to be worth roughly one light year per year of ship time once you are up to speed.</p>
+    <p>Push the map out to the far destinations and the two clocks come apart completely. The galactic centre is twenty six thousand light years away, and under one g you would get there in about twenty years of your own life. Andromeda is two and a half million light years away, and you would arrive after about twenty eight years aboard. Nothing you left behind survives either trip. The ship clock stays human while the Earth clock runs to geological time, and the gap is not a trick of the drive, it is what the geometry does.</p>
+
+    <h2>What this page is cheating at</h2>
+    <p>Fuel. All of it. This page takes acceleration as a given and never asks where the energy comes from, which is exactly the thing that makes interstellar travel hard rather than merely far. <a href="rocket.html">Rocket Lab</a> is the honest counterweight: the rocket equation charges you a logarithmic tax for every extra unit of velocity, and holding one g for years is far outside what any propulsion we have could pay for. A real ship also has to survive dust at those speeds, where a grain of sand carries the energy of a bomb, and has to navigate toward where a star will be rather than where it is now.</p>
+    <p>The distances here are current values and the stars are moving. Barnard's Star in particular is closing on us and will be almost a light year nearer in ten thousand years, which barely matters for a trip you would make tomorrow and matters a great deal for one you would make under cruise.</p>
+
+    <h2>Related concepts</h2>
+    <ul class="fz-related">
+      <li><a href="rocket.html">the rocket equation</a></li>
+      <li><a href="reference.html">the speed of light</a></li>
+      <li><a href="decay.html">clocks and half-lives</a></li>
+      <li><a href="https://www.nasa.gov/">NASA on interstellar travel</a></li>
+    </ul>
+  </div>
+</main>
+
+<footer class="fz-foot">
+  <div class="cols">
+    <div>
+      <h2>All 11 pages</h2>
+      <ul class="fz-sitemap">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="periodic.html">Periodic Trends</a></li>
+        <li><a href="cells.html">Cell Explorer</a></li>
+        <li><a href="rocket.html">Rocket Lab: &Delta;v</a></li>
+        <li><a href="starship.html">Starship Clock</a></li>
+        <li><a href="decay.html">Nuclide Decay</a></li>
+        <li><a href="moths.html">Peppered Moths</a></li>
+        <li><a href="experiments.html">All Experiments</a></li>
+        <li><a href="reference.html">Reference Tables</a></li>
+        <li><a href="guestbook.html">Guestbook</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Elsewhere</h2>
+      <ul>
+        <li><a href="mailto:hello@zainham.com"><img class="em" src="images/twemoji/2709.svg" alt=""> hello@zainham.com</a></li>
+        <li><a href="https://www.nasa.gov/">&#8599; NASA.gov</a></li>
+        <li><a href="https://pubchem.ncbi.nlm.nih.gov/">&#8599; PubChem</a></li>
+        <li><a href="#top">&#8593; Back to top</a></li>
+      </ul>
+    </div>
+    <div class="fz-counter">
+      <span class="lab">visitor number</span>
+      <div class="fz-odo"><span>0</span><span>0</span><span>1</span><span>2</span><span>0</span><span>8</span></div>
+      <div class="fz-badges">
+        <img src="images/badge-1.svg" alt="88 by 31 button badge: HTML written by hand" width="88" height="31">
+        <img src="images/badge-2.svg" alt="88 by 31 button badge: CSS, one file, no build step" width="88" height="31">
+        <img src="images/badge-3.svg" alt="88 by 31 button badge: powered by science" width="88" height="31">
+        <img src="images/badge-4.svg" alt="88 by 31 button badge: zero cookies, zero trackers" width="88" height="31">
+      </div>
+    </div>
+  </div>
+  <div class="base">
+    <span>&copy; 2026 fizzle &middot; built by hand for Comm 360</span>
+    <span>no cookies &middot; no trackers &middot; just science</span>
+  </div>
+</footer>
+</body>
+</html>
