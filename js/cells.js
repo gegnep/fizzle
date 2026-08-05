@@ -1,7 +1,12 @@
 /* AI-ASSISTED: portions of this file were written with the help of an AI assistant (Claude), per course policy. */
 /* cells.js: the Cell Explorer.
    Three hand-drawn SVG cells. Every organelle is a clickable shape paired with
-   a list entry; selecting either fills the readout strip. */
+   a list entry; selecting either fills the readout strip.
+
+   TODO: this demo is the least finished of the five and is due for a rework.
+   The diagrams are rough, the organelle shapes are approximate, and the
+   layout does not use the stage as well as the other experiments do.
+   Deliberately left as is pending that pass. See NOTES.md. */
 
 (function () {
   "use strict";
