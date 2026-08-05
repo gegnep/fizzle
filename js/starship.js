@@ -25,7 +25,8 @@
 
   /* one g expressed in light years per year squared */
   var G = 9.80665 * Math.pow(3.15576e7, 2) / 9.4607304725808e15;   /* about 1.032 */
-  var T_MAX_LOG = 8;              /* the time axis runs 1 year to 100 million */
+  var T_MIN_LOG = -1;             /* the time axis runs five weeks to 100 million years */
+  var T_MAX_LOG = 8;
 
   var DESTINATIONS = [
     { id: "proxima", name: "Proxima Centauri", d: 4.2465,
@@ -53,9 +54,10 @@
   ];
 
   var MARKERS = [
-    ["you-boost", "your clock, accelerating", "var(--phys)"],
-    ["you-cruise", "your clock, constant velocity", "var(--yellow)"],
-    ["earth", "Earth clock, normal time", "var(--subtext)"]
+    ["you-acc", "your clock, accelerating", "var(--phys)", false],
+    ["you-cv", "your clock, constant velocity", "var(--yellow)", false],
+    ["earth-acc", "Earth clock, accelerating trip", "var(--subtext)", false],
+    ["earth-cv", "Earth clock, constant velocity", "var(--subtext)", true]
   ];
 
   var betaEl, accelEl, betaOut, accelOut, mapEl, axisEl, legendEl, read;
@@ -99,7 +101,8 @@
   }
 
   function pos(t) {
-    var p = Math.log(Math.max(t, 1)) / Math.LN10 / T_MAX_LOG * 100;
+    var span = T_MAX_LOG - T_MIN_LOG;
+    var p = (Math.log(Math.max(t, 1e-6)) / Math.LN10 - T_MIN_LOG) / span * 100;
     return Math.max(0, Math.min(100, p));
   }
 
@@ -125,12 +128,13 @@
       var link = document.createElement("span");
       link.className = "link";
       track.appendChild(link);
-      MARKERS.forEach(function (m) {
-        var dot = document.createElement("span");
-        dot.className = "dot " + m[0];
-        dot.style.background = m[2];
-        track.appendChild(dot);
-      });
+      MARKERS.slice().sort(function (a, b) { return (b[3] ? 1 : 0) - (a[3] ? 1 : 0); })
+        .forEach(function (m) {
+          var dot = document.createElement("span");
+          dot.className = "dot " + m[0] + (m[3] ? " ring" : "");
+          if (m[3]) { dot.style.borderColor = m[2]; } else { dot.style.background = m[2]; }
+          track.appendChild(dot);
+        });
 
       row.appendChild(nm);
       row.appendChild(track);
@@ -139,7 +143,7 @@
     });
 
     axisEl.innerHTML = "";
-    [[1, "1 yr"], [10, "10 yr"], [100, "100 yr"], [1e3, "1 kyr"],
+    [[0.1, "5 weeks"], [1, "1 yr"], [10, "10 yr"], [100, "100 yr"], [1e3, "1 kyr"],
      [1e4, "10 kyr"], [1e5, "100 kyr"], [1e6, "1 Myr"], [1e7, "10 Myr"], [1e8, "100 Myr"]]
       .forEach(function (t) {
         var s = document.createElement("span");
@@ -152,7 +156,8 @@
     MARKERS.forEach(function (m) {
       var s = document.createElement("span");
       var sw = document.createElement("span");
-      sw.style.background = m[2];
+      if (m[3]) { sw.className = "ring"; sw.style.borderColor = m[2]; }
+      else { sw.style.background = m[2]; }
       s.appendChild(sw);
       s.appendChild(document.createTextNode(m[1]));
       legendEl.appendChild(s);
@@ -165,14 +170,17 @@
       var row = mapEl.querySelector('[data-id="' + dst.id + '"]');
       if (!row) { return; }
       var b = boost(dst.d, st.gs), c = cruise(dst.d, st.beta);
-      var pB = pos(b.you), pC = pos(c.you), pE = pos(b.earth);
+      var at = { "you-acc": b.you, "earth-acc": b.earth,
+                 "you-cv": c.you, "earth-cv": c.earth };
+      var all = [];
+      MARKERS.forEach(function (m) {
+        var p = pos(at[m[0]]);
+        row.querySelector("." + m[0]).style.left = p + "%";
+        all.push(p);
+      });
 
-      row.querySelector(".you-boost").style.left = pB + "%";
-      row.querySelector(".you-cruise").style.left = pC + "%";
-      row.querySelector(".earth").style.left = pE + "%";
-
-      /* the bar spans from the fastest arrival to what Earth sits through */
-      var lo = Math.min(pB, pC), hi = Math.max(pE, pC);
+      /* the guide spans every clock on this row, fastest arrival to longest wait */
+      var lo = Math.min.apply(null, all), hi = Math.max.apply(null, all);
       var link = row.querySelector(".link");
       link.style.left = lo + "%";
       link.style.width = Math.max(0, hi - lo) + "%";

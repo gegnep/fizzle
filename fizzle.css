@@ -445,7 +445,8 @@ ul.dk-chain li .ct{text-align:right;color:var(--text);font-weight:700}
 .ss-row .track{position:relative;height:16px;border-bottom:1.5px dotted var(--line)}
 .ss-row .link{position:absolute;top:7px;height:2.5px;background:var(--line);border-radius:2px}
 .ss-row .dot{position:absolute;top:3.5px;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;border:1px solid var(--border)}
-.ss-row .dot.earth{background:var(--subtext)}
+.ss-row .dot.ring{width:14px;height:14px;margin-left:-7px;top:1px;background:var(--card);border-width:2px}
+.ss-legend span span.ring{background:var(--card);border-width:2px}
 .ss-axis{position:relative;height:15px;margin-top:2px;margin-left:184px;font-family:var(--font-mono);font-size:9.5px;color:var(--subtext)}
 .ss-axis span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}
 @media (max-width:720px){
