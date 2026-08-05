@@ -180,14 +180,14 @@ body.phys .fz-btn.on{background:var(--phys);border-color:var(--phys);color:var(-
 .pt-controls{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
 .pt{display:grid;grid-template-columns:repeat(18,1fr);gap:3px;position:relative}
 .pt button.el{aspect-ratio:1;border:1px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10px;background:var(--chem-soft);color:var(--text);cursor:pointer;padding:0;min-width:0}
-.pt button.el:hover{outline:2px solid var(--chem);outline-offset:1px;z-index:1}
+.pt button.el:hover{outline:2px solid var(--trend,var(--chem));outline-offset:1px;z-index:1}
 .pt button.el.sel{outline:2.5px solid var(--border);outline-offset:1px;font-weight:700;z-index:2}
 .pt button.el.nodata{border-style:dashed;color:var(--subtext)}
 .pt .gap{grid-column:1 / -1;height:10px}
 .pt .lbl56{border:none;background:none;font-family:var(--font-mono);font-size:9px;color:var(--subtext);display:flex;align-items:center;justify-content:center}
-.pt-arrow{margin:0 0 12px;font-family:var(--font-display);font-weight:600;color:var(--chem);font-size:14px;display:flex;align-items:center;gap:10px}
-.pt-arrow .line{flex:1;height:3px;background:var(--chem);border-radius:2px;position:relative;min-width:60px}
-.pt-arrow .line::after{content:"";position:absolute;right:-2px;top:-5px;border:7px solid transparent;border-left-color:var(--chem)}
+.pt-arrow{margin:0 0 12px;font-family:var(--font-display);font-weight:600;color:var(--trend,var(--chem));font-size:14px;display:flex;align-items:center;gap:10px}
+.pt-arrow .line{flex:1;height:3px;background:var(--trend,var(--chem));border-radius:2px;position:relative;min-width:60px}
+.pt-arrow .line::after{content:"";position:absolute;right:-2px;top:-5px;border:7px solid transparent;border-left-color:var(--trend,var(--chem))}
 
 /* ---------- cells ---------- */
 .cx-tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
@@ -236,7 +236,7 @@ body.phys .fz-btn.on{background:var(--phys);border-color:var(--phys);color:var(-
 .dk-presets .fz-btn{font-family:var(--font-mono);font-size:11.5px;padding:4px 9px}
 .dk-simbox{flex:1 1 340px;min-width:300px}
 .dk-atoms{display:grid;grid-template-columns:repeat(25,1fr);gap:2px;margin-bottom:10px}
-.dk-atoms span{aspect-ratio:1;border-radius:50%;background:var(--chem);transition:background .3s,opacity .3s}
+.dk-atoms span{aspect-ratio:1;border-radius:50%;background:var(--chem);transition:background .12s linear}
 .dk-atoms span.gone{background:var(--line);opacity:.45}
 .dk-timeline{position:relative;height:24px;border-bottom:1.5px solid var(--border);margin-bottom:10px;font-family:var(--font-mono);font-size:10px;color:var(--subtext)}
 .dk-timeline .tick{position:absolute;bottom:0;transform:translateX(-50%);border-left:1.5px solid var(--border);padding:0 3px;height:8px}
@@ -397,6 +397,7 @@ h2.fz-tablehead{font-family:var(--font-display);font-size:24px;margin:38px 0 12p
 
 /* Periodic: trend explainer and category legend */
 .pt-why{font-size:14px;color:var(--subtext);margin:0 0 14px;max-width:76ch;text-wrap:pretty}
+.pt-legend[hidden]{display:none}
 .pt-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0 0 12px;font-family:var(--font-mono);font-size:12px;color:var(--subtext)}
 .pt-legend span{display:inline-flex;align-items:center;gap:7px}
 .pt-legend span span{width:14px;height:14px;border-radius:3px;border:1px solid var(--border);display:inline-block}
@@ -406,3 +407,18 @@ h2.fz-tablehead{font-family:var(--font-display);font-size:24px;margin:38px 0 12p
 .rk-orbit svg{width:100%;height:auto;display:block;border:1.5px solid var(--line);border-radius:10px;background:var(--base)}
 .rk-orbitlab{font-family:var(--font-mono);font-size:11.5px;color:var(--subtext);margin:6px 0 0;text-align:center}
 @media (min-width:900px){.rk-orbit{order:0}}
+
+/* Periodic: a swatch on each numeric view button */
+.pt-controls .fz-btn{display:inline-flex;align-items:center;gap:7px}
+.pt-controls .fz-btn .dot{width:9px;height:9px;border-radius:50%;border:1px solid var(--border);flex:none}
+
+/* Decay: real times under the half-life axis, and the chain as a color key */
+.dk-times{position:relative;height:14px;margin-bottom:10px;font-family:var(--font-mono);font-size:9.5px;color:var(--subtext)}
+.dk-times span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}
+ul.dk-chain{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:3px}
+ul.dk-chain li{display:grid;grid-template-columns:14px 1fr auto 42px;align-items:center;gap:9px;font-family:var(--font-mono);font-size:11.5px;color:var(--subtext);opacity:.5;padding:2px 0}
+ul.dk-chain li.live{opacity:1}
+ul.dk-chain li strong{font-family:var(--font-mono);font-size:12px;color:var(--text);font-weight:700}
+ul.dk-chain li .sw{width:12px;height:12px;border-radius:50%;border:1px solid var(--border)}
+ul.dk-chain li .hl{text-align:right}
+ul.dk-chain li .ct{text-align:right;color:var(--text);font-weight:700}
