@@ -117,7 +117,7 @@
       legendEl.innerHTML = "";
       t.legend.forEach(function (l) {
         var s = document.createElement("span");
-        var swatch = document.createElement("i");
+        var swatch = document.createElement("span");
         swatch.style.background = "color-mix(in oklab, " + l[2] + " 45%, var(--card))";
         s.appendChild(swatch);
         s.appendChild(document.createTextNode(l[1]));

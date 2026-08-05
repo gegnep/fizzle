@@ -108,9 +108,9 @@
     legendEl.innerHTML = "";
     Object.keys(MODES).forEach(function (k) {
       var s = document.createElement("span");
-      var i = document.createElement("i");
-      i.style.background = MODES[k].color;
-      s.appendChild(i);
+      var swatch = document.createElement("span");
+      swatch.style.background = MODES[k].color;
+      s.appendChild(swatch);
       s.appendChild(document.createTextNode(MODES[k].label));
       legendEl.appendChild(s);
     });

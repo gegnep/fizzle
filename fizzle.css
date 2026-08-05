@@ -112,7 +112,7 @@ body.dark .fz-ticker .track em{color:var(--yellow)}
 .fz-lede{display:flex;gap:32px;align-items:flex-start;justify-content:space-between;margin-bottom:30px}
 .fz-lede .txt{min-width:0}
 .fz-lede .fz-hook{margin-bottom:0}
-.fz-hero-art{flex:none;width:250px;border:2px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-soft);background:var(--card)}
+.fz-hero-art{flex:none;width:250px;height:auto;border:2px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-soft);background:var(--card)}
 
 /* subject accents via body class */
 body.chem .fz-kicker .dot{background:var(--chem)}
@@ -230,7 +230,7 @@ body.phys .fz-btn.on{background:var(--phys);border-color:var(--phys);color:var(-
 .dk-nuc.on circle{stroke-width:2.5;r:7}
 .dk-legend{display:flex;flex-wrap:wrap;gap:5px 14px;margin:8px 0 0;font-family:var(--font-mono);font-size:10.5px;color:var(--subtext)}
 .dk-legend span{display:inline-flex;align-items:center;gap:5px}
-.dk-legend i{width:10px;height:10px;border-radius:50%;border:1px solid var(--border);display:inline-block}
+.dk-legend span span{width:10px;height:10px;border-radius:50%;border:1px solid var(--border);display:inline-block}
 .dk-axis{font-family:var(--font-mono);font-size:10.5px;color:var(--subtext);margin-top:4px;display:flex;justify-content:space-between}
 .dk-presets{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px;max-height:104px;overflow-y:auto}
 .dk-presets .fz-btn{font-family:var(--font-mono);font-size:11.5px;padding:4px 9px}
@@ -352,7 +352,7 @@ h2.fz-tablehead{font-family:var(--font-display);font-size:24px;margin:38px 0 12p
   .fz-h1,.fz-hero .fz-h1{font-size:34px}
   .fz-hook{font-size:16px}
   .fz-lede{flex-direction:column}
-  .fz-hero-art{width:100%;max-width:320px}
+  .fz-hero-art{width:100%;max-width:320px;height:auto}
   .fz-exp{grid-template-columns:40px 1fr 24px;gap:12px;padding:16px 8px}
   .fz-exp .idx{font-size:20px}
   .fz-exp .subj{grid-row:1;display:inline-block;padding:2px 9px;margin-bottom:4px;justify-self:start}
@@ -399,7 +399,7 @@ h2.fz-tablehead{font-family:var(--font-display);font-size:24px;margin:38px 0 12p
 .pt-why{font-size:14px;color:var(--subtext);margin:0 0 14px;max-width:76ch;text-wrap:pretty}
 .pt-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0 0 12px;font-family:var(--font-mono);font-size:12px;color:var(--subtext)}
 .pt-legend span{display:inline-flex;align-items:center;gap:7px}
-.pt-legend i{width:14px;height:14px;border-radius:3px;border:1px solid var(--border);display:inline-block}
+.pt-legend span span{width:14px;height:14px;border-radius:3px;border:1px solid var(--border);display:inline-block}
 
 /* Rocket: trajectory view */
 .rk-orbit{flex:1 1 260px;min-width:240px;order:3}
