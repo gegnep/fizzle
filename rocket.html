@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!-- AI-ASSISTED: portions of this file were written with the help of an AI assistant (Claude), per course policy.
+     Twemoji icons (images/twemoji/) are copyright Twitter/X and contributors, licensed CC-BY 4.0. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rocket Lab: &Delta;v &middot; fizzle.</title>
+<meta name="description" content="Set dry mass, fuel, and engine, then see whether your rocket reaches orbit.">
+<link rel="stylesheet" href="fizzle.css">
+<link rel="icon" href="images/twemoji/26a1.svg">
+<script src="js/site.js" defer></script>
+<script src="js/rocket.js" defer></script>
+</head>
+<body class="phys">
+<a class="fz-skip" href="#main">Skip to content</a>
+<header class="fz-head" id="top">
+  <a class="fz-logo" href="index.html">
+    <span class="word">fi<em>z</em><em>z</em>le<em>.</em></span>
+    <span class="dom">a tiny science playground</span>
+  </a>
+  <div class="fz-headright">
+    <nav class="fz-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="experiments.html" class="on">Experiments</a>
+      <a href="reference.html">Reference</a>
+      <a href="guestbook.html">Guestbook</a>
+      <a href="about.html">About</a>
+    </nav>
+    <button class="fz-theme" type="button" aria-label="Toggle dark or light theme">
+      <img class="em moon" src="images/twemoji/1f319.svg" alt="">
+      <img class="em sun" src="images/twemoji/2600.svg" alt="">
+    </button>
+  </div>
+</header>
+
+<div class="fz-ticker">
+  <button type="button" class="flag" id="fz-tick-btn" aria-pressed="false">NEW</button>
+  <div class="lane"><div class="track">
+    <span>Physics note: <em>reaching orbit is about sideways speed, not height.</em></span>
+    <span class="sep">&#9679;</span>
+    <span>Low Earth orbit needs about 9.4 km/s of delta-v once losses are counted.</span>
+    <span class="sep">&#9679;</span>
+    <span>Doubling your fuel does not double your delta-v. <em>Try it.</em></span>
+  </div></div>
+</div>
+
+<main class="fz-main" id="main">
+  <span class="fz-kicker"><span class="dot"></span>experiment 03 &middot; physics</span>
+  <h1 class="fz-h1">Rocket Lab: &Delta;v</h1>
+  <div class="fz-lede">
+    <div class="txt">
+      <p class="fz-hook">Getting to orbit is a <strong>budget problem, not a power problem</strong>. Set your dry mass, fuel load, and engine, and the Tsiolkovsky equation tells you how much velocity you can buy.</p>
+    </div>
+    <img class="fz-hero-art" src="images/hero-rocket.svg" alt="Flat illustration of a violet and white rocket climbing past a planet on a dashed orbital path" width="250" height="190">
+  </div>
+
+  <div class="fz-stage">
+    <div class="bar"><span>js/rocket.js</span><span class="howto">&#9654; drag the sliders and watch the verdict change</span></div>
+    <div class="well">
+      <div class="rk-wrap">
+        <div class="rk-svg">
+          <svg viewBox="0 0 120 260" role="img" aria-label="Diagram of a rocket whose fuel tank fills as you add fuel">
+            <path d="M60 8 q26 40 26 96 v96 h-52 v-96 q0 -56 26 -96 z" fill="var(--card)" stroke="var(--border)" stroke-width="3"/>
+            <rect id="rk-tank" x="36" y="120" width="48" height="80" fill="var(--phys)" opacity="0.85"/>
+            <path d="M60 8 q26 40 26 96 v96 h-52 v-96 q0 -56 26 -96 z" fill="none" stroke="var(--border)" stroke-width="3"/>
+            <circle cx="60" cy="80" r="13" fill="var(--phys-soft)" stroke="var(--border)" stroke-width="3"/>
+            <path d="M34 200 l-20 34 24 -8 z" fill="var(--phys)" stroke="var(--border)" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M86 200 l20 34 -24 -8 z" fill="var(--phys)" stroke="var(--border)" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M44 200 h32 l8 20 h-48 z" fill="var(--mantle)" stroke="var(--border)" stroke-width="3" stroke-linejoin="round"/>
+            <path id="rk-flame" d="M50 222 q10 26 10 34 q0 -8 10 -34 z" fill="var(--yellow)" stroke="var(--border)" stroke-width="2.5" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="rk-controls">
+          <div class="row">
+            <label for="rk-dry">Dry mass <output id="rk-dry-out" for="rk-dry">4 t</output></label>
+            <input type="range" id="rk-dry" min="1" max="30" step="1" value="4">
+          </div>
+          <div class="row">
+            <label for="rk-fuel">Fuel mass <output id="rk-fuel-out" for="rk-fuel">30 t</output></label>
+            <input type="range" id="rk-fuel" min="1" max="400" step="1" value="30">
+          </div>
+          <div class="row">
+            <label for="rk-isp">Engine <output id="rk-isp-out" for="rk-isp">kerolox, 311 s</output></label>
+            <input type="range" id="rk-isp" min="0" max="3" step="1" value="1">
+          </div>
+          <div class="rk-bar">
+            <div class="lab"><span id="rk-dv">&Delta;v 0 m/s</span><span>orbit needs 9,400 m/s</span></div>
+            <div class="rk-track"><div class="rk-fill" id="rk-fill"></div><div class="rk-goal" id="rk-goal"></div></div>
+          </div>
+          <p class="rk-verdict" id="rk-verdict">Lawn dart<span class="sub">set some fuel and try again</span></p>
+        </div>
+      </div>
+      <div class="fz-read" id="rk-read" role="status" aria-live="polite"><span>waiting for input&hellip;</span></div>
+    </div>
+  </div>
+  <p class="fz-caption">How this works: the sliders feed the Tsiolkovsky rocket equation, delta-v equals exhaust velocity times the natural log of wet mass over dry mass. The bar compares what you built against roughly 9.4 km/s, the real delta-v budget for low Earth orbit including drag and gravity losses.</p>
+
+  <div class="fz-prose">
+    <h2>Why fuel gives less than you expect</h2>
+    <p>The rocket equation has a logarithm in it, and the logarithm is the whole story. Your delta-v depends on the ratio between your fueled mass and your empty mass, not on the amount of fuel. Doubling the fuel does not double the speed, because the extra fuel has to be carried and accelerated by the fuel beneath it. Each additional unit of velocity costs more mass than the last one did.</p>
+    <p>That leaves two real ways forward. Raise the exhaust velocity, which is what a better engine means: an ion thruster with an Isp near 3,000 seconds sips propellant, but pushes so gently that it only works once you are already in space. Or throw away structure as you climb, which is what staging does. Every orbital rocket flying today is a stack of tanks designed to be dropped, because the equation punishes carrying anything you no longer need.</p>
+    <h2>Related concepts</h2>
+    <ul class="fz-related">
+      <li><a href="reference.html">specific impulse</a></li>
+      <li><a href="reference.html">standard gravity</a></li>
+      <li><a href="decay.html">exponential behavior</a></li>
+      <li><a href="https://www.nasa.gov/">NASA mission data</a></li>
+    </ul>
+  </div>
+</main>
+
+<footer class="fz-foot">
+  <div class="cols">
+    <div>
+      <h2>All 10 pages</h2>
+      <ul class="fz-sitemap">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="periodic.html">Periodic Trends</a></li>
+        <li><a href="cells.html">Cell Explorer</a></li>
+        <li><a href="rocket.html">Rocket Lab: &Delta;v</a></li>
+        <li><a href="decay.html">Nuclide Decay</a></li>
+        <li><a href="moths.html">Peppered Moths</a></li>
+        <li><a href="experiments.html">All Experiments</a></li>
+        <li><a href="reference.html">Reference Tables</a></li>
+        <li><a href="guestbook.html">Guestbook</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Elsewhere</h2>
+      <ul>
+        <li><a href="mailto:hello@zainham.com"><img class="em" src="images/twemoji/2709.svg" alt=""> hello@zainham.com</a></li>
+        <li><a href="https://www.nasa.gov/">&#8599; NASA.gov</a></li>
+        <li><a href="https://pubchem.ncbi.nlm.nih.gov/">&#8599; PubChem</a></li>
+        <li><a href="#top">&#8593; Back to top</a></li>
+      </ul>
+    </div>
+    <div class="fz-counter">
+      <span class="lab">visitor number</span>
+      <div class="fz-odo"><span>0</span><span>0</span><span>1</span><span>2</span><span>0</span><span>8</span></div>
+      <div class="fz-badges">
+        <img src="images/badge-1.svg" alt="88 by 31 button badge: HTML written by hand" width="88" height="31">
+        <img src="images/badge-2.svg" alt="88 by 31 button badge: CSS, one file, no build step" width="88" height="31">
+        <img src="images/badge-3.svg" alt="88 by 31 button badge: powered by science" width="88" height="31">
+        <img src="images/badge-4.svg" alt="88 by 31 button badge: zero cookies, zero trackers" width="88" height="31">
+      </div>
+    </div>
+  </div>
+  <div class="base">
+    <span>&copy; 2026 fizzle &middot; built by hand for Comm 360</span>
+    <span>no cookies &middot; no trackers &middot; just science</span>
+  </div>
+</footer>
+</body>
+</html>
