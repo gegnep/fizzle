@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!-- AI-ASSISTED: portions of this file were written with the help of an AI assistant (Claude), per course policy.
+     Twemoji icons (images/twemoji/) are copyright Twitter/X and contributors, licensed CC-BY 4.0. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All Experiments &middot; fizzle.</title>
+<meta name="description" content="Every experiment on fizzle in one table: subject, what you do, and how it works.">
+<link rel="stylesheet" href="fizzle.css">
+<link rel="icon" href="images/twemoji/26a1.svg">
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<a class="fz-skip" href="#main">Skip to content</a>
+<header class="fz-head" id="top">
+  <a class="fz-logo" href="index.html">
+    <span class="word">fi<em>z</em><em>z</em>le<em>.</em></span>
+    <span class="dom">a tiny science playground</span>
+  </a>
+  <div class="fz-headright">
+    <nav class="fz-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="experiments.html" class="on">Experiments</a>
+      <a href="reference.html">Reference</a>
+      <a href="guestbook.html">Guestbook</a>
+      <a href="about.html">About</a>
+    </nav>
+    <button class="fz-theme" type="button" aria-label="Toggle dark or light theme">
+      <img class="em moon" src="images/twemoji/1f319.svg" alt="">
+      <img class="em sun" src="images/twemoji/2600.svg" alt="">
+    </button>
+  </div>
+</header>
+
+<div class="fz-ticker">
+  <button type="button" class="flag" id="fz-tick-btn" aria-pressed="false">NEW</button>
+  <div class="lane"><div class="track">
+    <span>Every experiment in one place. <em>Sortable? No. Honest? Yes.</em></span>
+    <span class="sep">&#9679;</span>
+    <span>Each demo is one HTML page and one JS file, named in its stage header.</span>
+    <span class="sep">&#9679;</span>
+    <span>Looking for the numbers instead? The <em>reference</em> page has them.</span>
+  </div></div>
+</div>
+
+<main class="fz-main" id="main">
+  <span class="fz-kicker"><span class="dot"></span>the full lineup</span>
+  <h1 class="fz-h1">All experiments</h1>
+  <p class="fz-hook">The complete list of experiments on this site, what subject each one covers, and how it works under the hood. Every row links to the live page.</p>
+
+  <p>Five experiments are online and all five are finished. Three subjects are represented, and each demo was built to answer one question you can actually poke at rather than read about. Chemistry gets two: the periodic table as a map of trends, and radioactive decay as a probability game. Biology gets two: the parts of a cell, and natural selection running in front of you. Physics gets one, the delta-v budget that decides whether a rocket reaches orbit. The table below is the fastest way to see the whole lineup at once, including the mechanic behind each demo, so you can pick the one that matches what you feel like doing right now.</p>
+
+  <div class="fz-tablewrap">
+    <table class="fz-table">
+      <caption>Experiments on fizzle.zainham.com, as of August 2026</caption>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Subject</th>
+          <th scope="col">Experiment</th>
+          <th scope="col">What you do</th>
+          <th scope="col">How it works</th>
+        </tr>
+      </thead>
+      <tbody>
+            <tr>
+              <td class="num">01</td>
+              <td><span class="subj chem">Chemistry</span></td>
+              <td class="name"><a href="periodic.html">Periodic Trends</a></td>
+              <td>Color all 118 elements by radius, electronegativity, or ionization energy.</td>
+              <td class="how">Buttons swap which measured value drives the color scale.</td>
+            </tr>
+            <tr>
+              <td class="num">02</td>
+              <td><span class="subj bio">Biology</span></td>
+              <td class="name"><a href="cells.html">Cell Explorer</a></td>
+              <td>Compare animal, plant, and bacterial cells.</td>
+              <td class="how">Tabs switch the diagram, and clicking an organelle shows its one job.</td>
+            </tr>
+            <tr>
+              <td class="num">03</td>
+              <td><span class="subj phys">Physics</span></td>
+              <td class="name"><a href="rocket.html">Rocket Lab: &Delta;v</a></td>
+              <td>Build a rocket and check whether it reaches orbit.</td>
+              <td class="how">Sliders feed the Tsiolkovsky equation, and a bar compares your delta-v to orbit.</td>
+            </tr>
+            <tr>
+              <td class="num">04</td>
+              <td><span class="subj chem">Chemistry</span></td>
+              <td class="name"><a href="decay.html">Nuclide Decay</a></td>
+              <td>Pick an isotope and watch 400 atoms decay toward stability.</td>
+              <td class="how">A schematic chart of nuclides selects the isotope, then each atom rolls its own dice per tick.</td>
+            </tr>
+            <tr>
+              <td class="num">05</td>
+              <td><span class="subj bio">Biology</span></td>
+              <td class="name"><a href="moths.html">Peppered Moths</a></td>
+              <td>Hunt moths and shift a population over ten generations.</td>
+              <td class="how">The survivors' color mix seeds the next generation, and a bar chart tracks the dark-moth share.</td>
+            </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="fz-caption">Each experiment is a single HTML page with its own script. The stage header on every demo names its main script, so the source is easy to find and each demo stays small enough to read in one sitting.</p>
+
+  <div class="fz-prose">
+    <h2>How to read this table</h2>
+    <p>The subject column tells you which accent color the page wears. Chemistry pages are teal, biology pages are green, and physics pages are violet, and that color runs through the demo stage border and the controls on that page. The last column is the honest part: it says what the code actually does, including where a simulation is simplified. None of these demos is a research tool. They are built to make one idea visible and to say plainly where the model stops.</p>
+    <h2>Where the data comes from</h2>
+    <ul class="fz-related">
+      <li><a href="reference.html">constants and sources</a></li>
+      <li><a href="https://pubchem.ncbi.nlm.nih.gov/">PubChem</a></li>
+      <li><a href="https://www.nasa.gov/">NASA</a></li>
+      <li><a href="about.html">how the site was built</a></li>
+    </ul>
+  </div>
+</main>
+
+<footer class="fz-foot">
+  <div class="cols">
+    <div>
+      <h2>All 10 pages</h2>
+      <ul class="fz-sitemap">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="periodic.html">Periodic Trends</a></li>
+        <li><a href="cells.html">Cell Explorer</a></li>
+        <li><a href="rocket.html">Rocket Lab: &Delta;v</a></li>
+        <li><a href="decay.html">Nuclide Decay</a></li>
+        <li><a href="moths.html">Peppered Moths</a></li>
+        <li><a href="experiments.html">All Experiments</a></li>
+        <li><a href="reference.html">Reference Tables</a></li>
+        <li><a href="guestbook.html">Guestbook</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Elsewhere</h2>
+      <ul>
+        <li><a href="mailto:hello@zainham.com"><img class="em" src="images/twemoji/2709.svg" alt=""> hello@zainham.com</a></li>
+        <li><a href="https://www.nasa.gov/">&#8599; NASA.gov</a></li>
+        <li><a href="https://pubchem.ncbi.nlm.nih.gov/">&#8599; PubChem</a></li>
+        <li><a href="#top">&#8593; Back to top</a></li>
+      </ul>
+    </div>
+    <div class="fz-counter">
+      <span class="lab">visitor number</span>
+      <div class="fz-odo"><span>0</span><span>0</span><span>1</span><span>2</span><span>0</span><span>8</span></div>
+      <div class="fz-badges">
+        <img src="images/badge-1.svg" alt="88 by 31 button badge: HTML written by hand" width="88" height="31">
+        <img src="images/badge-2.svg" alt="88 by 31 button badge: CSS, one file, no build step" width="88" height="31">
+        <img src="images/badge-3.svg" alt="88 by 31 button badge: powered by science" width="88" height="31">
+        <img src="images/badge-4.svg" alt="88 by 31 button badge: zero cookies, zero trackers" width="88" height="31">
+      </div>
+    </div>
+  </div>
+  <div class="base">
+    <span>&copy; 2026 fizzle &middot; built by hand for Comm 360</span>
+    <span>no cookies &middot; no trackers &middot; just science</span>
+  </div>
+</footer>
+</body>
+</html>

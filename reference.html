@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!-- AI-ASSISTED: portions of this file were written with the help of an AI assistant (Claude), per course policy.
+     Twemoji icons (images/twemoji/) are copyright Twitter/X and contributors, licensed CC-BY 4.0. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reference Tables &middot; fizzle.</title>
+<meta name="description" content="Physical constants, SI prefixes, and the data sources behind every experiment.">
+<link rel="stylesheet" href="fizzle.css">
+<link rel="icon" href="images/twemoji/26a1.svg">
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<a class="fz-skip" href="#main">Skip to content</a>
+<header class="fz-head" id="top">
+  <a class="fz-logo" href="index.html">
+    <span class="word">fi<em>z</em><em>z</em>le<em>.</em></span>
+    <span class="dom">a tiny science playground</span>
+  </a>
+  <div class="fz-headright">
+    <nav class="fz-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="experiments.html">Experiments</a>
+      <a href="reference.html" class="on">Reference</a>
+      <a href="guestbook.html">Guestbook</a>
+      <a href="about.html">About</a>
+    </nav>
+    <button class="fz-theme" type="button" aria-label="Toggle dark or light theme">
+      <img class="em moon" src="images/twemoji/1f319.svg" alt="">
+      <img class="em sun" src="images/twemoji/2600.svg" alt="">
+    </button>
+  </div>
+</header>
+
+<div class="fz-ticker">
+  <button type="button" class="flag" id="fz-tick-btn" aria-pressed="false">NEW</button>
+  <div class="lane"><div class="track">
+    <span>Constants, prefixes, and sources. <em>The boring page that makes the others work.</em></span>
+    <span class="sep">&#9679;</span>
+    <span>Every number in a demo traces back to a source listed here.</span>
+    <span class="sep">&#9679;</span>
+    <span>SI prefixes go further than most people ever need. Both directions.</span>
+  </div></div>
+</div>
+
+<main class="fz-main" id="main">
+  <span class="fz-kicker"><span class="dot"></span>the numbers behind it</span>
+  <h1 class="fz-h1">Reference Tables</h1>
+  <p class="fz-hook">Every demo on this site runs on published values rather than invented ones. This page collects the constants, the unit prefixes, and the sources, so you can check the math yourself.</p>
+
+  <p>A simulation is only as trustworthy as the numbers underneath it, and the fastest way to lose that trust is to hide them. So here they are. The first table lists the physical constants the demos actually use, each with the symbol and unit you would see in a textbook. The second is a selection of the SI prefixes, which is worth keeping around once you start moving between picometers in the periodic table and billions of years in the decay chart. The third names the source behind each experiment's data, so if a value here disagrees with the one you were taught, you can go find out which of us is out of date.</p>
+
+  <h2 class="fz-tablehead">Physical constants</h2>
+  <div class="fz-tablewrap">
+    <table class="fz-table">
+      <caption>Constants used by the experiments on this site</caption>
+      <thead>
+        <tr><th scope="col">Constant</th><th scope="col">Symbol</th><th scope="col">Value</th><th scope="col">Used by</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="name">Standard gravity</td><td class="mono">g&#8320;</td><td class="mono">9.806 65 m/s&sup2;</td><td class="how"><a href="rocket.html">Rocket Lab</a></td></tr>
+        <tr><td class="name">Speed of light</td><td class="mono">c</td><td class="mono">299,792,458 m/s</td><td class="how">context for orbital speeds</td></tr>
+        <tr><td class="name">Avogadro constant</td><td class="mono">N&#8336;</td><td class="mono">6.022 140 76 &times; 10&sup2;&sup3; /mol</td><td class="how"><a href="decay.html">Nuclide Decay</a></td></tr>
+        <tr><td class="name">Elementary charge</td><td class="mono">e</td><td class="mono">1.602 176 634 &times; 10&#8315;&sup1;&#8313; C</td><td class="how"><a href="periodic.html">Periodic Trends</a></td></tr>
+        <tr><td class="name">Planck constant</td><td class="mono">h</td><td class="mono">6.626 070 15 &times; 10&#8315;&sup3;&#8308; J&middot;s</td><td class="how">electron shell behavior</td></tr>
+        <tr><td class="name">Low Earth orbit budget</td><td class="mono">&Delta;v</td><td class="mono">about 9,400 m/s</td><td class="how"><a href="rocket.html">Rocket Lab</a></td></tr>
+        <tr><td class="name">Earth escape velocity</td><td class="mono">v&#8337;</td><td class="mono">11,186 m/s</td><td class="how"><a href="rocket.html">Rocket Lab</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="fz-tablehead">SI prefixes</h2>
+  <div class="fz-tablewrap">
+    <table class="fz-table">
+      <caption>Selected SI prefixes, largest to smallest</caption>
+      <thead>
+        <tr><th scope="col">Prefix</th><th scope="col">Symbol</th><th scope="col">Factor</th><th scope="col">Everyday example</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="name">giga</td><td class="mono">G</td><td class="mono">10&#8313;</td><td class="how">4.5 billion years, the half-life of uranium-238</td></tr>
+        <tr><td class="name">mega</td><td class="mono">M</td><td class="mono">10&#8310;</td><td class="how">megajoules of energy in a fuel tank</td></tr>
+        <tr><td class="name">kilo</td><td class="mono">k</td><td class="mono">10&sup3;</td><td class="how">kJ/mol, the unit of ionization energy</td></tr>
+        <tr><td class="name">centi</td><td class="mono">c</td><td class="mono">10&#8315;&sup2;</td><td class="how">centimeters on a ruler</td></tr>
+        <tr><td class="name">milli</td><td class="mono">m</td><td class="mono">10&#8315;&sup3;</td><td class="how">milliseconds between simulation ticks</td></tr>
+        <tr><td class="name">micro</td><td class="mono">&micro;</td><td class="mono">10&#8315;&#8310;</td><td class="how">micrometers, the width of a bacterial cell</td></tr>
+        <tr><td class="name">nano</td><td class="mono">n</td><td class="mono">10&#8315;&#8313;</td><td class="how">nanometers, the width of a DNA strand</td></tr>
+        <tr><td class="name">pico</td><td class="mono">p</td><td class="mono">10&#8315;&sup1;&sup2;</td><td class="how">picometers, the unit of atomic radius</td></tr>
+        <tr><td class="name">femto</td><td class="mono">f</td><td class="mono">10&#8315;&sup1;&#8309;</td><td class="how">femtometers, the width of a nucleus</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="fz-tablehead">Data sources per experiment</h2>
+  <div class="fz-tablewrap">
+    <table class="fz-table">
+      <caption>Where each experiment's numbers come from</caption>
+      <thead>
+        <tr><th scope="col">Experiment</th><th scope="col">Data</th><th scope="col">Source</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="name"><a href="periodic.html">Periodic Trends</a></td><td>Atomic radius, Pauling electronegativity, first ionization energy for 118 elements</td><td class="how"><a href="https://pubchem.ncbi.nlm.nih.gov/">PubChem periodic table data</a></td></tr>
+        <tr><td class="name"><a href="cells.html">Cell Explorer</a></td><td>Organelle names and functions for animal, plant, and bacterial cells</td><td class="how">Standard introductory cell biology</td></tr>
+        <tr><td class="name"><a href="rocket.html">Rocket Lab</a></td><td>Engine specific impulse, orbital delta-v budgets</td><td class="how"><a href="https://www.nasa.gov/">NASA public mission documentation</a></td></tr>
+        <tr><td class="name"><a href="decay.html">Nuclide Decay</a></td><td>Half-lives and decay modes for six isotopes</td><td class="how">Published nuclide tables, chains simplified to named steps</td></tr>
+        <tr><td class="name"><a href="moths.html">Peppered Moths</a></td><td>Industrial melanism timeline, phenotype-frequency model</td><td class="how">Standard evolutionary biology. The simulation resamples color frequency rather than modeling alleles</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="fz-caption">Where a value is approximate or model-dependent, the demo page says so in its own caption. Superheavy element values on the periodic page are predicted rather than measured.</p>
+
+  <div class="fz-prose">
+    <h2>Related concepts</h2>
+    <ul class="fz-related">
+      <li><a href="experiments.html">the experiment table</a></li>
+      <li><a href="periodic.html">atomic radius in picometers</a></li>
+      <li><a href="rocket.html">specific impulse</a></li>
+      <li><a href="about.html">how this site was built</a></li>
+    </ul>
+  </div>
+</main>
+
+<footer class="fz-foot">
+  <div class="cols">
+    <div>
+      <h2>All 10 pages</h2>
+      <ul class="fz-sitemap">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="periodic.html">Periodic Trends</a></li>
+        <li><a href="cells.html">Cell Explorer</a></li>
+        <li><a href="rocket.html">Rocket Lab: &Delta;v</a></li>
+        <li><a href="decay.html">Nuclide Decay</a></li>
+        <li><a href="moths.html">Peppered Moths</a></li>
+        <li><a href="experiments.html">All Experiments</a></li>
+        <li><a href="reference.html">Reference Tables</a></li>
+        <li><a href="guestbook.html">Guestbook</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Elsewhere</h2>
+      <ul>
+        <li><a href="mailto:hello@zainham.com"><img class="em" src="images/twemoji/2709.svg" alt=""> hello@zainham.com</a></li>
+        <li><a href="https://www.nasa.gov/">&#8599; NASA.gov</a></li>
+        <li><a href="https://pubchem.ncbi.nlm.nih.gov/">&#8599; PubChem</a></li>
+        <li><a href="#top">&#8593; Back to top</a></li>
+      </ul>
+    </div>
+    <div class="fz-counter">
+      <span class="lab">visitor number</span>
+      <div class="fz-odo"><span>0</span><span>0</span><span>1</span><span>2</span><span>0</span><span>8</span></div>
+      <div class="fz-badges">
+        <img src="images/badge-1.svg" alt="88 by 31 button badge: HTML written by hand" width="88" height="31">
+        <img src="images/badge-2.svg" alt="88 by 31 button badge: CSS, one file, no build step" width="88" height="31">
+        <img src="images/badge-3.svg" alt="88 by 31 button badge: powered by science" width="88" height="31">
+        <img src="images/badge-4.svg" alt="88 by 31 button badge: zero cookies, zero trackers" width="88" height="31">
+      </div>
+    </div>
+  </div>
+  <div class="base">
+    <span>&copy; 2026 fizzle &middot; built by hand for Comm 360</span>
+    <span>no cookies &middot; no trackers &middot; just science</span>
+  </div>
+</footer>
+</body>
+</html>
