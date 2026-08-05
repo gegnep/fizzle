@@ -46,17 +46,17 @@
 </div>
 
 <main class="fz-main" id="main">
-  <span class="fz-kicker"><span class="dot"></span>experiment 05 &middot; biology</span>
-  <h1 class="fz-h1">Peppered Moths</h1>
   <div class="fz-lede">
     <div class="txt">
+      <span class="fz-kicker"><span class="dot"></span>experiment 05 &middot; biology</span>
+      <h1 class="fz-h1">Peppered Moths</h1>
       <p class="fz-hook">Natural selection is <strong>bookkeeping, not intent</strong>. You are the bird. Eat the moths you can see, breed the survivors, and watch the population shift under your own beak.</p>
     </div>
     <img class="fz-hero-art" src="images/hero-moths.svg" alt="Flat illustration of tree bark with one pale moth and one dark moth resting on it" width="250" height="190">
   </div>
 
   <div class="fz-stage">
-    <div class="bar"><span>js/moths.js</span><span class="howto">&#9654; click moths to eat them, then breed the next generation</span></div>
+    <div class="bar"><span>js/moths.js</span><span class="howto">&#9654; eat 6 moths, then breed. 12 generations across 3 eras.</span></div>
     <div class="well">
       <div class="mo-wrap">
         <div class="mo-scenebox">
@@ -64,16 +64,17 @@
         </div>
         <div class="mo-side">
           <div class="row">
-            <span class="lbl">Era and pollution</span>
+            <span class="lbl">Era</span>
             <div class="mo-era" id="mo-era">
-              <button type="button" class="fz-btn" data-era="0">1800 clean</button>
-              <button type="button" class="fz-btn on" data-era="1">1900 sooty</button>
-              <button type="button" class="fz-btn" data-era="2">Today</button>
+              <button type="button" class="fz-btn on" data-era="0">1800</button>
+              <button type="button" class="fz-btn" data-era="1">1900</button>
+              <button type="button" class="fz-btn" data-era="2">1970</button>
             </div>
+            <p class="mo-erahint">The era advances on its own every 4 generations. The buttons unlock after generation 12.</p>
           </div>
           <div class="mo-stats">
-            <span>generation: <strong id="mo-gen">1</strong> of 10</span>
-            <span>catches left: <strong id="mo-left">8</strong></span>
+            <span>generation: <strong id="mo-gen">1</strong> of 12</span>
+            <span>catches left: <strong id="mo-left">6</strong></span>
             <span>dark moths: <strong id="mo-pct">50%</strong></span>
             <div class="mo-split"><span class="lite" id="mo-lite"></span><span class="dark" id="mo-dark"></span></div>
           </div>
