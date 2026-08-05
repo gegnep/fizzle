@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!-- AI-ASSISTED: portions of this file were written with the help of an AI assistant (Claude), per course policy.
+     Twemoji icons (images/twemoji/) are copyright Twitter/X and contributors, licensed CC-BY 4.0. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Periodic Trends &middot; fizzle.</title>
+<meta name="description" content="An interactive periodic table. Pick a trend and watch it move across all 118 elements.">
+<link rel="stylesheet" href="fizzle.css">
+<link rel="icon" href="images/twemoji/26a1.svg">
+<script src="js/site.js" defer></script>
+<script src="js/periodic-data.js" defer></script>
+<script src="js/periodic.js" defer></script>
+</head>
+<body class="chem">
+<a class="fz-skip" href="#main">Skip to content</a>
+<header class="fz-head" id="top">
+  <a class="fz-logo" href="index.html">
+    <span class="word">fi<em>z</em><em>z</em>le<em>.</em></span>
+    <span class="dom">a tiny science playground</span>
+  </a>
+  <div class="fz-headright">
+    <nav class="fz-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="experiments.html" class="on">Experiments</a>
+      <a href="reference.html">Reference</a>
+      <a href="guestbook.html">Guestbook</a>
+      <a href="about.html">About</a>
+    </nav>
+    <button class="fz-theme" type="button" aria-label="Toggle dark or light theme">
+      <img class="em moon" src="images/twemoji/1f319.svg" alt="">
+      <img class="em sun" src="images/twemoji/2600.svg" alt="">
+    </button>
+  </div>
+</header>
+
+<div class="fz-ticker">
+  <button type="button" class="flag" id="fz-tick-btn" aria-pressed="false">NEW</button>
+  <div class="lane"><div class="track">
+    <span>Chemistry note: <em>francium is so unstable that no visible sample has ever existed.</em></span>
+    <span class="sep">&#9679;</span>
+    <span>Try switching trends while an element is selected. The colors tell the story.</span>
+    <span class="sep">&#9679;</span>
+    <span>Element data sources are listed on the <em>reference</em> page.</span>
+  </div></div>
+</div>
+
+<main class="fz-main" id="main">
+  <span class="fz-kicker"><span class="dot"></span>experiment 01 &middot; chemistry</span>
+  <h1 class="fz-h1">Periodic Trends</h1>
+  <div class="fz-lede">
+    <div class="txt">
+      <p class="fz-hook">The periodic table is a <strong>map, not a list to memorize</strong>. Every position on it predicts how an atom behaves. Pick a trend below and watch it move across the elements, then click any element for its numbers.</p>
+    </div>
+    <img class="fz-hero-art" src="images/hero-periodic.svg" alt="Flat illustration of periodic table tiles in shades of teal with the element chlorine highlighted and an arrow showing a trend" width="250" height="190">
+  </div>
+
+  <div class="fz-stage">
+    <div class="bar"><span>js/periodic.js</span><span class="howto">&#9654; click an element, then switch trends with the buttons</span></div>
+    <div class="well">
+      <div class="pt-controls">
+        <button type="button" class="fz-btn on" data-trend="radius">Atomic radius</button>
+        <button type="button" class="fz-btn" data-trend="en">Electronegativity</button>
+        <button type="button" class="fz-btn" data-trend="ie">Ionization energy</button>
+      </div>
+      <p class="pt-arrow"><span id="pt-arrow-label">radius shrinks &rarr;</span><span class="line"></span></p>
+      <div class="pt-scroll"><div class="pt" id="pt-grid"></div></div>
+      <div class="fz-read" id="pt-read" role="status" aria-live="polite"><span>loading elements&hellip;</span></div>
+    </div>
+  </div>
+  <p class="fz-caption">How this works: each element carries its measured data. The buttons swap which value drives the color scale, and the label above the table names the direction the trend runs. Darker teal means a larger value. Tiles with a dashed edge have no accepted published value for that trend, which is common among the superheavy elements. The selected element is marked with an outline so it keeps its scale color.</p>
+
+  <div class="fz-prose">
+    <h2>Why the trends exist</h2>
+    <p>Every periodic trend comes from two competing effects: the nuclear charge pulling electrons inward, and the inner electron shells screening that pull. Across a period the charge wins, so atoms get smaller and hold their electrons more tightly. Down a group the shells win, so atoms get larger and give electrons up more easily. Once you see those two effects, the trends stop being separate facts and become consequences of one rule.</p>
+    <p>That is also why the corners of the table are the drama zones. Fluorine, small and barely screened, pulls electrons harder than any other element. Cesium and francium, huge and heavily screened, barely hold their outer electron at all. Chemistry mostly happens because the two corners want opposite things.</p>
+    <h2>Related concepts</h2>
+    <ul class="fz-related">
+      <li><a href="reference.html">effective nuclear charge</a></li>
+      <li><a href="reference.html">electron shielding</a></li>
+      <li><a href="reference.html">valence electrons</a></li>
+      <li><a href="decay.html">noble gas stability</a></li>
+    </ul>
+  </div>
+</main>
+
+<footer class="fz-foot">
+  <div class="cols">
+    <div>
+      <h2>All 10 pages</h2>
+      <ul class="fz-sitemap">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="periodic.html">Periodic Trends</a></li>
+        <li><a href="cells.html">Cell Explorer</a></li>
+        <li><a href="rocket.html">Rocket Lab: &Delta;v</a></li>
+        <li><a href="decay.html">Nuclide Decay</a></li>
+        <li><a href="moths.html">Peppered Moths</a></li>
+        <li><a href="experiments.html">All Experiments</a></li>
+        <li><a href="reference.html">Reference Tables</a></li>
+        <li><a href="guestbook.html">Guestbook</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Elsewhere</h2>
+      <ul>
+        <li><a href="mailto:hello@zainham.com"><img class="em" src="images/twemoji/2709.svg" alt=""> hello@zainham.com</a></li>
+        <li><a href="https://www.nasa.gov/">&#8599; NASA.gov</a></li>
+        <li><a href="https://pubchem.ncbi.nlm.nih.gov/">&#8599; PubChem</a></li>
+        <li><a href="#top">&#8593; Back to top</a></li>
+      </ul>
+    </div>
+    <div class="fz-counter">
+      <span class="lab">visitor number</span>
+      <div class="fz-odo"><span>0</span><span>0</span><span>1</span><span>2</span><span>0</span><span>8</span></div>
+      <div class="fz-badges">
+        <img src="images/badge-1.svg" alt="88 by 31 button badge: HTML written by hand" width="88" height="31">
+        <img src="images/badge-2.svg" alt="88 by 31 button badge: CSS, one file, no build step" width="88" height="31">
+        <img src="images/badge-3.svg" alt="88 by 31 button badge: powered by science" width="88" height="31">
+        <img src="images/badge-4.svg" alt="88 by 31 button badge: zero cookies, zero trackers" width="88" height="31">
+      </div>
+    </div>
+  </div>
+  <div class="base">
+    <span>&copy; 2026 fizzle &middot; built by hand for Comm 360</span>
+    <span>no cookies &middot; no trackers &middot; just science</span>
+  </div>
+</footer>
+</body>
+</html>
