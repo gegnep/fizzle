@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- AI-ASSISTED: portions of this file were written with the help of an AI assistant (Claude), per course policy.
+     Twemoji icons (images/twemoji/) are copyright Twitter/X and contributors, licensed CC-BY 4.0. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Peppered Moths &middot; fizzle.</title>
+<meta name="description" content="Play the predator and watch natural selection shift a moth population over ten generations.">
+<link rel="stylesheet" href="fizzle.css">
+<link rel="icon" href="images/twemoji/26a1.svg">
+<script src="js/site.js" defer></script>
+<script src="js/moths.js" defer></script>
+</head>
+<body class="bio">
+<a class="fz-skip" href="#main">Skip to content</a>
+<header class="fz-head" id="top">
+  <a class="fz-logo" href="index.html">
+    <span class="word">fi<em>z</em><em>z</em>le<em>.</em></span>
+    <span class="dom">a tiny science playground</span>
+  </a>
+  <div class="fz-headright">
+    <nav class="fz-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="experiments.html" class="on">Experiments</a>
+      <a href="reference.html">Reference</a>
+      <a href="guestbook.html">Guestbook</a>
+      <a href="about.html">About</a>
+    </nav>
+    <button class="fz-theme" type="button" aria-label="Toggle dark or light theme">
+      <img class="em moon" src="images/twemoji/1f319.svg" alt="">
+      <img class="em sun" src="images/twemoji/2600.svg" alt="">
+    </button>
+  </div>
+</header>
+
+<div class="fz-ticker">
+  <button type="button" class="flag" id="fz-tick-btn" aria-pressed="false">NEW</button>
+  <div class="lane"><div class="track">
+    <span>Biology note: <em>selection cannot invent a trait, it can only sort the ones present.</em></span>
+    <span class="sep">&#9679;</span>
+    <span>Britain's dark moths rose with the soot and fell after the Clean Air Acts.</span>
+    <span class="sep">&#9679;</span>
+    <span>Try hunting on clean bark, then switch to industrial and hunt again.</span>
+  </div></div>
+</div>
+
+<main class="fz-main" id="main">
+  <span class="fz-kicker"><span class="dot"></span>experiment 05 &middot; biology</span>
+  <h1 class="fz-h1">Peppered Moths</h1>
+  <div class="fz-lede">
+    <div class="txt">
+      <p class="fz-hook">Natural selection is <strong>bookkeeping, not intent</strong>. You are the bird. Eat the moths you can see, breed the survivors, and watch the population shift under your own beak.</p>
+    </div>
+    <img class="fz-hero-art" src="images/hero-moths.svg" alt="Flat illustration of tree bark with one pale moth and one dark moth resting on it" width="250" height="190">
+  </div>
+
+  <div class="fz-stage">
+    <div class="bar"><span>js/moths.js</span><span class="howto">&#9654; click moths to eat them, then breed the next generation</span></div>
+    <div class="well">
+      <div class="mo-wrap">
+        <div class="mo-scenebox">
+          <div class="mo-scene" id="mo-scene"></div>
+        </div>
+        <div class="mo-side">
+          <div class="row">
+            <span class="lbl">Era and pollution</span>
+            <div class="mo-era" id="mo-era">
+              <button type="button" class="fz-btn" data-era="0">1800 clean</button>
+              <button type="button" class="fz-btn on" data-era="1">1900 sooty</button>
+              <button type="button" class="fz-btn" data-era="2">Today</button>
+            </div>
+          </div>
+          <div class="mo-stats">
+            <span>generation: <strong id="mo-gen">1</strong> of 10</span>
+            <span>catches left: <strong id="mo-left">8</strong></span>
+            <span>dark moths: <strong id="mo-pct">50%</strong></span>
+            <div class="mo-split"><span class="lite" id="mo-lite"></span><span class="dark" id="mo-dark"></span></div>
+          </div>
+          <div class="row">
+            <span class="lbl">Dark moths per generation</span>
+            <div class="mo-chart" id="mo-chart"></div>
+          </div>
+          <div class="dk-ctl">
+            <button type="button" class="fz-btn on" id="mo-next">Breed next generation</button>
+            <button type="button" class="fz-btn" id="mo-reset">Reset</button>
+          </div>
+        </div>
+      </div>
+      <div class="fz-read" id="mo-read" role="status" aria-live="polite"><span>eat some moths to begin&hellip;</span></div>
+    </div>
+  </div>
+  <p class="fz-caption">How this works: twenty moths sit on bark at random positions. Moths that contrast with the bark are easier for you to spot, so they get eaten more. The next generation is drawn from the survivors' color frequency, plus a small mutation rate. That is a shortcut: it tracks the population's color mix rather than individual genotypes. Population size and catches per round are fixed so the simulation cannot be broken.</p>
+
+  <div class="fz-prose">
+    <h2>Industrial melanism, the case everyone cites</h2>
+    <p>Before the 1800s, almost every peppered moth in Britain was pale and speckled, which matched the lichen on the trees it rested on. Coal soot killed the lichen and darkened the bark, and within a few decades dark moths went from rare to dominant near industrial cities. After the Clean Air Acts of the mid-twentieth century the bark lightened again, and the pale form recovered. Field biologists watched the whole reversal happen, which is what makes this the textbook case: selection observed in a wild population, in both directions, on a timescale a person can live through.</p>
+    <p>The important part is what selection did not do. No moth changed color to hide better, and soot did not cause dark moths to appear. Both forms already existed in the population, produced by an ordinary genetic difference. Changing the bark changed only which of the two got eaten first, and eating is the whole mechanism. Selection sorts variation that is already there, generation after generation, and the population average drifts as a side effect of who survived to breed.</p>
+    <p>This simulation is honest about being simple. Real inheritance in peppered moths runs on a single dominant allele. This model does not track alleles at all. It measures the color mix of whoever survived and draws the next generation from that, which reproduces the trend without the genetics. Real populations also move between trees, face several predators, and number in the thousands. Twenty moths and a fixed budget of eight catches will not give you publication-grade numbers. Ten generations will give you the shape of the effect, and if you switch eras halfway through, you can watch it run backwards.</p>
+    <h2>Related concepts</h2>
+    <ul class="fz-related">
+      <li><a href="cells.html">DNA and inheritance</a></li>
+      <li><a href="reference.html">allele frequency</a></li>
+      <li><a href="decay.html">probability in biology</a></li>
+      <li><a href="experiments.html">the other experiments</a></li>
+    </ul>
+  </div>
+</main>
+
+<footer class="fz-foot">
+  <div class="cols">
+    <div>
+      <h2>All 10 pages</h2>
+      <ul class="fz-sitemap">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="periodic.html">Periodic Trends</a></li>
+        <li><a href="cells.html">Cell Explorer</a></li>
+        <li><a href="rocket.html">Rocket Lab: &Delta;v</a></li>
+        <li><a href="decay.html">Nuclide Decay</a></li>
+        <li><a href="moths.html">Peppered Moths</a></li>
+        <li><a href="experiments.html">All Experiments</a></li>
+        <li><a href="reference.html">Reference Tables</a></li>
+        <li><a href="guestbook.html">Guestbook</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Elsewhere</h2>
+      <ul>
+        <li><a href="mailto:hello@zainham.com"><img class="em" src="images/twemoji/2709.svg" alt=""> hello@zainham.com</a></li>
+        <li><a href="https://www.nasa.gov/">&#8599; NASA.gov</a></li>
+        <li><a href="https://pubchem.ncbi.nlm.nih.gov/">&#8599; PubChem</a></li>
+        <li><a href="#top">&#8593; Back to top</a></li>
+      </ul>
+    </div>
+    <div class="fz-counter">
+      <span class="lab">visitor number</span>
+      <div class="fz-odo"><span>0</span><span>0</span><span>1</span><span>2</span><span>0</span><span>8</span></div>
+      <div class="fz-badges">
+        <img src="images/badge-1.svg" alt="88 by 31 button badge: HTML written by hand" width="88" height="31">
+        <img src="images/badge-2.svg" alt="88 by 31 button badge: CSS, one file, no build step" width="88" height="31">
+        <img src="images/badge-3.svg" alt="88 by 31 button badge: powered by science" width="88" height="31">
+        <img src="images/badge-4.svg" alt="88 by 31 button badge: zero cookies, zero trackers" width="88" height="31">
+      </div>
+    </div>
+  </div>
+  <div class="base">
+    <span>&copy; 2026 fizzle &middot; built by hand for Comm 360</span>
+    <span>no cookies &middot; no trackers &middot; just science</span>
+  </div>
+</footer>
+</body>
+</html>
