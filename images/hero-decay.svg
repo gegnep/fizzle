@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="380" viewBox="0 0 500 380"><!-- AI-ASSISTED: made with the help of an AI assistant (Claude), per course policy. -->
+<rect width="500" height="380" rx="18" fill="#e3f0f0"/>
+<g>
+<circle cx="90" cy="90" r="22" fill="#179299"/><circle cx="170" cy="90" r="22" fill="#179299"/><circle cx="250" cy="90" r="22" fill="#b9cfcc"/><circle cx="330" cy="90" r="22" fill="#179299"/><circle cx="410" cy="90" r="22" fill="#b9cfcc"/>
+<circle cx="90" cy="170" r="22" fill="#179299"/><circle cx="170" cy="170" r="22" fill="#b9cfcc"/><circle cx="250" cy="170" r="22" fill="#179299"/><circle cx="330" cy="170" r="22" fill="#b9cfcc"/><circle cx="410" cy="170" r="22" fill="#179299"/>
+<circle cx="90" cy="250" r="22" fill="#b9cfcc"/><circle cx="170" cy="250" r="22" fill="#179299"/><circle cx="250" cy="250" r="22" fill="#b9cfcc"/><circle cx="330" cy="250" r="22" fill="#b9cfcc"/><circle cx="410" cy="250" r="22" fill="#179299"/>
+</g>
+<rect x="150" y="300" width="200" height="52" rx="26" fill="#0e6e73"/>
+<text x="250" y="334" font-family="monospace" font-size="26" font-weight="bold" fill="#e3f0f0" text-anchor="middle">t = t&#189;</text>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="380" viewBox="0 0 500 380"><!-- AI-ASSISTED: made with the help of an AI assistant (Claude), per course policy. -->
+<rect width="500" height="380" rx="18" fill="#eaf3e4"/>
+<ellipse cx="250" cy="190" rx="190" ry="140" fill="#c7e3b8" stroke="#40a02b" stroke-width="6"/>
+<ellipse cx="250" cy="190" rx="170" ry="122" fill="#d9edcc"/>
+<circle cx="215" cy="175" r="52" fill="#8fce78" stroke="#2f7d20" stroke-width="5"/>
+<circle cx="228" cy="165" r="14" fill="#2f7d20"/>
+<ellipse cx="330" cy="140" rx="34" ry="18" fill="#f0c987" stroke="#c98b2d" stroke-width="4" transform="rotate(-18 330 140)"/>
+<ellipse cx="330" cy="140" rx="22" ry="9" fill="none" stroke="#c98b2d" stroke-width="3" transform="rotate(-18 330 140)"/>
+<ellipse cx="320" cy="235" rx="30" ry="15" fill="#f0c987" stroke="#c98b2d" stroke-width="4" transform="rotate(14 320 235)"/>
+<circle cx="150" cy="255" r="16" fill="#79b3e3" stroke="#3a6ea8" stroke-width="4"/>
+<circle cx="185" cy="272" r="10" fill="#79b3e3" stroke="#3a6ea8" stroke-width="3"/>
+<path d="M255 260 q30 18 62 6" fill="none" stroke="#2f7d20" stroke-width="5" stroke-linecap="round"/>
+<path d="M262 275 q26 14 50 5" fill="none" stroke="#2f7d20" stroke-width="4" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="380" viewBox="0 0 500 380"><!-- AI-ASSISTED: made with the help of an AI assistant (Claude), per course policy. -->
+<rect width="500" height="380" rx="18" fill="#e3f0f0"/>
+<g transform="translate(60,70)">
+<rect x="0" y="0" width="80" height="80" rx="10" fill="#179299"/>
+<rect x="100" y="0" width="80" height="80" rx="10" fill="#3aa7ab"/>
+<rect x="200" y="0" width="80" height="80" rx="10" fill="#6dbcbc"/>
+<rect x="300" y="0" width="80" height="80" rx="10" fill="#a3d4d1"/>
+<rect x="0" y="100" width="80" height="80" rx="10" fill="#2e9fa3"/>
+<rect x="100" y="100" width="80" height="80" rx="10" fill="#57b1b2" stroke="#0e6e73" stroke-width="4"/>
+<rect x="200" y="100" width="80" height="80" rx="10" fill="#8ac8c5"/>
+<rect x="300" y="100" width="80" height="80" rx="10" fill="#c0e0da"/>
+<text x="140" y="152" font-family="monospace" font-size="30" font-weight="bold" fill="#083f42" text-anchor="middle">Cl</text>
+<rect x="0" y="200" width="80" height="80" rx="10" fill="#4babad"/>
+<rect x="100" y="200" width="80" height="80" rx="10" fill="#79bfbd"/>
+<rect x="200" y="200" width="80" height="80" rx="10" fill="#a9d6d0"/>
+<rect x="300" y="200" width="80" height="80" rx="10" fill="#d3e8e2"/>
+</g>
+<g stroke="#0e6e73" stroke-width="8" fill="none" stroke-linecap="round">
+<path d="M80 340 H400"/>
+<path d="M400 340 l-22 -14 M400 340 l-22 14"/>
+</g>
+</svg>

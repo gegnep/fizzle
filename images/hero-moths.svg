@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="380" viewBox="0 0 500 380"><!-- AI-ASSISTED: made with the help of an AI assistant (Claude), per course policy. -->
+<rect width="500" height="380" rx="18" fill="#c9bda6"/>
+<g fill="#b7a98e"><rect x="40" y="0" width="34" height="380"/><rect x="120" y="0" width="26" height="380"/><rect x="210" y="0" width="40" height="380"/><rect x="300" y="0" width="28" height="380"/><rect x="380" y="0" width="36" height="380"/></g>
+<g fill="#a5977c"><ellipse cx="90" cy="300" rx="26" ry="12"/><ellipse cx="330" cy="70" rx="22" ry="10"/><ellipse cx="430" cy="230" rx="18" ry="9"/></g>
+<g transform="translate(160,140)"><path d="M-6 -8 q-38 -26 -44 4 q-4 22 38 14 z" fill="#efe7d2" stroke="#9c8f74" stroke-width="3"/><path d="M6 -8 q38 -26 44 4 q4 22 -38 14 z" fill="#efe7d2" stroke="#9c8f74" stroke-width="3"/><ellipse cx="0" cy="2" rx="9" ry="24" fill="#e0d5ba" stroke="#9c8f74" stroke-width="3"/></g>
+<g transform="translate(340,250)"><path d="M-6 -8 q-38 -26 -44 4 q-4 22 38 14 z" fill="#4a443c" stroke="#2e2a24" stroke-width="3"/><path d="M6 -8 q38 -26 44 4 q4 22 -38 14 z" fill="#4a443c" stroke="#2e2a24" stroke-width="3"/><ellipse cx="0" cy="2" rx="9" ry="24" fill="#3a3630" stroke="#2e2a24" stroke-width="3"/></g>
+</svg>
