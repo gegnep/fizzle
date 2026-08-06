@@ -28,7 +28,7 @@
       note: "The bark is recovering, and the advantage swings back." }
   ];
 
-  var scene, genEl, genMaxEl, leftEl, pctEl, liteEl, darkEl, chart, read, nextBtn, resetBtn, eraBtns;
+  var scene, genEl, genMaxEl, leftEl, pctEl, liteEl, darkEl, chart, chartFrom, read, nextBtn, resetBtn, eraBtns;
   var moths = [], gen = 1, left = CATCHES, era = 0, history = [], freeplay = false;
 
   /* Which era generation n belongs to, while the run is still going. */
@@ -123,17 +123,31 @@
     chart.innerHTML = "";
     var all = history.concat([pct]);
     var from = Math.max(0, all.length - CHART_WINDOW);
-    for (var j = from; j < all.length; j++) {
+    var shown = all.length - from;
+    /* Keep a slot for every generation of the scripted run, so one early bar
+       is one twelfth of the width instead of the whole chart. */
+    var slots = Math.max(shown, freeplay ? shown : MAX_GEN);
+    var width = "calc((100% - " + ((slots - 1) * 3) + "px) / " + slots + ")";
+    for (var j = 0; j < slots; j++) {
+      var idx = from + j;
+      var g = idx + 1;                     /* absolute generation number */
       var bar = document.createElement("span");
-      bar.style.height = Math.max(2, all[j]) + "%";
-      var g = j + 1;                       /* absolute generation number */
-      var cls = j === all.length - 1 ? "now" : "";
+      bar.style.width = width;
+      var cls = "";
+      if (idx < all.length) {
+        bar.style.height = Math.max(2, all[idx]) + "%";
+        if (idx === all.length - 1) { cls = "now"; }
+        bar.title = "generation " + g + ": " + all[idx] + "% dark";
+      } else {
+        cls = "todo";
+        bar.title = "generation " + g + ": not bred yet";
+      }
       /* a rule marks each era change, which only happens in the scripted run */
       if (g > 1 && g <= MAX_GEN && (g - 1) % GENS_PER_ERA === 0) { cls += " eraline"; }
       if (cls) { bar.className = cls.trim(); }
-      bar.title = "generation " + g + ": " + all[j] + "% dark";
       chart.appendChild(bar);
     }
+    if (chartFrom) { chartFrom.textContent = "generation " + (from + 1); }
     eraBtns.forEach(function (b) {
       var on = parseInt(b.getAttribute("data-era"), 10) === era;
       b.classList.toggle("on", on);
@@ -220,6 +234,7 @@
     liteEl = document.getElementById("mo-lite");
     darkEl = document.getElementById("mo-dark");
     chart = document.getElementById("mo-chart");
+    chartFrom = document.getElementById("mo-chartfrom");
     read = document.getElementById("mo-read");
     nextBtn = document.getElementById("mo-next");
     resetBtn = document.getElementById("mo-reset");

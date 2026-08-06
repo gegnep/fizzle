@@ -57,20 +57,25 @@
   <div class="fz-stage">
     <div class="bar"><span>js/moths.js</span><span class="howto">&#9654; eat 5 moths, then breed. 12 generations across 3 eras.</span></div>
     <div class="well">
+      <div class="fz-ctl">
+        <div class="fz-ctlrow">
+          <span class="fz-ctllab" id="mo-eralab">Era</span>
+          <div class="mo-era fz-pills" id="mo-era" role="group" aria-labelledby="mo-eralab">
+            <button type="button" class="fz-btn on" data-era="0">1800</button>
+            <button type="button" class="fz-btn" data-era="1">1900</button>
+            <button type="button" class="fz-btn" data-era="2">1970</button>
+          </div>
+        </div>
+        <p class="fz-ctlnote">The era advances on its own every 4 generations. After generation 12 the buttons unlock and you can keep breeding as long as you like.</p>
+      </div>
+
       <div class="mo-wrap">
         <div class="mo-scenebox">
+          <h3 class="fz-panelhead">The bark <span class="fz-unit">&mdash; click a moth to eat it</span></h3>
           <div class="mo-scene" id="mo-scene"></div>
         </div>
         <div class="mo-side">
-          <div class="row">
-            <span class="lbl">Era</span>
-            <div class="mo-era" id="mo-era">
-              <button type="button" class="fz-btn on" data-era="0">1800</button>
-              <button type="button" class="fz-btn" data-era="1">1900</button>
-              <button type="button" class="fz-btn" data-era="2">1970</button>
-            </div>
-            <p class="mo-erahint">The era advances on its own every 4 generations. After generation 12 the buttons unlock and you can keep breeding as long as you like.</p>
-          </div>
+          <h3 class="fz-panelhead">This generation</h3>
           <div class="mo-stats">
             <span>generation: <strong id="mo-gen">1</strong><span id="mo-genmax"> of 12</span></span>
             <span>catches left: <strong id="mo-left">5</strong></span>
@@ -78,10 +83,11 @@
             <div class="mo-split"><span class="lite" id="mo-lite"></span><span class="dark" id="mo-dark"></span></div>
           </div>
           <div class="row">
-            <span class="lbl">Dark moths per generation</span>
+            <h3 class="fz-panelhead">Dark moths per generation</h3>
             <div class="mo-chart" id="mo-chart"></div>
+            <p class="mo-chartkey"><span id="mo-chartfrom">generation 1</span><span>full height = all dark</span></p>
           </div>
-          <div class="dk-ctl">
+          <div class="fz-pills mo-act">
             <button type="button" class="fz-btn on" id="mo-next">Breed next generation</button>
             <button type="button" class="fz-btn" id="mo-reset">Reset</button>
           </div>
