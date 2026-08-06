@@ -59,17 +59,23 @@
   <div class="fz-stage">
     <div class="bar"><span>js/periodic.js</span><span class="howto">&#9654; click an element, then switch views with the buttons</span></div>
     <div class="well">
-      <div class="pt-controls">
-        <button type="button" class="fz-btn on" data-trend="radius">Atomic radius</button>
-        <button type="button" class="fz-btn" data-trend="en">Electronegativity</button>
-        <button type="button" class="fz-btn" data-trend="ie">Ionization energy</button>
-        <button type="button" class="fz-btn" data-trend="mass">Atomic mass</button>
-        <button type="button" class="fz-btn" data-trend="density">Density</button>
-        <button type="button" class="fz-btn" data-trend="block">Block</button>
-        <button type="button" class="fz-btn" data-trend="metal">Metal or nonmetal</button>
+      <div class="fz-ctl">
+        <div class="fz-ctlrow">
+          <span class="fz-ctllab" id="pt-viewlab">View</span>
+          <div class="pt-controls fz-pills" role="group" aria-labelledby="pt-viewlab">
+            <button type="button" class="fz-btn on" data-trend="radius">Atomic radius</button>
+            <button type="button" class="fz-btn" data-trend="en">Electronegativity</button>
+            <button type="button" class="fz-btn" data-trend="ie">Ionization energy</button>
+            <button type="button" class="fz-btn" data-trend="mass">Atomic mass</button>
+            <button type="button" class="fz-btn" data-trend="density">Density</button>
+            <button type="button" class="fz-btn" data-trend="block">Block</button>
+            <button type="button" class="fz-btn" data-trend="metal">Metal or nonmetal</button>
+          </div>
+        </div>
+        <p class="fz-ctlnote pt-why" id="pt-why"></p>
       </div>
-      <p class="pt-why" id="pt-why"></p>
-      <p class="pt-arrow"><span id="pt-arrow-label">radius shrinks &rarr;</span><span class="line"></span></p>
+      <p class="pt-arrow"><span class="swatch" aria-hidden="true"></span><span id="pt-arrow-label">radius shrinks &rarr;</span><span class="line"></span></p>
+      <div class="pt-scale" id="pt-scale" hidden></div>
       <div class="pt-legend" id="pt-legend" hidden></div>
       <div class="pt-scroll"><div class="pt" id="pt-grid"></div></div>
       <div class="fz-read" id="pt-read" role="status" aria-live="polite"><span>loading elements&hellip;</span></div>

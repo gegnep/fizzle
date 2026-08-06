@@ -184,15 +184,33 @@ body.phys .fz-btn.on{background:var(--phys);border-color:var(--phys);color:var(-
 .fz-related li a:hover{background:var(--lav-soft);color:var(--text)}
 
 /* ---------- periodic ---------- */
-.pt-controls{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.pt-controls{display:flex;gap:8px;flex-wrap:wrap}
 .pt{display:grid;grid-template-columns:repeat(18,1fr);gap:3px;position:relative}
-.pt button.el{aspect-ratio:1;border:1px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10px;background:var(--chem-soft);color:var(--text);cursor:pointer;padding:0;min-width:0}
+.pt button.el{aspect-ratio:1;border:1px solid var(--border);border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-family:var(--font-mono);background:var(--chem-soft);color:var(--text);cursor:pointer;padding:0;min-width:0;line-height:1}
+.pt button.el .z{font-size:8.5px;font-weight:400}
+.pt button.el .sym{font-size:12px;font-weight:700;letter-spacing:-.02em}
 .pt button.el:hover{outline:2px solid var(--trend,var(--chem));outline-offset:1px;z-index:1}
-.pt button.el.sel{outline:2.5px solid var(--border);outline-offset:1px;font-weight:700;z-index:2}
-.pt button.el.nodata{border-style:dashed;color:var(--subtext)}
+.pt button.el.sel{outline:3px solid var(--border);outline-offset:1px;z-index:2;box-shadow:0 0 0 1.5px var(--card)}
+.pt button.el.nodata{border-style:dashed;background:var(--card);color:var(--subtext)}
+.pt button.el.nodata .sym{font-weight:400}
+
+/* the color scale, so a tile color can be read back as a number */
+.pt-scale[hidden]{display:none}
+.pt-scale{display:grid;grid-template-columns:auto auto 1fr auto;align-items:center;gap:0 10px;margin:0 0 14px;font-family:var(--font-mono);font-size:11px;color:var(--subtext)}
+.pt-scale .cap{grid-column:1;letter-spacing:.08em;text-transform:uppercase;font-weight:700;font-size:10px}
+.pt-scale .bar{height:12px;border:1px solid var(--border);border-radius:3px}
+.pt-scale .lo{text-align:right}
+@media (max-width:720px){
+  .pt-scale{grid-template-columns:auto 1fr auto}
+  .pt-scale .cap{grid-column:1 / -1;margin-bottom:2px}
+}
 .pt .gap{grid-column:1 / -1;height:10px}
 .pt .lbl56{border:none;background:none;font-family:var(--font-mono);font-size:9px;color:var(--subtext);display:flex;align-items:center;justify-content:center}
-.pt-arrow{margin:0 0 12px;font-family:var(--font-display);font-weight:600;color:var(--trend,var(--chem));font-size:14px;display:flex;align-items:center;gap:10px}
+/* The words stay in the text color. The accent colors are picked to look
+   right as a fill and fail as text: yellow on white is 2.6 to 1. The line
+   and its arrowhead carry the color instead. */
+.pt-arrow{margin:0 0 12px;font-family:var(--font-display);font-weight:600;color:var(--text);font-size:14px;display:flex;align-items:center;gap:10px}
+.pt-arrow .swatch{width:11px;height:11px;border-radius:3px;border:1px solid var(--border);background:var(--trend,var(--chem));flex:none}
 .pt-arrow .line{flex:1;height:3px;background:var(--trend,var(--chem));border-radius:2px;position:relative;min-width:60px}
 .pt-arrow .line::after{content:"";position:absolute;right:-2px;top:-5px;border:7px solid transparent;border-left-color:var(--trend,var(--chem))}
 
@@ -422,8 +440,7 @@ h2.fz-tablehead{font-family:var(--font-display);font-size:24px;margin:38px 0 12p
 .mo-chart span{flex:1 1 0;width:auto;min-width:3px}
 .mo-chart span.eraline{box-shadow:-2px 0 0 var(--border)}
 
-/* Periodic: trend explainer and category legend */
-.pt-why{font-size:14px;color:var(--subtext);margin:0 0 14px;max-width:76ch;text-wrap:pretty}
+/* Periodic: category legend */
 .pt-legend[hidden]{display:none}
 .pt-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0 0 12px;font-family:var(--font-mono);font-size:12px;color:var(--subtext)}
 .pt-legend span{display:inline-flex;align-items:center;gap:7px}
