@@ -59,6 +59,10 @@
         var dark = document.body.classList.toggle("dark");
         writeSaved(dark ? "dark" : "light");
         carryTheme();
+        /* Canvas demos read their colors from CSS, so they need a nudge to
+           repaint. CSS alone cannot reach a painted canvas. */
+        document.dispatchEvent(new CustomEvent("fizzle:theme",
+          { detail: { dark: dark } }));
       });
     }
     carryTheme();
