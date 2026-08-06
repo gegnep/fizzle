@@ -210,18 +210,30 @@ body.phys .fz-btn.on{background:var(--phys);border-color:var(--phys);color:var(-
   .fz-ctllab{flex:0 0 100%}
 }
 
-/* ---------- cells ---------- */
-.cx-tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
-.cx-wrap{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
-.cx-svg{flex:1 1 380px;max-width:520px}
-.cx-svg svg{width:100%;height:auto;display:block}
-.cx-svg .org{cursor:pointer;transition:filter .12s}
-.cx-svg .org:hover,.cx-svg .org:focus-visible{filter:brightness(1.08) saturate(1.3)}
-.cx-svg .org.sel{stroke:var(--border);stroke-width:2.5}
-.cx-list{flex:1 1 220px;display:flex;flex-direction:column;gap:6px;list-style:none;margin:0;padding:0}
-.cx-list button{font-family:var(--font-mono);font-size:12.5px;text-align:left;border:1.5px solid var(--line);background:var(--card);color:var(--text);border-radius:8px;padding:7px 10px;cursor:pointer}
-.cx-list button:hover{border-color:var(--bio)}
-.cx-list button.on{border-color:var(--bio);background:var(--bio-soft)}
+/* ---------- cells: the 3D viewer ---------- */
+.cx-wrap{display:grid;grid-template-columns:minmax(0,1fr) 224px;gap:22px;align-items:start}
+.cx-stage{min-width:0}
+.cx-viewport{position:relative;aspect-ratio:4/3;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;background:var(--base)}
+.cx-viewport canvas{position:absolute;inset:0;display:block;cursor:grab;touch-action:pan-y;outline:none;border-radius:11px}
+.cx-viewport canvas.grabbing{cursor:grabbing}
+.cx-viewport canvas:focus-visible{outline:2.5px solid var(--link);outline-offset:-4px}
+.cx-hud{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px}
+.cx-hudbtn{width:32px;height:32px;padding:0;border:1.5px solid var(--border);border-radius:9px;background:var(--card);color:var(--text);font-family:var(--font-display);font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:.92;box-shadow:var(--shadow-soft)}
+.cx-hudbtn:hover{background:var(--lav-soft);opacity:1}
+.cx-hudbtn.on{background:var(--bio);border-color:var(--bio);color:var(--accent-contrast)}
+.cx-hint{font-family:var(--font-mono);font-size:11px;color:var(--subtext);margin:9px 0 0;text-align:center}
+.cx-side{min-width:0}
+.cx-list{display:flex;flex-direction:column;gap:5px;list-style:none;margin:0;padding:0}
+.cx-list button{width:100%;display:flex;align-items:center;gap:9px;font-family:var(--font-mono);font-size:12px;line-height:1.3;text-align:left;border:1.5px solid var(--line);background:var(--card);color:var(--text);border-radius:9px;padding:8px 10px;cursor:pointer}
+.cx-list button .sw{width:11px;height:11px;border-radius:3px;border:1px solid var(--border);flex:none}
+.cx-list button:hover{border-color:var(--bio);background:var(--bio-soft)}
+.cx-list button.on{border-color:var(--bio);background:var(--bio-soft);font-weight:700;box-shadow:inset 3px 0 0 var(--bio)}
+@media (max-width:900px){
+  .cx-wrap{grid-template-columns:1fr}
+  .cx-viewport{aspect-ratio:1/1}
+  .cx-list{max-height:none;flex-direction:row;flex-wrap:wrap}
+  .cx-list li{flex:1 1 44%}
+}
 
 /* ---------- rocket ---------- */
 .rk-wrap{display:flex;gap:28px;flex-wrap:wrap}

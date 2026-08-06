@@ -39,7 +39,7 @@
   <div class="lane"><div class="track">
     <span>Biology note: <em>a single human body carries roughly 30 trillion cells.</em></span>
     <span class="sep">&#9679;</span>
-    <span>Click an organelle in the diagram, or pick one from the list beside it.</span>
+    <span>Drag the cell to turn it, then click a part. The list beside it does the same job.</span>
     <span class="sep">&#9679;</span>
     <span>Bacteria run the same basic chemistry with none of the compartments.</span>
   </div></div>
@@ -49,27 +49,57 @@
   <div class="fz-lede">
     <div class="txt">
       <h1 class="fz-h1">Cell Explorer</h1>
-      <p class="fz-hook">A cell is a <strong>workshop, not a bag of parts</strong>. Switch between an animal, plant, and bacterial cell, then click any organelle to see the one job it does.</p>
+      <p class="fz-hook">A cell is a <strong>workshop, not a bag of parts</strong>. Turn the model, pick an organelle, and see the one job it does. Animal, plant, and bacterial cells, side by side in three dimensions.</p>
     </div>
     <img class="fz-hero-art" src="images/hero-cells.svg" alt="Flat illustration of a green cell with a nucleus, mitochondria, and vesicles" width="250" height="190">
   </div>
 
   <div class="fz-stage">
-    <div class="bar"><span>js/cells.js</span><span class="howto">&#9654; pick a cell type, then click a labeled part</span></div>
+    <div class="bar"><span>js/cells.js</span><span class="howto">&#9654; drag to turn the cell, then click a part</span></div>
     <div class="well">
-      <div class="cx-tabs">
-        <button type="button" class="fz-btn on" data-cell="animal">Animal</button>
-        <button type="button" class="fz-btn" data-cell="plant">Plant</button>
-        <button type="button" class="fz-btn" data-cell="bacteria">Bacteria</button>
+      <div class="fz-ctl">
+        <div class="fz-ctlrow">
+          <span class="fz-ctllab" id="cx-tablab">Cell type</span>
+          <div class="cx-tabs fz-pills" role="group" aria-labelledby="cx-tablab">
+            <button type="button" class="fz-btn on" data-cell="animal">Animal</button>
+            <button type="button" class="fz-btn" data-cell="plant">Plant</button>
+            <button type="button" class="fz-btn" data-cell="bacteria">Bacteria</button>
+          </div>
+        </div>
+        <p class="fz-ctlnote" id="cx-note">A typical human cell.</p>
       </div>
+
       <div class="cx-wrap">
-        <div class="cx-svg" id="cx-svg"></div>
-        <ul class="cx-list" id="cx-list"></ul>
+        <div class="cx-stage">
+          <div class="cx-viewport" id="cx-viewport">
+            <canvas id="cx-canvas" tabindex="0" role="img"
+              aria-label="Rotating three dimensional model of an animal cell"></canvas>
+            <div class="cx-hud">
+              <button type="button" class="cx-hudbtn on" id="cx-spin" aria-pressed="true" title="Turn the slow spin on or off">
+                <span aria-hidden="true">&#8635;</span><span class="visually-hidden">Toggle automatic spin</span>
+              </button>
+              <button type="button" class="cx-hudbtn" id="cx-in" title="Zoom in">
+                <span aria-hidden="true">+</span><span class="visually-hidden">Zoom in</span>
+              </button>
+              <button type="button" class="cx-hudbtn" id="cx-out" title="Zoom out">
+                <span aria-hidden="true">&minus;</span><span class="visually-hidden">Zoom out</span>
+              </button>
+              <button type="button" class="cx-hudbtn" id="cx-reset" title="Reset the view">
+                <span aria-hidden="true">&#9678;</span><span class="visually-hidden">Reset the view</span>
+              </button>
+            </div>
+          </div>
+          <p class="cx-hint" id="cx-hint">Drag to turn &middot; click the canvas then scroll to zoom &middot; click a part to name it</p>
+        </div>
+        <div class="cx-side">
+          <h3 class="fz-panelhead">Parts</h3>
+          <ul class="cx-list" id="cx-list"></ul>
+        </div>
       </div>
       <div class="fz-read" id="cx-read" role="status" aria-live="polite"><span>loading cell&hellip;</span></div>
     </div>
   </div>
-  <p class="fz-caption">How this works: each cell type is a small hand-drawn SVG. Every shaded shape carries the name and job of one organelle, so clicking a shape or its list entry fills the readout strip below.</p>
+  <p class="fz-caption">How this works: each cell is built from spheres, rods, and panels placed in three dimensions, then drawn back to front on a plain canvas with no 3D library. Shading comes from a single fixed light, and distant parts fade into the haze so depth reads correctly. Colors are assigned per organelle and stay the same in both themes. Shapes and sizes are schematic, not to scale.</p>
 
   <div class="fz-prose">
     <h2>Why compartments matter</h2>
