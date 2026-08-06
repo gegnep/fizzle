@@ -196,6 +196,20 @@ body.phys .fz-btn.on{background:var(--phys);border-color:var(--phys);color:var(-
 .pt-arrow .line{flex:1;height:3px;background:var(--trend,var(--chem));border-radius:2px;position:relative;min-width:60px}
 .pt-arrow .line::after{content:"";position:absolute;right:-2px;top:-5px;border:7px solid transparent;border-left-color:var(--trend,var(--chem))}
 
+/* ---------- shared demo furniture ----------
+   Every experiment uses the same control cluster, panel heading, and spacing
+   rhythm, so the five stages read as one instrument family. */
+.fz-ctl{display:flex;flex-direction:column;gap:12px;margin:0 0 22px;padding:0 0 18px;border-bottom:1.5px dashed var(--line)}
+.fz-ctlrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.fz-ctllab{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--subtext);flex:0 0 96px}
+.fz-pills{display:flex;gap:7px;flex-wrap:wrap;min-width:0}
+.fz-ctlnote{margin:0;font-size:14px;color:var(--subtext);max-width:74ch;text-wrap:pretty}
+.fz-panelhead{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--subtext);font-weight:700;margin:0 0 10px}
+.fz-panelhead .fz-unit{font-weight:400;letter-spacing:0;text-transform:none}
+@media (max-width:720px){
+  .fz-ctllab{flex:0 0 100%}
+}
+
 /* ---------- cells ---------- */
 .cx-tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
 .cx-wrap{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
@@ -228,7 +242,7 @@ body.phys .fz-btn.on{background:var(--phys);border-color:var(--phys);color:var(-
 /* ---------- decay ---------- */
 .dk-wrap{display:flex;gap:26px;flex-wrap:wrap}
 .dk-chartbox{flex:1 1 300px;min-width:280px}
-.dk-chartbox h3,.dk-simbox h3{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--subtext);margin:0 0 8px}
+.dk-presethead{margin-top:14px}
 .dk-chart{border:1.5px solid var(--line);border-radius:8px;background:var(--base);width:100%;overflow:hidden}
 .dk-chart svg{display:block;width:100%;height:auto}
 .dk-nuc{cursor:pointer}

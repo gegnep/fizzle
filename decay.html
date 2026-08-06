@@ -60,18 +60,19 @@
     <div class="well">
       <div class="dk-wrap">
         <div class="dk-chartbox">
-          <h3>chart of nuclides &middot; 30 selectable</h3>
+          <h3 class="fz-panelhead">Chart of nuclides <span class="fz-unit">&mdash; 30 selectable</span></h3>
           <div class="dk-chart" id="dk-chart"></div>
           <div class="dk-axis"><span>neutrons (N) &rarr;</span><span>&uarr; protons (Z)</span></div>
           <div class="dk-legend" id="dk-legend"></div>
-          <div class="dk-presets" id="dk-presets"></div>
+          <h3 class="fz-panelhead dk-presethead">Pick a nuclide</h3>
+          <div class="dk-presets fz-pills" id="dk-presets"></div>
         </div>
         <div class="dk-simbox">
-          <h3>400 atoms &middot; every one walks the chain</h3>
+          <h3 class="fz-panelhead">400 atoms <span class="fz-unit">&mdash; every one walks the chain</span></h3>
           <div class="dk-atoms" id="dk-atoms"></div>
           <div class="dk-timeline" id="dk-timeline"></div>
           <div class="dk-times" id="dk-times"></div>
-          <div class="dk-ctl">
+          <div class="dk-ctl fz-pills">
             <button type="button" class="fz-btn on" id="dk-play">&#9654; Play</button>
             <button type="button" class="fz-btn" id="dk-reset">Reset</button>
             <button type="button" class="fz-btn" id="dk-speed" data-speed="1">Speed 1&times;</button>
