@@ -254,20 +254,59 @@ body.phys .fz-btn.on{background:var(--phys);border-color:var(--phys);color:var(-
 }
 
 /* ---------- rocket ---------- */
-.rk-wrap{display:flex;gap:28px;flex-wrap:wrap}
-.rk-svg{flex:0 0 150px;align-self:center}
+.rk-wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:26px;align-items:start}
+.rk-build,.rk-orbit{min-width:0}
+.rk-buildrow{display:flex;gap:20px;align-items:stretch}
+.rk-svg{flex:0 0 108px;display:flex;align-items:center}
 .rk-svg svg{width:100%;height:auto}
-.rk-controls{flex:1 1 320px;display:flex;flex-direction:column;gap:16px}
-.rk-controls .row label{display:block;font-family:var(--font-display);font-weight:600;font-size:14px;margin-bottom:4px}
-.rk-controls .row output{font-family:var(--font-mono);font-size:12.5px;color:var(--subtext);float:right}
-.rk-controls input[type=range]{width:100%;accent-color:var(--phys)}
-.rk-bar{margin-top:18px}
-.rk-bar .lab{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11.5px;color:var(--subtext);margin-bottom:5px}
-.rk-track{position:relative;height:26px;border:1.5px solid var(--border);border-radius:99px;background:var(--base);overflow:hidden}
-.rk-fill{position:absolute;inset:0 auto 0 0;width:0%;background:var(--phys);transition:width .25s ease}
-.rk-goal{position:absolute;top:-4px;bottom:-4px;width:2.5px;background:var(--pink)}
-.rk-verdict{margin-top:14px;font-family:var(--font-display);font-weight:700;font-size:19px}
-.rk-verdict .sub{display:block;font-family:var(--font-mono);font-weight:400;font-size:12px;color:var(--subtext);margin-top:2px}
+.rk-sliders{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:16px}
+.rk-sliders .row label{display:block;font-family:var(--font-display);font-weight:600;font-size:14px;margin-bottom:4px}
+.rk-sliders .row output{font-family:var(--font-mono);font-size:12.5px;color:var(--text);float:right;background:var(--phys-soft);border-radius:5px;padding:1px 7px}
+.rk-sliders input[type=range]{width:100%;accent-color:var(--phys)}
+.rk-sliders .hint{margin:4px 0 0;font-family:var(--font-mono);font-size:10.5px;color:var(--subtext);line-height:1.4}
+.rk-derived{display:flex;gap:10px;margin:auto 0 0;padding:0}
+.rk-derived div{flex:1 1 0;border:1.5px dashed var(--line);border-radius:8px;padding:7px 10px;min-width:0}
+.rk-derived dt{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--subtext)}
+.rk-derived dd{margin:2px 0 0;font-family:var(--font-mono);font-size:14px;font-weight:700}
+.rk-orbit svg{width:100%;max-width:360px;height:auto;display:block;margin:0 auto;border:1.5px solid var(--line);border-radius:10px;background:var(--base)}
+.rk-orbitlab{font-family:var(--font-mono);font-size:11.5px;color:var(--subtext);margin:8px 0 0;text-align:center}
+
+/* the budget meter: one bar that answers the whole page */
+.rk-meter{margin-top:26px;padding-top:20px;border-top:1.5px dashed var(--line)}
+.rk-eq{margin:0 0 12px;font-family:var(--font-mono);font-size:13px;color:var(--subtext);overflow-x:auto;white-space:nowrap;padding-bottom:2px}
+.rk-eq .v{color:var(--text);background:var(--phys-soft);border-radius:4px;padding:1px 5px}
+.rk-eq .out{color:var(--accent-contrast);background:var(--phys);border-radius:4px;padding:1px 6px;font-weight:700}
+body.dark .rk-eq .out{color:var(--phys-contrast)}
+.rk-track{position:relative;height:30px;border:2px solid var(--border);border-radius:8px;background:var(--base);overflow:hidden}
+.rk-track .zone{position:absolute;top:0;bottom:0;display:block}
+.rk-track .zone.fall{left:0;width:var(--orbit,67%);background:var(--base)}
+.rk-track .zone.orb{left:var(--orbit,67%);width:calc(var(--escape,91%) - var(--orbit,67%));background:var(--phys-soft);box-shadow:inset 1.5px 0 0 var(--border)}
+.rk-track .zone.esc{left:var(--escape,91%);right:0;background:var(--yellow-soft);box-shadow:inset 1.5px 0 0 var(--border)}
+/* the fill is inset, so the zone bands stay readable behind and around it */
+.rk-fill{position:absolute;inset:5px auto 5px 0;width:0%;background:var(--phys);border-radius:0 4px 4px 0;transition:width .25s ease}
+.rk-head{position:absolute;top:0;bottom:0;left:0;width:0;border-left:2.5px solid var(--pink);transition:left .25s ease}
+.rk-head span{position:absolute;top:50%;left:8px;transform:translateY(-50%);font-family:var(--font-mono);font-size:12.5px;font-weight:700;color:var(--text);white-space:nowrap}
+.rk-head.far span{left:auto;right:8px}
+.rk-ticks{position:relative;height:16px;margin-top:4px;font-family:var(--font-mono);font-size:10.5px;color:var(--subtext)}
+.rk-ticks .t{position:absolute;top:0;white-space:nowrap;padding-left:6px;border-left:1.5px solid var(--line)}
+.rk-ticks .t.orbit{left:var(--orbit,67%)}
+.rk-ticks .t.escape{left:var(--escape,91%);padding-left:0;padding-right:6px;border-left:0;border-right:1.5px solid var(--line);transform:translateX(-100%)}
+.rk-verdict{margin:16px 0 0;font-family:var(--font-display);font-weight:700;font-size:21px;padding-left:14px;border-left:4px solid var(--line)}
+.rk-verdict .sub{display:block;font-family:var(--font-mono);font-weight:400;font-size:12px;color:var(--subtext);margin-top:3px}
+.rk-meter[data-zone=orbit] .rk-verdict{border-left-color:var(--phys)}
+.rk-meter[data-zone=escape] .rk-verdict{border-left-color:var(--yellow)}
+.rk-meter[data-zone=pad] .rk-verdict{border-left-color:var(--pink)}
+@media (max-width:820px){
+  .rk-wrap{grid-template-columns:1fr}
+  .rk-ticks .t.escape{font-size:9.5px}
+}
+@media (max-width:560px){
+  .rk-buildrow{flex-direction:column;align-items:center}
+  .rk-svg{flex:0 0 auto;width:88px}
+  .rk-sliders{width:100%}
+  .rk-derived{flex-direction:column}
+  .rk-derived dd{white-space:nowrap}
+}
 
 /* ---------- decay ---------- */
 .dk-wrap{display:flex;gap:26px;flex-wrap:wrap}
@@ -445,12 +484,6 @@ h2.fz-tablehead{font-family:var(--font-display);font-size:24px;margin:38px 0 12p
 .pt-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0 0 12px;font-family:var(--font-mono);font-size:12px;color:var(--subtext)}
 .pt-legend span{display:inline-flex;align-items:center;gap:7px}
 .pt-legend span span{width:14px;height:14px;border-radius:3px;border:1px solid var(--border);display:inline-block}
-
-/* Rocket: trajectory view */
-.rk-orbit{flex:1 1 260px;min-width:240px;order:3}
-.rk-orbit svg{width:100%;height:auto;display:block;border:1.5px solid var(--line);border-radius:10px;background:var(--base)}
-.rk-orbitlab{font-family:var(--font-mono);font-size:11.5px;color:var(--subtext);margin:6px 0 0;text-align:center}
-@media (min-width:900px){.rk-orbit{order:0}}
 
 /* Periodic: a swatch on each numeric view button */
 .pt-controls .fz-btn{display:inline-flex;align-items:center;gap:7px}

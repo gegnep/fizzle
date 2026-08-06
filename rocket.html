@@ -55,10 +55,58 @@
   </div>
 
   <div class="fz-stage">
-    <div class="bar"><span>js/rocket.js</span><span class="howto">&#9654; drag the sliders and watch the verdict change</span></div>
+    <div class="bar"><span>js/rocket.js</span><span class="howto">&#9654; pick an engine, set the masses, read the budget</span></div>
     <div class="well">
+      <div class="fz-ctl">
+        <div class="fz-ctlrow">
+          <span class="fz-ctllab" id="rk-englab">Engine</span>
+          <div class="fz-pills" id="rk-engines" role="group" aria-labelledby="rk-englab">
+            <button type="button" class="fz-btn" data-eng="0">Solid booster</button>
+            <button type="button" class="fz-btn on" data-eng="1">Kerolox</button>
+            <button type="button" class="fz-btn" data-eng="2">Hydrolox</button>
+            <button type="button" class="fz-btn" data-eng="3">Ion thruster</button>
+          </div>
+        </div>
+        <p class="fz-ctlnote" id="rk-engnote"></p>
+      </div>
+
       <div class="rk-wrap">
-        <div class="rk-orbit">
+        <section class="rk-build">
+          <h3 class="fz-panelhead">Vehicle</h3>
+          <div class="rk-buildrow">
+            <div class="rk-svg">
+              <svg viewBox="0 0 120 260" role="img" aria-label="Diagram of a rocket whose fuel tank fills as you add fuel">
+                <path d="M60 8 q26 40 26 96 v96 h-52 v-96 q0 -56 26 -96 z" fill="var(--card)" stroke="var(--border)" stroke-width="3"/>
+                <rect id="rk-tank" x="36" y="120" width="48" height="80" fill="var(--phys)" opacity="0.85"/>
+                <path d="M60 8 q26 40 26 96 v96 h-52 v-96 q0 -56 26 -96 z" fill="none" stroke="var(--border)" stroke-width="3"/>
+                <circle cx="60" cy="80" r="13" fill="var(--phys-soft)" stroke="var(--border)" stroke-width="3"/>
+                <path d="M34 200 l-20 34 24 -8 z" fill="var(--phys)" stroke="var(--border)" stroke-width="3" stroke-linejoin="round"/>
+                <path d="M86 200 l20 34 -24 -8 z" fill="var(--phys)" stroke="var(--border)" stroke-width="3" stroke-linejoin="round"/>
+                <path d="M44 200 h32 l8 20 h-48 z" fill="var(--mantle)" stroke="var(--border)" stroke-width="3" stroke-linejoin="round"/>
+                <path id="rk-flame" d="M50 222 q10 26 10 34 q0 -8 10 -34 z" fill="var(--yellow)" stroke="var(--border)" stroke-width="2.5" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="rk-sliders">
+              <div class="row">
+                <label for="rk-dry">Dry mass <output id="rk-dry-out" for="rk-dry">4 t</output></label>
+                <input type="range" id="rk-dry" min="1" max="30" step="1" value="4">
+                <p class="hint">everything that is not fuel: tanks, engine, payload</p>
+              </div>
+              <div class="row">
+                <label for="rk-fuel">Fuel mass <output id="rk-fuel-out" for="rk-fuel">30 t</output></label>
+                <input type="range" id="rk-fuel" min="1" max="400" step="1" value="30">
+                <p class="hint">the tank fills as you add it</p>
+              </div>
+              <dl class="rk-derived">
+                <div><dt>Mass ratio</dt><dd id="rk-ratio">8.50</dd></div>
+                <div><dt>Exhaust speed</dt><dd id="rk-ve">3,050 m/s</dd></div>
+              </dl>
+            </div>
+          </div>
+        </section>
+
+        <section class="rk-orbit">
+          <h3 class="fz-panelhead">Trajectory</h3>
           <svg viewBox="0 0 320 300" role="img" aria-labelledby="rk-orbit-title">
             <title id="rk-orbit-title">Side view of Earth showing the trajectory your rocket achieves</title>
             <defs>
@@ -75,43 +123,28 @@
             </g>
           </svg>
           <p class="rk-orbitlab" id="rk-orbitlab">ballistic arc</p>
-        </div>
-        <div class="rk-svg">
-          <svg viewBox="0 0 120 260" role="img" aria-label="Diagram of a rocket whose fuel tank fills as you add fuel">
-            <path d="M60 8 q26 40 26 96 v96 h-52 v-96 q0 -56 26 -96 z" fill="var(--card)" stroke="var(--border)" stroke-width="3"/>
-            <rect id="rk-tank" x="36" y="120" width="48" height="80" fill="var(--phys)" opacity="0.85"/>
-            <path d="M60 8 q26 40 26 96 v96 h-52 v-96 q0 -56 26 -96 z" fill="none" stroke="var(--border)" stroke-width="3"/>
-            <circle cx="60" cy="80" r="13" fill="var(--phys-soft)" stroke="var(--border)" stroke-width="3"/>
-            <path d="M34 200 l-20 34 24 -8 z" fill="var(--phys)" stroke="var(--border)" stroke-width="3" stroke-linejoin="round"/>
-            <path d="M86 200 l20 34 -24 -8 z" fill="var(--phys)" stroke="var(--border)" stroke-width="3" stroke-linejoin="round"/>
-            <path d="M44 200 h32 l8 20 h-48 z" fill="var(--mantle)" stroke="var(--border)" stroke-width="3" stroke-linejoin="round"/>
-            <path id="rk-flame" d="M50 222 q10 26 10 34 q0 -8 10 -34 z" fill="var(--yellow)" stroke="var(--border)" stroke-width="2.5" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="rk-controls">
-          <div class="row">
-            <label for="rk-dry">Dry mass <output id="rk-dry-out" for="rk-dry">4 t</output></label>
-            <input type="range" id="rk-dry" min="1" max="30" step="1" value="4">
-          </div>
-          <div class="row">
-            <label for="rk-fuel">Fuel mass <output id="rk-fuel-out" for="rk-fuel">30 t</output></label>
-            <input type="range" id="rk-fuel" min="1" max="400" step="1" value="30">
-          </div>
-          <div class="row">
-            <label for="rk-isp">Engine <output id="rk-isp-out" for="rk-isp">kerolox, 311 s</output></label>
-            <input type="range" id="rk-isp" min="0" max="3" step="1" value="1">
-          </div>
-          <div class="rk-bar">
-            <div class="lab"><span id="rk-dv">&Delta;v 0 m/s</span><span>orbit needs 9,400 m/s</span></div>
-            <div class="rk-track"><div class="rk-fill" id="rk-fill"></div><div class="rk-goal" id="rk-goal"></div></div>
-          </div>
-          <p class="rk-verdict" id="rk-verdict">Lawn dart<span class="sub">set some fuel and try again</span></p>
-        </div>
+        </section>
       </div>
+
+      <section class="rk-meter" id="rk-meter">
+        <h3 class="fz-panelhead">Delta-v budget <span class="fz-unit">&mdash; what your design buys</span></h3>
+        <p class="rk-eq" id="rk-eq"></p>
+        <div class="rk-track">
+          <span class="zone fall"></span><span class="zone orb"></span><span class="zone esc"></span>
+          <div class="rk-fill" id="rk-fill"></div>
+          <div class="rk-head" id="rk-head"><span id="rk-dv">0 m/s</span></div>
+        </div>
+        <div class="rk-ticks">
+          <span class="t orbit">9,400 orbit</span>
+          <span class="t escape">12,690 escape</span>
+        </div>
+        <p class="rk-verdict" id="rk-verdict">Lawn dart<span class="sub">set some fuel and try again</span></p>
+      </section>
+
       <div class="fz-read" id="rk-read" role="status" aria-live="polite"><span>waiting for input&hellip;</span></div>
     </div>
   </div>
-  <p class="fz-caption">How this works: the sliders feed the Tsiolkovsky rocket equation, delta-v equals exhaust velocity times the natural log of wet mass over dry mass. The bar compares what you built against roughly 9.4 km/s, the real delta-v budget for low Earth orbit including drag and gravity losses. The panel on the left redraws the trajectory that buys you: a ballistic arc, a suborbital hop that falls back, a closed orbit, or an escape path. The drawing is schematic and not to scale.</p>
+  <p class="fz-caption">How this works: the controls feed the Tsiolkovsky rocket equation, delta-v equals exhaust speed times the natural log of wet mass over dry mass. The equation above the meter shows your own numbers going in. The meter is banded: below 9,400 m/s you come back down, above it you are in orbit, and past 12,690 m/s you leave Earth for good. Those figures include drag and gravity losses. The trajectory panel is schematic and not to scale.</p>
 
   <div class="fz-prose">
     <h2>Why fuel gives less than you expect</h2>
