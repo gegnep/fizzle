@@ -31,6 +31,10 @@
   --chem-text:#00767d; --bio-text:#127c00; --phys-text:#8636ec;
   --ticker-em:#abc5ff;
   --phys-contrast:#ffffff;
+  /* Plain hex first, then the same colors mixed. A browser without
+     color-mix keeps the hex and the page still looks right. */
+  --chem-soft:#e3f2f2; --bio-soft:#e6f4e3; --phys-soft:#f0e8fd;
+  --yellow-soft:#fbf0dc; --lav-soft:#e9ebfe;
   --chem-soft:color-mix(in oklab,var(--chem) 14%,var(--card));
   --bio-soft:color-mix(in oklab,var(--bio) 14%,var(--card));
   --phys-soft:color-mix(in oklab,var(--phys) 14%,var(--card));
@@ -53,6 +57,8 @@ body.dark{
   --chem-text:#94e2d5; --bio-text:#a6e3a1; --phys-text:#d3aeff;
   --ticker-em:#f9e2af;
   --phys-contrast:#11111b;
+  --chem-soft:#3d4b52; --bio-soft:#3f4c46; --phys-soft:#443f56;
+  --yellow-soft:#4a4a48; --lav-soft:#3f4256;
   --chem-soft:color-mix(in oklab,var(--chem) 20%,var(--card));
   --bio-soft:color-mix(in oklab,var(--bio) 20%,var(--card));
   --phys-soft:color-mix(in oklab,var(--phys) 20%,var(--card));
