@@ -10,6 +10,9 @@
 <link rel="stylesheet" href="fizzle.css">
 <link rel="icon" href="images/twemoji/26a1.svg">
 <script src="js/site.js" defer></script>
+<script src="js/cell-render.js" defer></script>
+<script src="js/cell-models.js" defer></script>
+<script src="js/cell-viewer.js" defer></script>
 <script src="js/cells.js" defer></script>
 </head>
 <body class="bio">
@@ -60,7 +63,7 @@
       <div class="fz-ctl">
         <div class="fz-ctlrow">
           <span class="fz-ctllab" id="cx-tablab">Cell type</span>
-          <div class="cx-tabs fz-pills" role="group" aria-labelledby="cx-tablab">
+          <div class="cx-tabs fz-pills" id="cx-tabs" role="group" aria-labelledby="cx-tablab">
             <button type="button" class="fz-btn on" data-cell="animal">Animal</button>
             <button type="button" class="fz-btn" data-cell="plant">Plant</button>
             <button type="button" class="fz-btn" data-cell="bacteria">Bacteria</button>
@@ -92,7 +95,7 @@
           <p class="cx-hint" id="cx-hint">Drag to turn &middot; click the canvas then scroll to zoom &middot; click a part to name it</p>
         </div>
         <div class="cx-side">
-          <h3 class="fz-panelhead">Parts</h3>
+          <h3 class="fz-panelhead">Parts <span class="fz-unit" id="cx-count"></span></h3>
           <ul class="cx-list" id="cx-list"></ul>
         </div>
       </div>

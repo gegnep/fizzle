@@ -231,13 +231,23 @@ body.phys .fz-btn.on{background:var(--phys);border-color:var(--phys);color:var(-
 /* ---------- cells: the 3D viewer ---------- */
 .cx-wrap{display:grid;grid-template-columns:minmax(0,1fr) 224px;gap:22px;align-items:start}
 .cx-stage{min-width:0}
-.cx-viewport{position:relative;aspect-ratio:4/3;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;background:var(--base)}
-.cx-viewport canvas{position:absolute;inset:0;display:block;cursor:grab;touch-action:pan-y;outline:none;border-radius:11px}
+/* The chamber is pinned dark in both themes. Organelle colours are fixed and
+   carry meaning: a mitochondrion is orange in either theme, and the legend
+   swatch beside its name is that same orange. The renderer shades and hazes
+   those colours against a dark backdrop, so a white stage would break the
+   shading and flatten the depth cue. Renderer.setTheme(bg, haze) exists if a
+   themed chamber is ever wanted; the cytoplasm fills are dark-only today. */
+.cx-viewport{position:relative;aspect-ratio:4/3;border:1.5px solid #2d2d40;border-radius:12px;overflow:hidden;background:radial-gradient(125% 100% at 50% -10%,#1c1c2c 0%,#131320 58%,#0b0b12 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+/* graph-paper dots behind the model, and a vignette in front of it */
+.cx-viewport::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(rgba(180,190,254,.13) 1px,transparent 1px);background-size:27px 27px;background-position:14px 14px}
+.cx-viewport::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;border-radius:11px;background:radial-gradient(115% 88% at 50% 46%,transparent 52%,rgba(5,5,10,.46) 100%)}
+.cx-viewport canvas{position:absolute;inset:0;z-index:1;display:block;cursor:grab;touch-action:pan-y;outline:none;border-radius:11px}
 .cx-viewport canvas.grabbing{cursor:grabbing}
 .cx-viewport canvas:focus-visible{outline:2.5px solid var(--link);outline-offset:-4px}
-.cx-hud{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px}
-.cx-hudbtn{width:32px;height:32px;padding:0;border:1.5px solid var(--border);border-radius:9px;background:var(--card);color:var(--text);font-family:var(--font-display);font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:.92;box-shadow:var(--shadow-soft)}
-.cx-hudbtn:hover{background:var(--lav-soft);opacity:1}
+/* the HUD sits on the dark chamber, so it is styled against it, not the page */
+.cx-hud{position:absolute;right:10px;top:10px;z-index:4;display:flex;flex-direction:column;gap:6px}
+.cx-hudbtn{width:32px;height:32px;padding:0;border:1.5px solid rgba(205,214,244,.2);border-radius:9px;background:rgba(14,14,22,.74);color:#cdd6f4;font-family:var(--font-display);font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.cx-hudbtn:hover{background:rgba(166,227,161,.2);border-color:var(--bio);color:#fff}
 .cx-hudbtn.on{background:var(--bio);border-color:var(--bio);color:var(--accent-contrast)}
 .cx-hint{font-family:var(--font-mono);font-size:11px;color:var(--subtext);margin:9px 0 0;text-align:center}
 .cx-side{min-width:0}
@@ -246,6 +256,12 @@ body.phys .fz-btn.on{background:var(--phys);border-color:var(--phys);color:var(-
 .cx-list button .sw{width:11px;height:11px;border-radius:3px;border:1px solid var(--border);flex:none}
 .cx-list button:hover{border-color:var(--bio);background:var(--bio-soft)}
 .cx-list button.on{border-color:var(--bio);background:var(--bio-soft);font-weight:700;box-shadow:inset 3px 0 0 var(--bio)}
+/* the viewer sets --pick to the selected part's colour and clears it on a cell
+   switch, so the fallback keeps the border while nothing is selected */
+#cx-read{border-left:4px solid var(--pick,var(--bio))}
+/* .cx-list button.on already gets an inset bar above; this only rings the
+   swatch so the colour stays legible against the tinted row */
+.cx-list button.on .sw{box-shadow:0 0 0 2px var(--card),0 0 0 3.5px var(--bio)}
 @media (max-width:900px){
   .cx-wrap{grid-template-columns:1fr}
   .cx-viewport{aspect-ratio:1/1}
