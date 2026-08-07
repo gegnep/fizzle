@@ -125,14 +125,13 @@ The generation chart drew one bar stretched across the full width, which
 looked broken. It now keeps a slot per generation of the scripted run, so
 generation 1 is one twelfth of the chart and the rest fills in.
 
-### Footer badges, wired back in
+### Footer badges, added then dropped
 
-`images/badge-1.svg` to `badge-4.svg` were a third footer column on all
-eleven pages. Every claim on them is true for this site.
+The design pass put `images/badge-1.svg` to `badge-4.svg` in the footer as a
+third column on all eleven pages.
 
-**Removed again, 2026-08-06.** The footer is now two columns on every page.
-The four SVG files stay in `images/` and nothing references them. Delete them
-if the badges are not coming back.
+**Removed 2026-08-06.** The footer is two columns on every page now. The four
+SVG files are deleted and the `.fz-badges` rules are out of `fizzle.css`.
 
 ## Testing
 
