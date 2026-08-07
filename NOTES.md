@@ -127,8 +127,12 @@ generation 1 is one twelfth of the chart and the rest fills in.
 
 ### Footer badges, wired back in
 
-`images/badge-1.svg` to `badge-4.svg` are now a third footer column on all
+`images/badge-1.svg` to `badge-4.svg` were a third footer column on all
 eleven pages. Every claim on them is true for this site.
+
+**Removed again, 2026-08-06.** The footer is now two columns on every page.
+The four SVG files stay in `images/` and nothing references them. Delete them
+if the badges are not coming back.
 
 ## Testing
 
