@@ -6,10 +6,9 @@ Scratch notes for work in progress. Not part of the site itself.
 
 ### Cell Explorer, rebuilt in 3D
 
-`js/cells.js` is now a small 3D viewer painted on a 2D canvas. No library.
-The file carries its own vector math, projects each shape, sorts back to
-front, and shades with gradients. Three primitives cover everything:
-ellipsoid, capsule, and flat panel.
+The viewer is a small 3D painter on a plain 2D canvas. No library. It carries
+its own vector math, projects each shape, sorts back to front, and shades with
+gradients.
 
 - Drag turns the model. The wheel zooms, but only once the canvas has focus,
   so page scrolling is never trapped. Arrow keys turn, plus and minus zoom.
@@ -20,6 +19,49 @@ ellipsoid, capsule, and flat panel.
 - `cells.html#plant` and `#bacteria` open on that cell type.
 - Organelle colors are fixed rather than themed, so a mitochondrion stays
   orange in both themes and the color itself carries meaning.
+
+### Cell Explorer, the render engine, 2026-08-06
+
+The drawing engine is now three files plus a mount point. Each layer points
+one way only.
+
+- `js/cell-render.js` draws shapes and knows no biology.
+- `js/cell-models.js` holds the three cells as data and knows no canvas.
+- `js/cell-viewer.js` wires both to the DOM: controls, legend, readout, loop.
+- `js/cells.js` is a 40 line mount call. It keeps the name because
+  `cells.html` loads it and the stage bar prints it as a caption.
+
+Five primitives cover every organelle: ball, ellipsoid, disc, tube, and ring.
+A part holds its shapes in buckets, and the bucket decides the clipping.
+`hull` plus `inner` clips the interior to its own organelle, so cristae stay
+inside a mitochondrion and grana inside a chloroplast. `outer` skips the
+envelope clip, so a flagellum can sit outside the cell.
+
+Four faults are now fixed by construction:
+
+1. Organelle interiors stay inside their organelle.
+2. Organelles stay inside the cell membrane.
+3. The camera scale comes from the model's bounding sphere, so nothing
+   crosses the frame edge and the cell never changes size as it spins.
+4. Sizing reads `offsetWidth`, which ignores CSS transforms, so the canvas
+   buffer stays correct inside a scaled ancestor.
+
+**Maintenance trap.** `basis()` maps a yaw, pitch and roll triple to three
+world axes. It is defined once, in `cell-render.js`, and exported. Anything in
+`cell-models.js` that lays sub-shapes along a parent axis must call it. Two
+copies of an axis convention drift, and interiors then shear against their own
+hull as the cell turns. That reads fine head-on and wrong in motion.
+
+The chamber is now pinned dark in both themes. The shading is built against a
+dark backdrop and a white stage flattens the depth cue.
+`Renderer.setTheme(bg, haze)` exists if a themed chamber is ever wanted; the
+cytoplasm fills are dark only today.
+
+The bacterium draws smaller than the other two cells. Its flagellum widens the
+bounding sphere, and the fit is deliberately conservative so the model holds
+one size through a turn. Shifting the model `-0.275` in x recovered most of
+the loss. If the tail length changes, recompute the shift as
+`-(max_x + min_x) / 2` over all geometry.
 
 ### Contrast, measured and fixed
 
@@ -91,11 +133,32 @@ eleven pages. Every claim on them is true for this site.
 ## Testing
 
 Screenshots and the DOM harness live outside the repo, in the session
-scratchpad. Two node scripts drove the cell viewer against a stubbed DOM:
-one checks that every number reaching the canvas is finite and on screen
-across cell switches, drags, zoom limits, keyboard control and 400 spin
-frames; the other sweeps the pointer over the canvas at twelve rotations
-and confirms all 11 animal, 9 plant and 8 bacterial parts can be clicked.
+scratchpad. One node script mounts the viewer against a stubbed DOM and runs
+155 checks:
+
+- The canvas buffer matches client size times device pixel ratio, on mount
+  and after a resize.
+- Each cell rebuilds the legend, the part count, the note line, the canvas
+  `aria-label`, and the pressed tab.
+- Every part of every cell selects from the list, fills the readout, and
+  leaves the camera finite.
+- All 11 animal, 9 plant and 8 bacterial parts can be clicked on the canvas.
+  The script sweeps a pixel grid at twelve rotations per cell.
+- Zoom, spin, reset, tabs, arrow keys, drag, and the pitch and zoom clamps.
+- The wheel stays inert until the canvas is hovered or focused.
+- Idle with spin off schedules no further frames.
+- 72 rotations per cell: every painted point stays inside the frame, every
+  number is finite, and the camera scale holds constant through the turn.
+
+The harness tracks the canvas transform matrix. Without it every shape reads
+as off screen, because the renderer draws at the origin under a translate.
+
+The contact shadow is the one shape that leaves the frame. It is a fading
+gradient under the cell, drawn wider and lower on purpose, and the canvas
+clips it. The harness skips it by name.
+
+Containment is not covered. Clipping happens inside `ctx.clip`, which a stub
+cannot evaluate. Check cristae and grana by eye through a full turn.
 
 ## Still open
 
