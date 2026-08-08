@@ -28,7 +28,7 @@
 (function (global) {
   "use strict";
 
-  /* ---------- colour ---------- */
+  /* ---------- color ---------- */
   function mix(a, b, t) {
     return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
   }
@@ -200,7 +200,7 @@
       ctx.beginPath(); ctx.arc(0, 0, ra * 0.98, 0, 6.2832); ctx.stroke();
     } else if (st.shell) {
       /* A translucent enclosing shell. The middle stays nearly clear so the
-         organelles behind it keep their colour; opacity is concentrated in the
+         organelles behind it keep their color; opacity is concentrated in the
          last few percent of the radius, which is all the eye needs to read a
          surface. */
       var sg = ctx.createRadialGradient(0, 0, ra * 0.42, 0, 0, ra);
@@ -405,7 +405,7 @@
       ctx.clip(envClip);
       /* Cytoplasm. Drawn behind the organelles and inside the envelope clip, so
          the cell reads as a filled volume instead of a hollow ring. Kept dark
-         and desaturated so the organelle colours stay the loudest thing. */
+         and desaturated so the organelle colors stay the loudest thing. */
       if (model.cyto) {
         var cg = ctx.createRadialGradient(env.cx - (env.ra || 40) * 0.3,
           env.cy - (env.rb || 40) * 0.4, (env.ra || 40) * 0.08,
@@ -454,7 +454,7 @@
       }
       /* hover and selection glow, drawn tight to the shape */
       var hi = this.selected === it.part.id ? 1 : this.hovered === it.part.id ? 0.55 : 0;
-      if (hi) { this.glow(it.rec || it.hull, hi); }
+      if (hi) { this.glow(it.rec || it.hull, hi, it.part.color); }
     }
     ctx.restore();
 
@@ -466,7 +466,7 @@
       this.record(env, model.envelopePart || model.parts[0]);
       var ehi = this.selected === (model.envelopePart && model.envelopePart.id) ? 1
         : this.hovered === (model.envelopePart && model.envelopePart.id) ? 0.55 : 0;
-      if (ehi) { this.glow(env, ehi); }
+      if (ehi) { this.glow(env, ehi, model.envelopePart && model.envelopePart.color); }
     }
 
     /* outer shapes in front of the cell */
@@ -475,8 +475,59 @@
       this.drawRec(of2.rec, ofst.color || of2.part.color, ofst, this.depth(of2.rec.z));
       this.record(of2.rec, of2.part);
       var ohi = this.selected === of2.part.id ? 1 : this.hovered === of2.part.id ? 0.55 : 0;
-      if (ohi) { this.glow(of2.rec, ohi); }
+      if (ohi) { this.glow(of2.rec, ohi, of2.part.color); }
     }
+
+    /* figure-style callout for the selected part, over everything */
+    if (this.selected) {
+      for (i = 0; i < model.parts.length; i++) {
+        if (model.parts[i].id === this.selected) { this.callout(model.parts[i]); break; }
+      }
+    }
+  };
+
+  /* A leader line from the selected part's anchor to a short label, the way a
+     printed figure calls out one structure. It tracks the anchor as the model
+     turns, and flips toward the middle when the label would leave the frame. */
+  Renderer.prototype.callout = function (part) {
+    if (!part || !part.anchor) { return; }
+    var ctx = this.ctx;
+    var v = this.rot(part.anchor), sc = this.proj(v);
+    var col = part.color || [200, 200, 220];
+    var dirx = sc[0] >= this.cx ? 1 : -1;
+    var diry = sc[1] >= this.cy ? 1 : -1;
+    ctx.save();
+    ctx.font = "700 11px Hack, monospace";
+    var tw = ctx.measureText(part.label).width;
+    var ex = sc[0] + dirx * 30;
+    var hx = ex + dirx * 22;
+    if (dirx > 0 && hx + 8 + tw > this.W - 6) { dirx = -1; ex = sc[0] - 30; hx = ex - 22; }
+    else if (dirx < 0 && hx - 8 - tw < 6) { dirx = 1; ex = sc[0] + 30; hx = ex + 22; }
+    var ey = Math.max(16, Math.min(this.H - 12, sc[1] + diry * 26));
+    var ink = css(lift(col, 0.5), 0.95);
+    /* line and elbow */
+    ctx.lineWidth = 1.4;
+    ctx.strokeStyle = ink;
+    ctx.beginPath();
+    ctx.moveTo(sc[0] + dirx * 5, sc[1] + (ey > sc[1] ? 4 : -4));
+    ctx.lineTo(ex, ey);
+    ctx.lineTo(hx, ey);
+    ctx.stroke();
+    /* anchor dot, ringed so it reads on any fill */
+    ctx.fillStyle = ink;
+    ctx.strokeStyle = "rgba(5,5,12,0.85)";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(sc[0], sc[1], 3, 0, 6.2832);
+    ctx.fill(); ctx.stroke();
+    /* label with a dark halo instead of a box, so it stays a figure label */
+    var tx = dirx > 0 ? hx + 7 : hx - 7 - tw;
+    ctx.lineWidth = 3;
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = "rgba(5,5,12,0.85)";
+    ctx.strokeText(part.label, tx, ey + 3.5);
+    ctx.fillStyle = ink;
+    ctx.fillText(part.label, tx, ey + 3.5);
+    ctx.restore();
   };
 
   /* A clip region for the cell envelope. An ellipse is direct; a capsule is the
@@ -508,18 +559,30 @@
     return p;
   };
 
-  Renderer.prototype.glow = function (rec, a) {
+  /* Hover and selection ring in the part's OWN color, over a dark halo. A
+     plain white ring vanished against pale organelles; the halo separates the
+     ring from any fill, and the color ties the canvas to the legend swatch. */
+  Renderer.prototype.glow = function (rec, a, col) {
     var ctx = this.ctx;
+    var line = col ? css(lift(col, 0.5), 0.95 * a) : "rgba(255,255,255," + (0.5 * a).toFixed(3) + ")";
+    var halo = "rgba(5,5,12," + (0.55 * a).toFixed(3) + ")";
     ctx.save();
-    ctx.strokeStyle = "rgba(255,255,255," + (0.5 * a).toFixed(3) + ")";
-    ctx.lineWidth = 1.6;
     if (rec.t === "t") {
       ctx.lineCap = "round"; ctx.lineJoin = "round";
+      ctx.lineWidth = rec.w + 5;
+      ctx.strokeStyle = halo;
+      this.path(rec.pts); ctx.stroke();
       ctx.lineWidth = rec.w + 2.4;
-      ctx.strokeStyle = "rgba(255,255,255," + (0.28 * a).toFixed(3) + ")";
+      ctx.strokeStyle = col ? css(lift(col, 0.5), 0.45 * a)
+        : "rgba(255,255,255," + (0.28 * a).toFixed(3) + ")";
       this.path(rec.pts); ctx.stroke();
     } else {
-      this.ellipsePath(rec, 1.4); ctx.stroke();
+      ctx.lineWidth = 3.6;
+      ctx.strokeStyle = halo;
+      this.ellipsePath(rec, 2.2); ctx.stroke();
+      ctx.lineWidth = 1.8;
+      ctx.strokeStyle = line;
+      this.ellipsePath(rec, 1.6); ctx.stroke();
     }
     ctx.restore();
   };
