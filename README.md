@@ -50,11 +50,13 @@ experiments, and final editing are mine. The
 - Prose and photographs: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 - [Twemoji](https://github.com/twitter/twemoji) icons: CC BY 4.0,
   copyright Twitter/X and contributors.
-- Fonts: [Sora](https://fonts.google.com/specimen/Sora) and
-  [Karla](https://fonts.google.com/specimen/Karla) under the
-  [SIL Open Font License](https://openfontlicense.org/), and
+- Fonts: [Sora](https://fonts.google.com/specimen/Sora)
+  ([OFL](fonts/OFL-sora.txt)) and
+  [Karla](https://fonts.google.com/specimen/Karla)
+  ([OFL](fonts/OFL-karla.txt)) under the SIL Open Font License, and
   [Hack](https://github.com/source-foundry/Hack) under its
-  MIT-style license with Bitstream Vera terms.
+  [MIT-style license](fonts/LICENSE-hack.md) with Bitstream Vera terms.
+  The license texts ship in `fonts/` beside the font files.
 - Element data comes from [PubChem](https://pubchem.ncbi.nlm.nih.gov/);
   rocket figures come from public [NASA](https://www.nasa.gov/)
   documentation. Facts and public-domain data carry no license.
