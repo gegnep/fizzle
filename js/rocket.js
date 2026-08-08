@@ -39,7 +39,7 @@
   var engIndex = 1;
 
   /* ---------- trajectory drawing ----------
-     Side view of Earth: centre (160,176), radius 88, launch site at the top
+     Side view of Earth: center (160,176), radius 88, launch site at the top
      (160,88). The shape of the path is chosen by how much of the orbital
      budget you bought, which is the whole point of the page. */
   var CX = 160, CY = 176, R = 88;
@@ -135,7 +135,7 @@
        leave the pad, so it never gets a launch verdict. */
     if (eng.isp >= 3000) {
       v = ["", "Still on the pad",
-        "the delta-v is real, the thrust is not. ion engines only work once you are already in space."];
+        "the delta-v is real; the thrust is not. ion engines only work once you are already in space."];
     }
     verdict.innerHTML = "";
     verdict.appendChild(document.createTextNode(v[1]));

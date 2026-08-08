@@ -194,7 +194,7 @@
     var darkFrac = alive.filter(function (m) { return m.dark; }).length / alive.length;
     history.push(Math.round(darkFrac * 100));
     /* Resample the survivors color frequency, then mix in moths arriving from
-       neighbouring woodland. That gene flow is real biology, and it is also
+       neighboring woodland. That gene flow is real biology, and it is also
        what keeps a wiped-out morph available for a later era to select on. */
     var next = darkFrac * (1 - INFLUX) + 0.5 * INFLUX;
     gen++;

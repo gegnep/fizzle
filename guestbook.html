@@ -51,7 +51,13 @@
 
   <p>This guestbook is deliberately old-fashioned. There is no account to make, no server to send anything to, and no analytics watching you type. When you post, the entry is written to your browser's own storage and rendered onto the wall underneath the form. Clear your browser data and it is gone, because your browser was the only copy. That also means the wall you see is yours: another visitor on another machine sees their own. The email field is required by the form, and it is deliberately never stored, not even locally.</p>
 
-  <form class="fz-form" id="gb-form" novalidate>
+  <noscript>
+    <p class="help">The wall is built by JavaScript in your own browser. With scripts turned off the form below cannot post, so nothing you type is sent or saved.</p>
+  </noscript>
+
+  <!-- method="post" so that a submit without JavaScript cannot put the email and
+       message into the address bar, which would contradict the promise above. -->
+  <form class="fz-form" id="gb-form" action="guestbook.html" method="post" novalidate>
     <div class="row" id="gb-row-name">
       <label class="lbl" for="gb-name">Name or handle <span class="req">*</span></label>
       <input type="text" id="gb-name" name="name" placeholder="e.g. entropy_enjoyer" autocomplete="nickname" required aria-required="true" aria-describedby="gb-err-name">
@@ -60,7 +66,7 @@
     <div class="row" id="gb-row-email">
       <label class="lbl" for="gb-email">Email <span class="req">*</span></label>
       <input type="email" id="gb-email" name="email" placeholder="you@example.com" autocomplete="email" required aria-required="true" aria-describedby="gb-help-email gb-err-email">
-      <p class="help" id="gb-help-email">Stays on your device. Entries save to your browser only, and the email is never stored.</p>
+      <p class="help" id="gb-help-email">Stays on your device. Entries are saved in your browser only, and the email is never stored.</p>
       <p class="err" id="gb-err-email">Please enter a valid email address.</p>
     </div>
     <div class="row">
@@ -98,7 +104,7 @@
 
   <div class="fz-wall">
     <h2>The wall</h2>
-    <p class="note">entries live in your browser's localStorage. this wall is yours alone</p>
+    <p class="note">entries live in your browser's local storage. the two starter notes are ours; the rest of the wall is yours</p>
     <div id="gb-entries">
       <div class="fz-entry">
         <div class="who"><strong>@orbital_decay</strong> &middot; Aug 2, 2026</div>

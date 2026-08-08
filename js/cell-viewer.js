@@ -32,6 +32,7 @@
     /* bind the frame callback BEFORE wiring observers: ResizeObserver fires
        synchronously on observe(), which can reach start() -> requestAnimationFrame */
     this.loop = this.loop.bind(this);
+    this.furnish();
     this.bind();
     this.setCell(this.fromHash() || "animal");
     /* push the real spin value into the button: under prefers-reduced-motion the
@@ -41,6 +42,48 @@
     this.frame(0);
     this.start();
   }
+
+  /* Chamber furniture: a kind badge, a scale chip, and the hover tip. Built
+     here rather than in the page so any host page gets them for free; they
+     live in the DOM so the text stays crisp and uses the site fonts. */
+  CellViewer.prototype.furnish = function () {
+    var vp = this.el.viewport;
+    if (!vp) { return; }
+    function chip(cls) {
+      var d = document.createElement("div");
+      d.className = cls;
+      vp.appendChild(d);
+      return d;
+    }
+    this.kindEl = chip("cx-kind");
+    this.scaleEl = chip("cx-scale");
+    this.tipEl = chip("cx-tip");
+    this.tipEl.hidden = true;
+    /* hover-only duplicate of the legend row, so screen readers skip it */
+    this.tipEl.setAttribute("aria-hidden", "true");
+    this.tipSw = document.createElement("span");
+    this.tipSw.className = "sw";
+    this.tipNm = document.createElement("span");
+    this.tipEl.appendChild(this.tipSw);
+    this.tipEl.appendChild(this.tipNm);
+  };
+
+  /* place the hover tip beside the pointer, clamped inside the chamber */
+  CellViewer.prototype.tip = function (ev, id) {
+    var t = this.tipEl;
+    if (!t) { return; }
+    var part = id ? this.partById(id) : null;
+    if (!part) { t.hidden = true; return; }
+    this.tipSw.style.background = R.css(part.color);
+    this.tipNm.textContent = part.label;
+    t.hidden = false;
+    var r = this.el.viewport.getBoundingClientRect();
+    var x = ev.clientX - r.left + 15, y = ev.clientY - r.top + 14;
+    x = Math.max(8, Math.min(x, r.width - t.offsetWidth - 8));
+    y = Math.max(8, Math.min(y, r.height - t.offsetHeight - 8));
+    t.style.left = x + "px";
+    t.style.top = y + "px";
+  };
 
   CellViewer.prototype.fromHash = function () {
     var k = (global.location.hash || "").replace("#", "");
@@ -68,11 +111,14 @@
     }
     if (this.el.canvas) {
       this.el.canvas.setAttribute("aria-label",
-        "Rotating three dimensional model of " + article(m.name) + " " + m.name.toLowerCase()
+        "Rotating three-dimensional model of " + article(m.name) + " " + m.name.toLowerCase()
         + ". " + m.note);
     }
     /* optional: the page's one-line description of the current cell */
     if (this.el.note) { this.el.note.textContent = m.note; }
+    if (this.kindEl) { this.kindEl.textContent = m.kind; }
+    if (this.scaleEl) { this.scaleEl.textContent = m.scale || ""; }
+    if (this.tipEl) { this.tipEl.hidden = true; }
     this.buildList();
     this.resetRead();
     this.dirty = true;
@@ -162,7 +208,9 @@
       read.appendChild(s); read.appendChild(j); read.appendChild(w);
       read.style.setProperty("--pick", R.css(part.color));
     }
-    if (turn && part.anchor) { this.faceTo(part.anchor); }
+    /* face overrides anchor as the aim: surface features aim three-quarter on,
+       so they stay visible instead of foreshortening dead-center */
+    if (turn && part.anchor) { this.faceTo(part.face || part.anchor); }
     this.dirty = true;
     this.start();
   };
@@ -203,6 +251,7 @@
       moved = 0;
       cv.classList.add("grabbing");
       self.spinPaused = true;
+      if (self.tipEl) { self.tipEl.hidden = true; }
     });
     cv.addEventListener("pointermove", function (e) {
       if (drag) {
@@ -218,6 +267,9 @@
       }
       var p = self.local(e);
       self.hover(self.rend.pick(p[0], p[1]));
+      /* the tip follows the pointer, so it repositions on every move even
+         when the hovered part has not changed */
+      self.tip(e, self.rend.hovered);
       cv.style.cursor = self.rend.hovered ? "pointer" : "grab";
     });
     cv.addEventListener("pointerup", function (e) {
@@ -234,6 +286,7 @@
     });
     cv.addEventListener("pointerleave", function () {
       self.hover(null);
+      if (self.tipEl) { self.tipEl.hidden = true; }
       cv.style.cursor = "grab";
     });
     cv.addEventListener("mouseenter", function () { over = true; });

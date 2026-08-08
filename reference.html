@@ -48,21 +48,21 @@
   <h1 class="fz-h1">Reference Tables</h1>
   <p class="fz-hook">Every demo on this site runs on published values rather than invented ones. This page collects the constants, the unit prefixes, and the sources, so you can check the math yourself.</p>
 
-  <p>A simulation is only as trustworthy as the numbers underneath it, and the fastest way to lose that trust is to hide them. So here they are. The first table lists the physical constants the demos actually use, each with the symbol and unit you would see in a textbook. The second is a selection of the SI prefixes, which is worth keeping around once you start moving between picometers in the periodic table and billions of years in the decay chart. The third names the source behind each experiment's data, so if a value here disagrees with the one you were taught, you can go find out which of us is out of date.</p>
+  <p>A simulation is only as trustworthy as the numbers underneath it, and the fastest way to lose that trust is to hide them. So here they are. The first table lists the physical constants behind the demos, each with the symbol and unit you would see in a textbook. Six of them drive a calculation on this site. The other three are background for the science the pages describe, and the table says which is which rather than letting you assume. The second is a selection of the SI prefixes, which is worth keeping around once you start moving between picometers in the periodic table and billions of years in the decay chart. The third names the source behind each experiment's data, so if a value here disagrees with the one you were taught, you can go find out which of us is out of date.</p>
 
   <h2 class="fz-tablehead">Physical constants</h2>
   <div class="fz-tablewrap">
     <table class="fz-table">
-      <caption>Constants used by the experiments on this site</caption>
+      <caption>Physical constants behind the experiments on this site</caption>
       <thead>
-        <tr><th scope="col">Constant</th><th scope="col">Symbol</th><th scope="col">Value</th><th scope="col">Used by</th></tr>
+        <tr><th scope="col">Constant</th><th scope="col">Symbol</th><th scope="col">Value</th><th scope="col">Where it applies</th></tr>
       </thead>
       <tbody>
         <tr><td class="name">Standard gravity</td><td class="mono">g&#8320;</td><td class="mono">9.806 65 m/s&sup2;</td><td class="how"><a href="rocket.html">Rocket Lab</a></td></tr>
         <tr><td class="name">Speed of light</td><td class="mono">c</td><td class="mono">299,792,458 m/s</td><td class="how"><a href="starship.html">Starship Clock</a></td></tr>
-        <tr><td class="name">Avogadro constant</td><td class="mono">N&#8336;</td><td class="mono">6.022 140 76 &times; 10&sup2;&sup3; /mol</td><td class="how"><a href="decay.html">Nuclide Decay</a></td></tr>
-        <tr><td class="name">Elementary charge</td><td class="mono">e</td><td class="mono">1.602 176 634 &times; 10&#8315;&sup1;&#8313; C</td><td class="how"><a href="periodic.html">Periodic Trends</a></td></tr>
-        <tr><td class="name">Planck constant</td><td class="mono">h</td><td class="mono">6.626 070 15 &times; 10&#8315;&sup3;&#8308; J&middot;s</td><td class="how">electron shell behavior</td></tr>
+        <tr><td class="name">Avogadro constant</td><td class="mono">N&#8336;</td><td class="mono">6.022 140 76 &times; 10&sup2;&sup3; /mol</td><td class="how">background: how many atoms a mole holds</td></tr>
+        <tr><td class="name">Elementary charge</td><td class="mono">e</td><td class="mono">1.602 176 634 &times; 10&#8315;&sup1;&#8313; C</td><td class="how">background: the electron that ionization energy strips</td></tr>
+        <tr><td class="name">Planck constant</td><td class="mono">h</td><td class="mono">6.626 070 15 &times; 10&#8315;&sup3;&#8308; J&middot;s</td><td class="how">background: electron shell behavior</td></tr>
         <tr><td class="name">Low Earth orbit budget</td><td class="mono">&Delta;v</td><td class="mono">about 9,400 m/s</td><td class="how"><a href="rocket.html">Rocket Lab</a></td></tr>
         <tr><td class="name">Earth escape velocity</td><td class="mono">v&#8337;</td><td class="mono">11,186 m/s</td><td class="how"><a href="rocket.html">Rocket Lab</a></td></tr>
         <tr><td class="name">Light year</td><td class="mono">ly</td><td class="mono">9.460 730 472 &times; 10&sup1;&#8309; m</td><td class="how"><a href="starship.html">Starship Clock</a></td></tr>
@@ -103,7 +103,7 @@
         <tr><td class="name"><a href="periodic.html">Periodic Trends</a></td><td>Atomic radius, Pauling electronegativity, first ionization energy for 118 elements</td><td class="how"><a href="https://pubchem.ncbi.nlm.nih.gov/">PubChem periodic table data</a></td></tr>
         <tr><td class="name"><a href="cells.html">Cell Explorer</a></td><td>Organelle names and functions for animal, plant, and bacterial cells</td><td class="how">Standard introductory cell biology</td></tr>
         <tr><td class="name"><a href="rocket.html">Rocket Lab</a></td><td>Engine specific impulse, orbital delta-v budgets</td><td class="how"><a href="https://www.nasa.gov/">NASA public mission documentation</a></td></tr>
-        <tr><td class="name"><a href="decay.html">Nuclide Decay</a></td><td>Half-lives and decay modes for 30 nuclides, plus every step of their chains</td><td class="how">Published nuclide tables, chains simplified to named steps</td></tr>
+        <tr><td class="name"><a href="decay.html">Nuclide Decay</a></td><td>Half-lives and decay modes for 30 nuclides, plus the named major steps of their chains</td><td class="how">Published nuclide tables, chains simplified to named steps</td></tr>
         <tr><td class="name"><a href="starship.html">Starship Clock</a></td><td>Distances to eleven stars, clusters, and galaxies</td><td class="how">Published astronomical distances. Times computed from the Lorentz factor and the relativistic rocket</td></tr>
         <tr><td class="name"><a href="moths.html">Peppered Moths</a></td><td>Industrial melanism timeline, phenotype-frequency model</td><td class="how">Standard evolutionary biology. The simulation resamples color frequency rather than modeling alleles</td></tr>
       </tbody>

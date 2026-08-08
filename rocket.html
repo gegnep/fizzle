@@ -88,12 +88,14 @@
             </div>
             <div class="rk-sliders">
               <div class="row">
-                <label for="rk-dry">Dry mass <output id="rk-dry-out" for="rk-dry">4 t</output></label>
+                <output id="rk-dry-out" for="rk-dry">4 t</output>
+                <label for="rk-dry">Dry mass</label>
                 <input type="range" id="rk-dry" min="1" max="30" step="1" value="4">
                 <p class="hint">everything that is not fuel: tanks, engine, payload</p>
               </div>
               <div class="row">
-                <label for="rk-fuel">Fuel mass <output id="rk-fuel-out" for="rk-fuel">30 t</output></label>
+                <output id="rk-fuel-out" for="rk-fuel">30 t</output>
+                <label for="rk-fuel">Fuel mass</label>
                 <input type="range" id="rk-fuel" min="1" max="400" step="1" value="30">
                 <p class="hint">the tank fills as you add it</p>
               </div>
@@ -144,7 +146,7 @@
       <div class="fz-read" id="rk-read" role="status" aria-live="polite"><span>waiting for input&hellip;</span></div>
     </div>
   </div>
-  <p class="fz-caption">How this works: the controls feed the Tsiolkovsky rocket equation, delta-v equals exhaust speed times the natural log of wet mass over dry mass. The equation above the meter shows your own numbers going in. The meter is banded: below 9,400 m/s you come back down, above it you are in orbit, and past 12,690 m/s you leave Earth for good. Those figures include drag and gravity losses. The trajectory panel is schematic and not to scale.</p>
+  <p class="fz-caption">How this works: the controls feed the Tsiolkovsky rocket equation: delta-v equals exhaust speed times the natural log of wet mass over dry mass. The equation above the meter shows your own numbers going in. The meter is banded: below 9,400 m/s you come back down, above it you are in orbit, and past 12,690 m/s you leave Earth for good. Those figures include drag and gravity losses. The trajectory panel is schematic and not to scale.</p>
 
   <div class="fz-prose">
     <h2>Why fuel gives less than you expect</h2>
