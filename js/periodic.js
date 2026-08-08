@@ -362,7 +362,7 @@
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "el";
-      var z = document.createElement("b");
+      var z = document.createElement("span");
       z.className = "z";
       z.textContent = e.z;
       var sym = document.createElement("span");
