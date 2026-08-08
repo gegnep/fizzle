@@ -32,11 +32,11 @@
     { id: "proxima", name: "Proxima Centauri", d: 4.2465,
       note: "The nearest star to the Sun, with a planet in its habitable zone." },
     { id: "alphacen", name: "Alpha Centauri A", d: 4.37,
-      note: "A sun-like star, and the brighter neighbour Proxima orbits." },
+      note: "A sun-like star, and the brighter neighbor that Proxima orbits." },
     { id: "barnard", name: "Barnard's Star", d: 5.96,
       note: "A red dwarf, and the fastest-moving star in our sky." },
     { id: "sirius", name: "Sirius", d: 8.60,
-      note: "The brightest star in the night sky, and a white dwarf companion." },
+      note: "The brightest star in the night sky, with a white dwarf companion." },
     { id: "eridani", name: "Epsilon Eridani", d: 10.47,
       note: "Young, dusty, ringed by debris, and one of the first two stars SETI ever listened to." },
     { id: "tauceti", name: "Tau Ceti", d: 11.9,
@@ -45,12 +45,12 @@
       note: "Seven rocky planets crowded around one dim red dwarf." },
     { id: "kepler186", name: "Kepler-186", d: 580,
       note: "Home to the first Earth-sized planet found in a habitable zone." },
-    { id: "sgra", name: "Galactic centre", d: 26000,
-      note: "Sagittarius A star, the black hole our whole galaxy turns around." },
+    { id: "sgra", name: "Galactic center", d: 26000,
+      note: "Sagittarius A*, the supermassive black hole at the center of our galaxy." },
     { id: "lmc", name: "Large Magellanic Cloud", d: 163000,
       note: "A satellite galaxy, and the site of the nearest recent supernova." },
     { id: "andromeda", name: "Andromeda Galaxy", d: 2537000,
-      note: "The nearest large galaxy, and the one we are on course to merge with." }
+      note: "The nearest large galaxy, and the one the Milky Way may one day merge with." }
   ];
 
   var MARKERS = [

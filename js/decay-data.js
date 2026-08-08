@@ -44,11 +44,11 @@ var FZ_NUCLIDES = [
 
   { id: "k40", sym: "K", a: 40, z: 19, n: 21, mode: "beta-",
     chain: [{ n: "K-40", v: 1.25, u: "Gy" }, { n: "Ca-40", stable: true }],
-    note: "In every banana, and in you. The most common radioactive atom in a human body." },
+    note: "In every banana, and in you. One decay in ten goes to argon-40 instead of the calcium shown here." },
 
   { id: "fe56", sym: "Fe", a: 56, z: 26, n: 30, mode: "stable",
     chain: [{ n: "Fe-56", stable: true }],
-    note: "The most tightly bound nucleus there is. Fusion stops paying here." },
+    note: "Very nearly the most tightly bound nucleus of all. Fusion stops paying here." },
 
   { id: "co60", sym: "Co", a: 60, z: 27, n: 33, mode: "beta-",
     chain: [{ n: "Co-60", v: 5.27, u: "y" }, { n: "Ni-60", stable: true }],
@@ -128,7 +128,7 @@ var FZ_NUCLIDES = [
   { id: "np237", sym: "Np", a: 237, z: 93, n: 144, mode: "alpha",
     chain: [{ n: "Np-237", v: 2.144, u: "My" }, { n: "Pa-233", v: 26.97, u: "d" },
             { n: "U-233", v: 159.2, u: "ky" }, { n: "Th-229", v: 7.34, u: "ky" },
-            { n: "Bi-209", stable: true }],
+            { n: "Bi-209", v: 20.1, u: "Ey" }, { n: "Tl-205", stable: true }],
     note: "The fourth decay series, almost entirely gone from nature." },
 
   { id: "pu238", sym: "Pu", a: 238, z: 94, n: 144, mode: "alpha",
@@ -143,11 +143,11 @@ var FZ_NUCLIDES = [
 
   { id: "am241", sym: "Am", a: 241, z: 95, n: 146, mode: "alpha",
     chain: [{ n: "Am-241", v: 432.6, u: "y" }, { n: "Np-237", v: 2.144, u: "My" },
-            { n: "Pa-233", v: 26.97, u: "d" }, { n: "Bi-209", stable: true }],
+            { n: "Pa-233", v: 26.97, u: "d" }, { n: "Bi-209", v: 20.1, u: "Ey" }, { n: "Tl-205", stable: true }],
     note: "There is a speck of it in most household smoke detectors." },
 
   { id: "cf252", sym: "Cf", a: 252, z: 98, n: 154, mode: "alpha",
     chain: [{ n: "Cf-252", v: 2.645, u: "y" }, { n: "Cm-248", v: 348, u: "ky" },
-            { n: "Pu-244", v: 80.8, u: "My" }, { n: "Pb-206", stable: true }],
+            { n: "Pu-244", v: 80.8, u: "My" }, { n: "Pb-208", stable: true }],
     note: "A rare neutron source. Also splits itself in two about three percent of the time." }
 ];
