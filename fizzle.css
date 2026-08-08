@@ -302,8 +302,7 @@ body.phys .fz-btn.on{background:var(--phys);border-color:var(--phys);color:var(-
 .rk-meter{margin-top:26px;padding-top:20px;border-top:1.5px dashed var(--line)}
 .rk-eq{margin:0 0 12px;font-family:var(--font-mono);font-size:13px;color:var(--subtext);overflow-x:auto;white-space:nowrap;padding-bottom:2px}
 .rk-eq .v{color:var(--text);background:var(--phys-soft);border-radius:4px;padding:1px 5px}
-.rk-eq .out{color:var(--accent-contrast);background:var(--phys);border-radius:4px;padding:1px 6px;font-weight:700}
-body.dark .rk-eq .out{color:var(--phys-contrast)}
+.rk-eq .out{color:var(--phys-contrast);background:var(--phys);border-radius:4px;padding:1px 6px;font-weight:700}
 .rk-track{position:relative;height:30px;border:2px solid var(--border);border-radius:8px;background:var(--base);overflow:hidden}
 .rk-track .zone{position:absolute;top:0;bottom:0;display:block}
 .rk-track .zone.fall{left:0;width:var(--orbit,67%);background:var(--base)}
