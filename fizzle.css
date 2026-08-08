@@ -104,7 +104,10 @@ body:not(.dark) .fz-theme .sun{display:none}
 /* ---------- ticker ---------- */
 .fz-ticker{display:flex;align-items:center;background:var(--inv-bg);color:var(--inv-text);font-family:var(--font-mono);font-size:12.5px;overflow:hidden}
 .fz-ticker .flag{background:var(--lavender);color:var(--accent-contrast);font-weight:700;padding:6px 12px;flex:none;letter-spacing:.06em;z-index:1;border:0;font-family:var(--font-mono);font-size:12.5px;cursor:pointer}
+/* The hover fill is light in the dark theme and dark in the light theme, so the
+   ink has to flip with it. One ink for both measured 1.5:1 in dark. */
 .fz-ticker .flag:hover{background:var(--link-hover);color:#ffffff}
+body.dark .fz-ticker .flag:hover{color:var(--accent-contrast)}
 .fz-ticker.paused .track{animation-play-state:paused}
 .fz-ticker .lane{flex:1;overflow:hidden}
 .fz-ticker .track{display:inline-flex;white-space:nowrap;padding:6px 0;animation:fz-marquee 40s linear infinite}
